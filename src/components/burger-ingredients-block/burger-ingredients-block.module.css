@@ -1,7 +1,8 @@
 .items {
     display: grid;
     grid-template-columns: repeat(2, 272px);
-    column-gap: 24px;
+    gap: 32px 24px;
+
     list-style-type: none;
     padding: 0;
     

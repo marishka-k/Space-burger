@@ -30,7 +30,7 @@ const BurgerIngredients = (props) => {
       menuTarget.scrollIntoView({ behavior: "smooth" });
     };
     return (
-      <div className={BurgerIngredientsStyle.menu} style={{ display: "flex" }}>
+      <div className="mb-10" style={{ display: "flex" }}>
         <Tab value="bun" active={current === "bun"} onClick={curentTarget}>
           Булки
         </Tab>
@@ -45,10 +45,10 @@ const BurgerIngredients = (props) => {
   };
 
   return (
-    <section className={`mr-10 ${BurgerIngredientsStyle.ingredients}`}>
+    <section>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
       <Tabs />
-      <div className={BurgerIngredientsStyle.scroller}>
+      <div className={`${BurgerIngredientsStyle.scroller}`}>
         <BurgerIngredientsBlock
           title={"Булки"}
           titleId={"bun"}

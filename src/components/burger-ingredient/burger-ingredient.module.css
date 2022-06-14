@@ -1,4 +1,13 @@
+.card {
+    min-height: 208px;
+}
+
 .prise_info {
     display: flex;
     justify-content: center;
+}
+
+.name {
+    display: block;
+    text-align: center;
 }

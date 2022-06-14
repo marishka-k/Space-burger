@@ -4,8 +4,8 @@ import Styles from "./burger-ingredients-block.module.css";
 
 const BurgerIngredientsBlock = ({ title, titleId, ingredients }) => {
   return (
-    <>
-      <h2 className="text text_type_main-medium mt-10 mb-6" id={titleId}>
+    <div>
+      <h2 className="text text_type_main-medium mb-6" id={titleId}>
         {title}
       </h2>
       <ul className={`mt-6 ml-4 ${Styles.items}`}>
@@ -15,7 +15,7 @@ const BurgerIngredientsBlock = ({ title, titleId, ingredients }) => {
           );
         })}
       </ul>
-    </>
+    </div>
   );
 };
 
