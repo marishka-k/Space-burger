@@ -1,7 +1,7 @@
 .scroller {
   display: grid;
   gap: 40px;
-  max-height: 756px;
+  max-height: 716px;
   overflow-y: auto;
 }
 
