@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import AppHeaderStyles from './app-header.module.css'
+import styles from './app-header.module.css'
 import { ProfileIcon, ListIcon, BurgerIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
-const NavigationItem = ({text, children}) => {
+const NavigationItem = ({text, textClass, children}) => {
     return (
-        <a href='#' target='_blank' className={`pl-5 pr-5 pb-4 pt-4 ${AppHeaderStyles.link}`}>
-            <span className={`mr-2 ${AppHeaderStyles.icon}`}>
+        <a href='#' target='_blank' className={`pl-5 pr-5 pb-4 pt-4 ${styles.link}`}>
+            <span className="mr-2">
                 {children}
             </span>
-            <p className="text text_type_main-default text_color_inactive">
+            <p className={`text text_type_main-default ${textClass}`}>
                 {text}
             </p>
         </a>
@@ -19,27 +19,28 @@ const NavigationItem = ({text, children}) => {
 
 NavigationItem.propTypes = {
     text: PropTypes.string.isRequired,
+    textClass: PropTypes.string.isRequired,
     children: PropTypes.object.isRequired
 }
 
 const AppHeader = () => {
     return (
-        <ul className={`mr-10 ml-10 mt-10 ${AppHeaderStyles.header}`}>
-            <li className={AppHeaderStyles.group}>
-                <div className={AppHeaderStyles.group_links}>
+        <ul className={`mr-10 ml-10 mt-10 ${styles.header}`}>
+            <li className={styles.group}>
+                <div className={styles.group_links}>
                     <NavigationItem text="Конструктор">
                         <BurgerIcon type="primary"/>
                     </NavigationItem>
-                    <NavigationItem text="Лента заказов">
+                    <NavigationItem text="Лента заказов" textClass="text_color_inactive">
                         <ListIcon type="secondary"/>
                     </NavigationItem>
                 </div>
             </li>
-            <li className={AppHeaderStyles.logo_block} >
+            <li className={styles.logo_block} >
                 <Logo/>  
             </li>
-            <li className={AppHeaderStyles.profile}>
-                <NavigationItem text="Личный кабинет">
+            <li className={styles.profile}>
+                <NavigationItem text="Личный кабинет" textClass="text_color_inactive">
                     <ProfileIcon type="secondary"/>
                 </NavigationItem>
             </li>

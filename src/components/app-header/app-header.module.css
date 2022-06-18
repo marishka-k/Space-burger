@@ -23,7 +23,9 @@
 .link {
     display: flex;
     align-items: center;
+    line-height: 24px;
     text-decoration: none;
+    color: #f2f2f3;
 }
 
 .profile {

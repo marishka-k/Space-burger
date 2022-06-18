@@ -1,136 +1,72 @@
-import React from 'react';
-import  {ConstructorElement, DragIcon, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./burger-constructor.module.css"
+import {ConstructorElement, CurrencyIcon, Button, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./burger-constructor.module.css";
+import PropTypes from 'prop-types';
+
 
 const BurgerConstructor = (props) => {
-   
-    const bun = props.data.find(item => item.type === 'bun');
-    
-    return (
-        <section className={`${styles.constructor} pt-25`}>
-            
-            <div className='ml-8'>
-            <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={`${bun.name} (верх)`}
-            price={bun.price}
-            thumbnail={bun.image}
-            />
-            </div>
-            <ul className={styles.scroller}>
-                <li className={styles.filling}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                    text="Краторная булка N-200i (верх)"
-                    price={50}
-                    thumbnail={DragIcon}
-                    />
-                </li>
-                <li className={styles.filling}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                    text="Краторная булка N-200i (верх)"
-                    price={50}
-                    thumbnail={DragIcon}
-                    />
-                </li>
-                <li className={styles.filling}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                    text="Краторная булка N-200i (верх)"
-                    price={50}
-                    thumbnail={DragIcon}
-                    />
-                </li>
-                <li className={styles.filling}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                    text="Краторная булка N-200i (верх)"
-                    price={50}
-                    thumbnail={DragIcon}
-                    />
-                </li>
-                <li className={styles.filling}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                    text="Краторная булка N-200i (верх)"
-                    price={50}
-                    thumbnail={DragIcon}
-                    />
-                </li>
-                <li className={styles.filling}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                    text="Краторная булка N-200i (верх)"
-                    price={50}
-                    thumbnail={DragIcon}
-                    />
-                </li>
-                <li className={styles.filling}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                    text="Краторная булка N-200i (верх)"
-                    price={50}
-                    thumbnail={DragIcon}
-                    />
-                </li>
-                <li className={styles.filling}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                    text="Краторная булка N-200i (верх)"
-                    price={50}
-                    thumbnail={DragIcon}
-                    />
-                </li>
-                <li className={styles.filling}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                    text="Краторная булка N-200i (верх)"
-                    price={50}
-                    thumbnail={DragIcon}
-                    />
-                </li>
-                <li className={styles.filling}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                    text="Краторная булка N-200i (верх)"
-                    price={50}
-                    thumbnail={DragIcon}
-                    />
-                </li>
-                <li className={styles.filling}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                    text="Краторная булка N-200i (верх)"
-                    price={50}
-                    thumbnail={DragIcon}
-                    />
-                </li>
-            </ul>
-            <div className='ml-8'>
-            <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={`${bun.name} (низ)`}
-            price={bun.price}
-            thumbnail={bun.image}
-            />
-            </div>
-            <div className={styles.totalContainer}>
-                <p className={`${styles.price} ${'text text_type_digits-default mt-1 mb-1'}`}>
-                {12345}
-                 <CurrencyIcon type="primary"/>
-                </p>
-                <div>
-                    <Button type="primary" size="large">
-                        Оформить заказ
-                    </Button>
-                </div>
-            </div>
-      </section>
-    )
+  const bun = props.data.find((item) => item.type === "bun");
+  let totalPrice = bun.price
+  return (
+    <section className={`${styles.constructor} pt-25 pl-4`}>
+      <div className="ml-8 mb-4">
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={`${bun.name} (верх)`}
+          price={bun.price}
+          thumbnail={bun.image}
+        />
+      </div>
+      <ul className={styles.scroller}>
+        {props.data.map((ingredient, index) => {
+         if (ingredient.type !== "bun") {
+            totalPrice = totalPrice + ingredient.price
+            console.log (totalPrice)
+          return (
+            <li className={styles.filling} key={index}>
+              <DragIcon type="primary" />
+              <ConstructorElement
+                text={ingredient.name}
+                price={ingredient.price}
+                thumbnail={ingredient.image}
+              />
+            </li>
+          );
+        }
+        })}
+      </ul>
+      <div className="ml-8 mt-4">
+        <ConstructorElement
+          type="bottom"
+          isLocked={true}
+          text={`${bun.name} (низ)`}
+          price={bun.price}
+          thumbnail={bun.image}
+        />
+      </div>
+      <div className={`${styles.total_container} mt-10 mr-4`}>
+        <p className={'text text_type_digits-medium'}>
+          {totalPrice}          
+        </p>
+        <span className={`${styles.total_price_icon} mr-10`}>
+        <CurrencyIcon type="primary"/>
+        </span>
+        <div>
+          <Button type="primary" size="large">
+            Оформить заказ
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+BurgerConstructor.propTypes = {
+    type: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    totalPrice: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
 }
 
-export default BurgerConstructor
-
+export default BurgerConstructor;

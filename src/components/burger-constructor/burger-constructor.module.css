@@ -1,7 +1,6 @@
 .constructor {
     display: flex;
     flex-direction: column;
-    gap: 16px
 }
 
 .filling {
@@ -31,4 +30,16 @@
   
   .scroller::-webkit-scrollbar-thumb {
     background: #8585AD;
+  }
+
+  .total_container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .total_price_icon svg{
+    width: 42px;
+    height: 42px;
+    margin-left: 10px;
   }

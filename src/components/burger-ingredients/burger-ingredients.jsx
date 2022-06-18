@@ -2,6 +2,7 @@ import BurgerIngredientsStyle from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import BurgerIngredientsBlock from "../burger-ingredients-block/burger-ingredients-block";
+import PropTypes from "prop-types";
 
 const BurgerIngredients = (props) => {
   let bunList = [];
