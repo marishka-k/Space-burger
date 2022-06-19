@@ -22,7 +22,7 @@ const BurgerIngredientsBlock = ({ title, titleId, ingredients }) => {
 BurgerIngredientsBlock.propTypes = {
   title: PropTypes.string.isRequired,
   titleId: PropTypes.string.isRequired,
-  _id: PropTypes.number.isRequired,
+  ingredients: PropTypes.array.isRequired,
 };
 
 export default BurgerIngredientsBlock;

@@ -20,8 +20,7 @@ const BurgerConstructor = (props) => {
       <ul className={styles.scroller}>
         {props.data.map((ingredient, index) => {
          if (ingredient.type !== "bun") {
-            totalPrice = totalPrice + ingredient.price
-            console.log (totalPrice)
+            totalPrice = totalPrice + ingredient.price           
           return (
             <li className={styles.filling} key={index}>
               <DragIcon type="primary" />
@@ -62,11 +61,7 @@ const BurgerConstructor = (props) => {
 };
 
 BurgerConstructor.propTypes = {
-    type: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    totalPrice: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
+    data: PropTypes.array.isRequired
 }
 
 export default BurgerConstructor;

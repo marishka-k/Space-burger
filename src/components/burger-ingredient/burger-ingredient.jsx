@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const BurgerIngredient = ({ ingredient }) => {
   return (
-    <li className={style.card} key={ingredient._id}>
+    <li className={style.card}>
       <Counter count={1} size="default" />
       <img src={ingredient.image} alt={ingredient.name} className="ml-4 mr-4" />
       <div className={`mt-1 mb-2 ${style.prise_info}`}>
@@ -19,9 +19,7 @@ const BurgerIngredient = ({ ingredient }) => {
 };
 
 BurgerIngredient.propTypes = {
-  image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  ingredient: PropTypes.object.isRequired 
 };
 
 export default BurgerIngredient;

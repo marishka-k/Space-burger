@@ -1,13 +1,13 @@
-import BurgerIngredientsStyle from "./burger-ingredients.module.css";
+import style from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import BurgerIngredientsBlock from "../burger-ingredients-block/burger-ingredients-block";
 import PropTypes from "prop-types";
 
 const BurgerIngredients = (props) => {
-  let bunList = [];
-  let sauceList = [];
-  let mainList = [];
+  const bunList = [];
+  const sauceList = [];
+  const mainList = [];
 
   props.data.map((ingredient) => {
     if (ingredient.type === "bun") {
@@ -30,8 +30,9 @@ const BurgerIngredients = (props) => {
       const menuTarget = document.getElementById(id);
       menuTarget.scrollIntoView({ behavior: "smooth" });
     };
+    
     return (
-      <div className="mb-10" style={{ display: "flex" }}>
+      <div className={`mb-10 ${style.tab}`}>
         <Tab value="bun" active={current === "bun"} onClick={curentTarget}>
           Булки
         </Tab>
@@ -49,7 +50,7 @@ const BurgerIngredients = (props) => {
     <section>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
       <Tabs />
-      <div className={`${BurgerIngredientsStyle.scroller}`}>
+      <div className={`${style.scroller}`}>
         <BurgerIngredientsBlock
           title={"Булки"}
           titleId={"bun"}
@@ -69,5 +70,10 @@ const BurgerIngredients = (props) => {
     </section>
   );
 };
+
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.array.isRequired
+}
 
 export default BurgerIngredients;

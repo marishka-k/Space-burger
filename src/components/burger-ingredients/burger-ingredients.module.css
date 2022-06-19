@@ -1,3 +1,7 @@
+.tab {
+  display: flex;
+}
+
 .scroller {
   display: grid;
   gap: 40px;
