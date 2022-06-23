@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import app from "./app.module.css";
-import getBurgerIngredients from "../../utils/api";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
@@ -10,21 +9,40 @@ function App() {
   const [ingredients, setIngredients] = React.useState([]);
 
   useEffect(() => {
-    getBurgerIngredients()
-      
-      .then(setIngredients)
-      .catch(() => console.log("ошибка при загрузке ингредиентов с сервера"));
-  },[])
+    const config = {
+      url: "https://norma.nomoreparties.space/api/ingredients",
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
 
-  console.log(ingredients.data);
- 
+    const onRes = (res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    };
+
+    const fetchData = () => {
+      fetch(config.url, {
+        method:"GET",
+        headers: config.headers,
+      })
+        .then(onRes)
+        .then((res) => {
+         const ingredientsData = res.data
+          setIngredients(ingredientsData)});
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
       <AppHeader />
       <main className={app.main}>
-        <BurgerIngredients data={data} />
-        <BurgerConstructor data={data} />
+        <BurgerIngredients data={ingredients} />
+        <BurgerConstructor data={ingredients} />
       </main>
     </>
   );

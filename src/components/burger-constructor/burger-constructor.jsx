@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 
 const BurgerConstructor = (props) => {
   const bun = props.data.find((item) => item.type === "bun");
-  let totalPrice = bun.price
+  let totalPrice = bun?.price
   return (
     <section className={`${styles.constructor} pt-25 pl-4`}>
       <div className="ml-8 mb-4">
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={`${bun.name} (верх)`}
-          price={bun.price}
-          thumbnail={bun.image}
+          text={`${bun?.name} (верх)`}
+          price={bun?.price}
+          thumbnail={bun?.image}
         />
       </div>
       <ul className={styles.scroller}>
@@ -38,9 +38,9 @@ const BurgerConstructor = (props) => {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={`${bun.name} (низ)`}
-          price={bun.price}
-          thumbnail={bun.image}
+          text={`${bun?.name} (низ)`}
+          price={bun?.price}
+          thumbnail={bun?.image}
         />
       </div>
       <div className={`${styles.total_container} mt-10 mr-4`}>
