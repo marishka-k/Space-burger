@@ -1,9 +1,14 @@
+import React from "react";
 import {ConstructorElement, CurrencyIcon, Button, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import PropTypes from 'prop-types';
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
 
 
 const BurgerConstructor = (props) => {
+  const [modalActive, setModalActive] = React.useState(true);
+
   const bun = props.data.find((item) => item.type === "bun");
   let totalPrice = bun?.price
   return (
@@ -51,11 +56,14 @@ const BurgerConstructor = (props) => {
         <CurrencyIcon type="primary"/>
         </span>
         <div>
-          <Button type="primary" size="large">
+          <Button type="primary" size="large"  onClick={() => setModalActive(true)}>
             Оформить заказ
           </Button>
         </div>
       </div>
+      <Modal active={modalActive} setActive={setModalActive}>
+        <OrderDetails/>
+      </Modal>
     </section>
   );
 };

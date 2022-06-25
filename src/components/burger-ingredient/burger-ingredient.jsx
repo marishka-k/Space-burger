@@ -1,6 +1,8 @@
-import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
+import React from "react";
+import {CurrencyIcon,Counter,} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-ingredient.module.css";
 import PropTypes from "prop-types";
+import Modal from "../modal/modal";
 
 const BurgerIngredient = ({ ingredient }) => {
   return (
@@ -11,15 +13,15 @@ const BurgerIngredient = ({ ingredient }) => {
         <p className="mr-2 text text_type_digits-default">{ingredient.price}</p>
         <CurrencyIcon type="primary" />
       </div>
-      <h2 className={`text text_type_main-default ${style.name}`}>
+      <p className={`text text_type_main-default ${style.name}`}>
         {ingredient.name}
-      </h2>
+      </p>
     </li>
   );
 };
 
 BurgerIngredient.propTypes = {
-  ingredient: PropTypes.object.isRequired 
+  ingredient: PropTypes.object.isRequired,
 };
 
 export default BurgerIngredient;

@@ -3,7 +3,6 @@ import app from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import { data } from "../../utils/data";
 
 function App() {
   const [ingredients, setIngredients] = React.useState([]);
@@ -26,13 +25,14 @@ function App() {
 
     const fetchData = () => {
       fetch(config.url, {
-        method:"GET",
+        method: "GET",
         headers: config.headers,
       })
         .then(onRes)
         .then((res) => {
-         const ingredientsData = res.data
-          setIngredients(ingredientsData)});
+          const ingredientsData = res.data;
+          setIngredients(ingredientsData);
+        });
     };
     fetchData();
   }, []);
