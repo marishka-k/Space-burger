@@ -7,7 +7,7 @@ import OrderDetails from "../order-details/order-details";
 
 
 const BurgerConstructor = (props) => {
-  const [modalActive, setModalActive] = React.useState(true);
+  const [modalActive, setModalActive] = React.useState(false);
 
   const bun = props.data.find((item) => item.type === "bun");
   let totalPrice = bun?.price
@@ -61,9 +61,10 @@ const BurgerConstructor = (props) => {
           </Button>
         </div>
       </div>
+      {modalActive  &&
       <Modal active={modalActive} setActive={setModalActive}>
         <OrderDetails/>
-      </Modal>
+      </Modal>}
     </section>
   );
 };

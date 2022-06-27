@@ -1,12 +1,20 @@
 import React from "react";
-import {CurrencyIcon,Counter,} from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-ingredient.module.css";
 import PropTypes from "prop-types";
 import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const BurgerIngredient = ({ ingredient }) => {
+  const [modalActive, setModalActive] = React.useState(false);
+  const [showIngredient, setShowIngredient] = React.useState({});
+  const openIngModal = (data) => {
+    setModalActive(true);
+    setShowIngredient(data);
+  };
+
   return (
-    <li className={style.card}>
+    <li className={style.card} onClick={() => openIngModal(ingredient)}>
       <Counter count={1} size="default" />
       <img src={ingredient.image} alt={ingredient.name} className="ml-4 mr-4" />
       <div className={`mt-1 mb-2 ${style.prise_info}`}>
@@ -16,6 +24,10 @@ const BurgerIngredient = ({ ingredient }) => {
       <p className={`text text_type_main-default ${style.name}`}>
         {ingredient.name}
       </p>
+      {modalActive  &&
+      <Modal active={modalActive} setActive={setModalActive}>
+        <IngredientDetails showIngredient={showIngredient} />
+      </Modal>}
     </li>
   );
 };
