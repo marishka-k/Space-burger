@@ -4,7 +4,7 @@ import styles from "./modal-overlay.module.css";
 const ModalOverlay = ({ active, setActive }) => {
   
   return (
-    <div className={active ? `${styles.overlay} ${styles.overlay_active}` : `${styles.overlay}`} onClick = {() => setActive(false)}/>
+    <div className={active ? `${styles.overlay} ${styles.overlay_active}` : `${styles.overlay}`} onClick = {() => setActive(false)} />
   );
 };
 

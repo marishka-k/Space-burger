@@ -6,7 +6,6 @@ const IngredientDetails = (showIngredient) => {
    
   return (
     <>
-      <h3 className="text text_type_main-large mt-10 ml-10"> Детали ингредиента </h3>
       <img src={showIngredient.image} alt={showIngredient.name} className="mb-4" />
       <p className="text text_type_main-default mb-8">{showIngredient.name}</p>
       <ul className={style.properties}>

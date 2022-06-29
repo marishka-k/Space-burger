@@ -3,8 +3,16 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import BurgerIngredientsBlock from "../burger-ingredients-block/burger-ingredients-block";
 import PropTypes from "prop-types";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const BurgerIngredients = (props) => {
+  const [modalActive, setModalActive] = React.useState(false);
+     
+  const closeModal = () => {
+    setModalActive (false)
+  }
+  
   const bunList = [];
   const sauceList = [];
   const mainList = [];
@@ -47,6 +55,7 @@ const BurgerIngredients = (props) => {
   };
 
   return (
+    <>
     <section>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
       <Tabs />
@@ -55,19 +64,28 @@ const BurgerIngredients = (props) => {
           title={"Булки"}
           titleId={"bun"}
           ingredients={bunList}
+          clickOnTheBlock={setModalActive}
         />
         <BurgerIngredientsBlock
           title={"Соусы"}
           titleId={"sauce"}
           ingredients={sauceList}
+          clickOnTheBlock={setModalActive}
         />
         <BurgerIngredientsBlock
           title={"Начинки"}
           titleId={"main"}
           ingredients={mainList}
+          clickOnTheBlock={setModalActive}
         />
       </div>
     </section>
+    {modalActive  &&(
+      <Modal active={modalActive} setActive={closeModal} title='Детали ингредиента'>
+        <IngredientDetails showIngredient={modalActive} />
+      </Modal>
+    )}
+    </>  
   );
 };
 
