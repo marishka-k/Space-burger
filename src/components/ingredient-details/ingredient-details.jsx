@@ -1,32 +1,21 @@
 import React from "react";
 import style from "./ingredient-details.module.css"
 import PropTypes from 'prop-types';
+import IngredientProperty from "../ingredient-property/ingredient-property";
 
-const IngredientDetails = (showIngredient) => {
+const IngredientDetails = ({showIngredient}) => {
    
   return (
-    <>
-      <img src={showIngredient.image} alt={showIngredient.name} className="mb-4" />
-      <p className="text text_type_main-default mb-8">{showIngredient.name}</p>
-      <ul className={style.properties}>
-        <li className={style.property}>
-            <p>Калории,ккал</p>
-            <p>{showIngredient.calories}</p>
-        </li>
-        <li className={style.property}>
-            <p>Белки, г</p>
-            <p>{showIngredient.proteins}</p>
-        </li>
-        <li className={style.property}>
-            <p>Жиры, г</p>
-            <p>{showIngredient.fat}</p>
-        </li>
-        <li className={style.property}>
-            <p>Углеводы, г</p>
-            <p>{showIngredient.carbohydrates}</p>
-        </li>
+    <div className={style.content}>
+      <img src={showIngredient.image} alt={showIngredient.name} className={`mb-4 ${style.image}`} />
+      <p className="text text_type_main-medium mb-8">{showIngredient.name}</p>
+      <ul className={`${style.properties} mb-15 `}>
+        <IngredientProperty name = {"Калории,ккал"} value={showIngredient.calories}/>
+        <IngredientProperty name = {"Белки, г"} value={showIngredient.proteins}/>
+        <IngredientProperty name = {"Жиры, г"} value={showIngredient.fat}/>
+        <IngredientProperty name = {"Углеводы, г"} value={showIngredient.carbohydrates}/>
       </ul>
-    </>
+    </div>
   );
 };
 

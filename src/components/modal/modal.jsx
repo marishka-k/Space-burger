@@ -23,8 +23,8 @@ const Modal = ({ active, setActive, title, children }) => {
 
   return ReactDOM.createPortal(
     <div className={styles.container}>
-      <div className={` ${active ? `${styles.content} ${styles.active}` : `${styles.content}`}`} onClick={(evt) => evt.stopPropagation()}>
-        <h3 className="text text_type_main-large mt-10 ml-10">{title}</h3>
+      <div className={` ${active ? `${styles.content} ${styles.active}` : `${styles.content}`}`}>
+        <h3 className={`text text_type_main-large mt-10 ml-10 ${styles.title}`}>{title}</h3>
         <button className={styles.close_button} onClick={() => setActive(false)}><CloseIcon type="primary" /></button>
         {children}
       </div>
@@ -36,7 +36,7 @@ const Modal = ({ active, setActive, title, children }) => {
 };
 
 Modal.propTypes = {
-    active: PropTypes.bool.isRequired,
+    active: PropTypes.object.isRequired,
     setActive: PropTypes.func.isRequired,
     title: PropTypes.string,
     children: PropTypes.object.isRequired
