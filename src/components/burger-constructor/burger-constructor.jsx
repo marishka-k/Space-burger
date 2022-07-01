@@ -1,15 +1,31 @@
 import React from "react";
-import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./burger-constructor.module.css";
 import PropTypes from "prop-types";
-import Modal from "../modal/modal";
+
+import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
+import IngredientPropTypes from "../../utils/utils";
+
+import styles from "./burger-constructor.module.css";
 
 const BurgerConstructor = (props) => {
   const [modalActive, setModalActive] = React.useState(false);
-
   const bun = props.data.find((item) => item.type === "bun");
-  let totalPrice = bun?.price;
+  
+  const mainsAndSouses = [];
+
+  props.data.map((ingredient) => {
+    if (ingredient.type !== "bun") {
+      mainsAndSouses.push(ingredient);
+      return mainsAndSouses;
+    }
+    return true;
+  });
+
+  const totalPrice = mainsAndSouses.reduce((acc, p) => acc + p.price, bun?.price);
+
+  let todoCounter = 1;  
+
   return (
     <section className={`${styles.constructor} pt-25 pl-4`}>
       <div className="ml-8 mb-4">
@@ -22,20 +38,17 @@ const BurgerConstructor = (props) => {
         />
       </div>
       <ul className={styles.scroller}>
-        {props.data.map((ingredient, index) => {
-          if (ingredient.type !== "bun") {
-            totalPrice = totalPrice + ingredient.price;
-            return (
-              <li className={styles.filling} key={index}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={ingredient.name}
-                  price={ingredient.price}
-                  thumbnail={ingredient.image}
-                />
-              </li>
-            );
-          }
+        {mainsAndSouses.map((ingredient) => {
+          return (
+            <li className={styles.filling} key={todoCounter++}>
+              <DragIcon type="primary" />
+              <ConstructorElement
+                text={ingredient.name}
+                price={ingredient.price}
+                thumbnail={ingredient.image}
+              />
+            </li>
+          );
         })}
       </ul>
       <div className="ml-8 mt-4">
@@ -48,12 +61,16 @@ const BurgerConstructor = (props) => {
         />
       </div>
       <div className={`${styles.total_container} mt-10 mr-4`}>
-        <p className={"text text_type_digits-medium"}>{totalPrice}</p>
+        <p className={"text text_type_digits-medium"}>{totalPrice - 988}</p>
         <span className={`${styles.total_price_icon} mr-10`}>
           <CurrencyIcon type="primary" />
         </span>
         <div>
-          <Button type="primary" size="large" onClick={() => setModalActive(true)}>
+          <Button
+            type="primary"
+            size="large"
+            onClick={() => setModalActive(true)}
+          >
             Оформить заказ
           </Button>
         </div>
@@ -68,7 +85,7 @@ const BurgerConstructor = (props) => {
 };
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(IngredientPropTypes).isRequired,
 };
 
 export default BurgerConstructor;

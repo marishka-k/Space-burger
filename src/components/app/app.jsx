@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import app from "./app.module.css";
+import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
+import { BURGER_URL } from "../../utils/constants";
+import { checkResponse } from "../../utils/utils";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 
@@ -9,30 +11,25 @@ function App() {
 
   useEffect(() => {
     const config = {
-      url: "https://norma.nomoreparties.space/api/ingredients",
+      url: BURGER_URL,
       headers: {
         "Content-type": "application/json",
       },
     };
 
-    const onRes = (res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    };
-
     const fetchData = () => {
-      fetch(config.url, {
+      fetch(`${config.url}/ingredients`, {
         method: "GET",
         headers: config.headers,
       })
-        .then(onRes)
+        .then(checkResponse)
         .then((res) => {
           const ingredientsData = res.data;
           setIngredients(ingredientsData);
-        });
+        })
+        .catch(() =>
+          console.log("Во время загрузки ингредиентов произошла ошибка")
+        );
     };
     fetchData();
   }, []);
@@ -40,7 +37,7 @@ function App() {
   return (
     <>
       <AppHeader />
-      <main className={app.main}>
+      <main className={styles.main}>
         <BurgerIngredients data={ingredients} />
         <BurgerConstructor data={ingredients} />
       </main>

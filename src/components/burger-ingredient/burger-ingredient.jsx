@@ -1,7 +1,10 @@
 import React from "react";
-import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import style from "./burger-ingredient.module.css";
 import PropTypes from "prop-types";
+
+import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
+import IngredientPropTypes from "../../utils/utils";
+import styles from "./burger-ingredient.module.css";
+
 
 const BurgerIngredient = ({ ingredient, onClick }) => {
   const handleClick = () => {
@@ -9,14 +12,14 @@ const BurgerIngredient = ({ ingredient, onClick }) => {
   }
   
   return (
-    <li className={style.card} onClick={handleClick}>
+    <li className={styles.card} onClick={handleClick}>
       <Counter count={1} size="default" />
       <img src={ingredient.image} alt={ingredient.name} className="ml-4 mr-4" />
-      <div className={`mt-1 mb-2 ${style.prise_info}`}>
+      <div className={`mt-1 mb-2 ${styles.prise_info}`}>
         <p className="mr-2 text text_type_digits-default">{ingredient.price}</p>
         <CurrencyIcon type="primary" />
       </div>
-      <p className={`text text_type_main-default ${style.name}`}>
+      <p className={`text text_type_main-default ${styles.name}`}>
         {ingredient.name}
       </p>      
     </li>
@@ -24,7 +27,7 @@ const BurgerIngredient = ({ ingredient, onClick }) => {
 };
 
 BurgerIngredient.propTypes = {
-  ingredient: PropTypes.object.isRequired,
+  ingredient: IngredientPropTypes.isRequired,
 };
 
 export default BurgerIngredient;

@@ -1,10 +1,13 @@
-import style from "./burger-ingredients.module.css";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
-import BurgerIngredientsBlock from "../burger-ingredients-block/burger-ingredients-block";
 import PropTypes from "prop-types";
-import Modal from "../modal/modal";
+
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import BurgerIngredientsBlock from "../burger-ingredients-block/burger-ingredients-block";
+import Modal from "../modal/modal";
+
+import IngredientPropTypes from "../../utils/utils";
+import styles from "./burger-ingredients.module.css";
 
 const BurgerIngredients = (props) => {
   const [modalActive, setModalActive] = React.useState(false);
@@ -40,7 +43,7 @@ const BurgerIngredients = (props) => {
     };
     
     return (
-      <div className={`mb-10 ${style.tab}`}>
+      <div className={`mb-10 ${styles.tab}`}>
         <Tab value="bun" active={current === "bun"} onClick={curentTarget}>
           Булки
         </Tab>
@@ -59,7 +62,7 @@ const BurgerIngredients = (props) => {
     <section>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
       <Tabs />
-      <div className={`${style.scroller}`}>
+      <div className={`${styles.scroller}`}>
         <BurgerIngredientsBlock
           title={"Булки"}
           titleId={"bun"}
@@ -91,7 +94,7 @@ const BurgerIngredients = (props) => {
 
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(IngredientPropTypes).isRequired,
 }
 
 export default BurgerIngredients;

@@ -1,6 +1,9 @@
+import PropTypes from "prop-types";
+
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import styles from "./burger-ingredients-block.module.css";
-import PropTypes from "prop-types";
+import IngredientPropTypes from "../../utils/utils";
+
 
 const BurgerIngredientsBlock = ({ title, titleId, ingredients, clickOnTheBlock }) => {
   return (
@@ -22,7 +25,7 @@ const BurgerIngredientsBlock = ({ title, titleId, ingredients, clickOnTheBlock }
 BurgerIngredientsBlock.propTypes = {
   title: PropTypes.string.isRequired,
   titleId: PropTypes.string.isRequired,
-  ingredients: PropTypes.array.isRequired,
+  ingredients: PropTypes.arrayOf(IngredientPropTypes).isRequired,
 };
 
 export default BurgerIngredientsBlock;

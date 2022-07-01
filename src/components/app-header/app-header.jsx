@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import styles from './app-header.module.css'
+
 import { ProfileIcon, ListIcon, BurgerIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import styles from './app-header.module.css'
 
 const NavigationItem = ({text, textClass, children}) => {
     return (
-        <a href='#' target='_blank' className={`pl-5 pr-5 pb-4 pt-4 ${styles.link}`}>
+        <a href='/' target='_blank' className={`pl-5 pr-5 pb-4 pt-4 ${styles.link}`}>
             <span className={`mr-2 ${styles.icon}`}>
                 {children}
             </span>
