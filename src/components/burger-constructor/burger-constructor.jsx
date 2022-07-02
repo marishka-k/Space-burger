@@ -22,8 +22,8 @@ const BurgerConstructor = (props) => {
     return true;
   });
 
-  const totalPrice = mainsAndSouses.reduce((acc, p) => acc + p.price, bun?.price);
-
+  const totalPrice = mainsAndSouses.reduce((acc, p) =>{return (acc + p.price)}, bun?.price);
+ 
   let todoCounter = 1;  
 
   return (
@@ -61,7 +61,7 @@ const BurgerConstructor = (props) => {
         />
       </div>
       <div className={`${styles.total_container} mt-10 mr-4`}>
-        <p className={"text text_type_digits-medium"}>{totalPrice - 988}</p>
+        <p className={"text text_type_digits-medium"}>{totalPrice}</p>
         <span className={`${styles.total_price_icon} mr-10`}>
           <CurrencyIcon type="primary" />
         </span>
