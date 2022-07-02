@@ -49,7 +49,7 @@ const Modal = ({ active, setActive, title, children }) => {
 };
 
 Modal.propTypes = {
-  active: PropTypes.object.isRequired,
+  active: PropTypes.bool.isRequired,
   setActive: PropTypes.func.isRequired,
   title: PropTypes.string,
   children: PropTypes.object.isRequired,

@@ -84,7 +84,7 @@ const BurgerIngredients = (props) => {
       </div>
     </section>
     {modalActive  &&(
-      <Modal active={modalActive} setActive={closeModal} title='Детали ингредиента'>
+      <Modal active={Boolean (modalActive)} setActive={closeModal} title='Детали ингредиента'>
         <IngredientDetails showIngredient={modalActive} />
       </Modal>
     )}
