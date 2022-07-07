@@ -4,25 +4,18 @@ import PropTypes from "prop-types";
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-import IngredientPropTypes from "../../utils/utils";
+import IngredientPropTypes from "../../utils/types";
 
 import styles from "./burger-constructor.module.css";
 
 const BurgerConstructor = (props) => {
   const [modalActive, setModalActive] = React.useState(false);
   const bun = props.data.find((item) => item.type === "bun");
+  const bunPrice = bun ? (bun.price * 2) : 0
   
-  const mainsAndSouses = [];
+  const mainsAndSouses = props.data.filter(({ type }) => type !== 'bun');
 
-  props.data.map((ingredient) => {
-    if (ingredient.type !== "bun") {
-      mainsAndSouses.push(ingredient);
-      return mainsAndSouses;
-    }
-    return true;
-  });
-
-  const totalPrice = mainsAndSouses.reduce((acc, p) =>{return (acc + p.price)}, bun?.price);
+  const totalPrice = mainsAndSouses.reduce((acc, p) =>acc + p.price, bunPrice);
  
   let todoCounter = 1;  
 

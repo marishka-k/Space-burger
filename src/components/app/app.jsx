@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import { BURGER_URL } from "../../utils/constants";
-import { checkResponse } from "../../utils/utils";
+import { checkResponse } from "../../utils/check-response";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 

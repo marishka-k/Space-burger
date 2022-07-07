@@ -6,7 +6,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import BurgerIngredientsBlock from "../burger-ingredients-block/burger-ingredients-block";
 import Modal from "../modal/modal";
 
-import IngredientPropTypes from "../../utils/utils";
+import IngredientPropTypes from "../../utils/types";
 import styles from "./burger-ingredients.module.css";
 
 const BurgerIngredients = (props) => {
