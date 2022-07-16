@@ -1,0 +1,45 @@
+.constructor {
+    display: flex;
+    flex-direction: column;
+}
+
+.filling {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    
+    align-items: center;
+}
+
+.scroller {
+    display: grid;
+    gap: 16px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 464px;
+    overflow-y: auto;
+  }
+  
+  .scroller::-webkit-scrollbar-track {
+    background: #2f2f37;
+  }
+  
+  .scroller::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .scroller::-webkit-scrollbar-thumb {
+    background: #8585AD;
+  }
+
+  .total_container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .total_price_icon svg{
+    width: 42px;
+    height: 42px;
+    margin-left: 10px;
+  }

@@ -1,0 +1,42 @@
+.header {
+    margin-bottom: 0;
+    background-color: #1C1C21;
+    min-height: 88px;    
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    list-style-type: none;
+    justify-items: center;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+}
+
+.group {
+    justify-self: start;
+}
+
+.group_links {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    column-gap: 8px;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    line-height: 24px;
+    text-decoration: none;
+    color: #f2f2f3;
+}
+
+.profile {
+    justify-self: end;
+}

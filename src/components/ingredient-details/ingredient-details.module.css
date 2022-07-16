@@ -1,0 +1,21 @@
+.content {
+    width: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image {
+    width: 480px;
+
+
+}
+
+.properties {
+    display: grid;
+    grid-template-columns: 120px repeat(3, 112px);
+    column-gap: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0; 
+}
