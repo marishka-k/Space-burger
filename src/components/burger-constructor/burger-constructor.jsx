@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux';
 
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../order-details/order-details";
@@ -8,12 +9,14 @@ import IngredientPropTypes from "../../utils/types";
 
 import styles from "./burger-constructor.module.css";
 
-const BurgerConstructor = (props) => {
+const BurgerConstructor = () => {
+  const ingredients = useSelector(store => store.burgerIngredients.ingredients)
+
   const [modalActive, setModalActive] = React.useState(false);
-  const bun = props.data.find((item) => item.type === "bun");
+  const bun = ingredients.find((item) => item.type === "bun");
   const bunPrice = bun ? (bun.price * 2) : 0
   
-  const mainsAndSouses = props.data.filter(({ type }) => type !== 'bun');
+  const mainsAndSouses = ingredients.filter(({ type }) => type !== 'bun');
 
   const totalPrice = mainsAndSouses.reduce((acc, p) =>acc + p.price, bunPrice);
  
@@ -75,10 +78,6 @@ const BurgerConstructor = (props) => {
       )}
     </section>
   );
-};
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(IngredientPropTypes).isRequired,
 };
 
 export default BurgerConstructor;

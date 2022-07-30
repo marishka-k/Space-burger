@@ -9,10 +9,10 @@ const BurgerIngredient = ({ ingredient, onClick }) => {
   const handleClick = () => {
     onClick (ingredient)
   }
-  
+
   return (
     <li className={styles.card} onClick={handleClick}>
-      <Counter count={1} size="default" />
+      {ingredient.count && <Counter count={ingredient.count} size="default" />}
       <img src={ingredient.image} alt={ingredient.name} className="ml-4 mr-4" />
       <div className={`mt-1 mb-2 ${styles.prise_info}`}>
         <p className="mr-2 text text_type_digits-default">{ingredient.price}</p>

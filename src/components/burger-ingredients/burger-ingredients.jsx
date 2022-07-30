@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux';
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientDetails from "../ingredient-details/ingredient-details";
@@ -9,7 +10,9 @@ import Modal from "../modal/modal";
 import IngredientPropTypes from "../../utils/types";
 import styles from "./burger-ingredients.module.css";
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = () => {
+  const ingredients = useSelector(store => store.burgerIngredients.ingredients)
+
   const [modalActive, setModalActive] = React.useState(false);
      
   const closeModal = () => {
@@ -20,7 +23,7 @@ const BurgerIngredients = (props) => {
   const sauceList = [];
   const mainList = [];
 
-  props.data.map((ingredient) => {
+  ingredients.map((ingredient) => {
     if (ingredient.type === "bun") {
       bunList.push(ingredient);
       return bunList;
@@ -91,10 +94,5 @@ const BurgerIngredients = (props) => {
     </>  
   );
 };
-
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(IngredientPropTypes).isRequired,
-}
 
 export default BurgerIngredients;
