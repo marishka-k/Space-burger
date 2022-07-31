@@ -1,11 +1,31 @@
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import styles from "./burger-ingredients-block.module.css";
 import IngredientPropTypes from "../../utils/types";
+import { useMemo } from "react";
 
+const BurgerIngredientsBlock = ({
+  title,
+  titleId,
+  ingredients,
+  clickOnTheBlock,
+}) => {
+  const burgerConstructor = useSelector((state) => state.burgerConstructor);
 
-const BurgerIngredientsBlock = ({ title, titleId, ingredients, clickOnTheBlock }) => {
+  const counterOfIngredient = useMemo(() => {
+    const { bun, ingredients } = burgerConstructor;
+    const counters = {};
+    console.log(counters);
+    ingredients.forEach((ingredient) => {
+      if (!counters[ingredient._id]) counters[ingredient._id] = 0;
+      counters[ingredient._id]++;
+    });
+    if (bun) counters[bun._id] = 2;
+    return counters;
+  }, [burgerConstructor]);
+
   return (
     <div>
       <h2 className="text text_type_main-medium mb-6" id={titleId}>
@@ -14,7 +34,12 @@ const BurgerIngredientsBlock = ({ title, titleId, ingredients, clickOnTheBlock }
       <ul className={`mt-6 ml-4 ${styles.items}`}>
         {ingredients.map((ingredient) => {
           return (
-            <BurgerIngredient ingredient={ingredient} key={ingredient._id} onClick={clickOnTheBlock} />
+            <BurgerIngredient
+              ingredient={ingredient}
+              key={ingredient._id}
+              onClick={clickOnTheBlock}
+              count={counterOfIngredient[ingredient._id]}
+            />
           );
         })}
       </ul>

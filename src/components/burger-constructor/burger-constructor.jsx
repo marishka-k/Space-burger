@@ -25,14 +25,14 @@ const BurgerConstructor = () => {
   const [, dropTarget] = useDrop({
     accept: "ingredients",
     drop: (item) => {
-      dispatch(addItemToConstructor(item));
+      dispatch(addItemToConstructor(item.ingredient));
     },
   });
 
   const [modalActive, setModalActive] = React.useState(false);
   const bunPrice = bun !== null ? bun.price * 2 : 0;
 
-  const totalPrice = ingredients.length !== 0 ? ingredients.reduce((acc, p) => acc + p.ingredient.price, bunPrice) : 0;
+  const totalPrice = ingredients.length !== 0 ? ingredients.reduce((acc, p) => acc + p.price, bunPrice) : 0;
 
   let todoCounter = 1;
 
@@ -59,12 +59,12 @@ const BurgerConstructor = () => {
         <ul className={styles.scroller}>
           {ingredients.map((ingredient) => {
             return (
-              <li className={styles.filling} key={todoCounter++}>
+              <li className={styles.filling} key={ingredient.id}>
                 <DragIcon type="primary" />
                 <ConstructorElement
-                  text={ingredient.ingredient.name}
-                  price={ingredient.ingredient.price}
-                  thumbnail={ingredient.ingredient.image}
+                  text={ingredient.name}
+                  price={ingredient.price}
+                  thumbnail={ingredient.image}
                 />
               </li>
             );

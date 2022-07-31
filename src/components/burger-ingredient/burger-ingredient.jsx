@@ -8,7 +8,7 @@ import {
 import IngredientPropTypes from "../../utils/types";
 import styles from "./burger-ingredient.module.css";
 
-const BurgerIngredient = ({ ingredient, onClick }) => {
+const BurgerIngredient = ({ ingredient, count, onClick }) => {
   const handleClick = () => {
     onClick(ingredient);
   };
@@ -22,13 +22,8 @@ const BurgerIngredient = ({ ingredient, onClick }) => {
   });
 
   return (
-    <li
-      className={styles.card}
-      onClick={handleClick}
-      ref={dragRef}
-      style={{ opacity }}
-    >
-      {ingredient.count && <Counter count={ingredient.count} size="default" />}
+    <li className={styles.card} onClick={handleClick} ref={dragRef} style={{ opacity }}>
+      {count && <Counter count={ingredient.count} />}
       <img src={ingredient.image} alt={ingredient.name} className="ml-4 mr-4" />
       <div className={`mt-1 mb-2 ${styles.prise_info}`}>
         <p className="mr-2 text text_type_digits-default">{ingredient.price}</p>
