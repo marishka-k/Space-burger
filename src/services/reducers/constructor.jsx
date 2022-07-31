@@ -18,7 +18,7 @@ export const constructorReducer = (state = initialState, action) => {
       }
       return {
         ...state,
-        ingredients: [...state.ingredients, action.data],
+        ingredients: [...state.ingredients, action.payload],
       };
     }
 

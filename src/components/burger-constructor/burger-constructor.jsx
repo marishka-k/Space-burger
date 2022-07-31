@@ -14,13 +14,10 @@ import Modal from "../modal/modal";
 import IngredientPropTypes from "../../utils/types";
 
 import styles from "./burger-constructor.module.css";
-import {
-  addItemToConstructor,
-  CONSTRUCTOR_ADD,
-} from "../../services/actions/constructor";
+import { addItemToConstructor } from "../../services/actions/constructor";
 
 const BurgerConstructor = () => {
-  const { bun, ingredients } = useSelector((state) => state.burgerConstructor)
+  const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
   console.log(bun);
   console.log(ingredients);
   const dispatch = useDispatch();
@@ -29,18 +26,14 @@ const BurgerConstructor = () => {
     accept: "ingredients",
     drop: (item) => {
       dispatch(addItemToConstructor(item));
-      dispatch({
-        type: CONSTRUCTOR_ADD,
-        payload: { ...item.ingredient },
-      });
     },
   });
 
   const [modalActive, setModalActive] = React.useState(false);
-  /* const bunPrice = bun !== null ? bun.price * 2 : 0;
+  const bunPrice = bun !== null ? bun.price * 2 : 0;
 
-  const totalPrice = ingredients.length !== 0 ? ingredients.reduce((acc, p) => acc + p.price, bunPrice) : 0;
- */
+  const totalPrice = ingredients.length !== 0 ? ingredients.reduce((acc, p) => acc + p.ingredient.price, bunPrice) : 0;
+
   let todoCounter = 1;
 
   return (
@@ -58,23 +51,26 @@ const BurgerConstructor = () => {
           />
         </div>
       )}
-      {ingredients.length === 0? (
-        <p className="text text_type_main-large">Необходимо добавить ингредиенты</p>)
-
-        :<ul className={styles.scroller}>
-        {ingredients.map((ingredient) => {
-          return (
-            <li className={styles.filling} key={todoCounter++}>
-              <DragIcon type="primary" />
-              <ConstructorElement
-                text={ingredient.name}
-                price={ingredient.price}
-                thumbnail={ingredient.image}
-              />
-            </li>
-          );
-        })}
-      </ul>}
+      {ingredients.length === 0 ? (
+        <p className="text text_type_main-large">
+          Необходимо добавить ингредиенты
+        </p>
+      ) : (
+        <ul className={styles.scroller}>
+          {ingredients.map((ingredient) => {
+            return (
+              <li className={styles.filling} key={todoCounter++}>
+                <DragIcon type="primary" />
+                <ConstructorElement
+                  text={ingredient.ingredient.name}
+                  price={ingredient.ingredient.price}
+                  thumbnail={ingredient.ingredient.image}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      )}
       {bun === null ? (
         <p className="text text_type_main-large">Необходимо добавить булку</p>
       ) : (
@@ -89,7 +85,7 @@ const BurgerConstructor = () => {
         </div>
       )}
       <div className={`${styles.total_container} mt-10 mr-4`}>
-        <p className={"text text_type_digits-medium"}>0</p>
+        <p className={"text text_type_digits-medium"}>{totalPrice}</p>
         <span className={`${styles.total_price_icon} mr-10`}>
           <CurrencyIcon type="primary" />
         </span>
