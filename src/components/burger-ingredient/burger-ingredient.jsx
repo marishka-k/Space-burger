@@ -1,17 +1,33 @@
 import PropTypes from "prop-types";
+import { useDrag } from "react-dnd";
 
-import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  CurrencyIcon,
+  Counter,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientPropTypes from "../../utils/types";
 import styles from "./burger-ingredient.module.css";
 
-
 const BurgerIngredient = ({ ingredient, onClick }) => {
   const handleClick = () => {
-    onClick (ingredient)
-  }
+    onClick(ingredient);
+  };
+
+  const [{ opacity }, dragRef] = useDrag({
+    type: ingredient.type === "bun" ? "bun" : "ingredients",
+    item: { ingredient },
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0.4 : 1,
+    }),
+  });
 
   return (
-    <li className={styles.card} onClick={handleClick}>
+    <li
+      className={styles.card}
+      onClick={handleClick}
+      ref={dragRef}
+      style={{ opacity }}
+    >
       {ingredient.count && <Counter count={ingredient.count} size="default" />}
       <img src={ingredient.image} alt={ingredient.name} className="ml-4 mr-4" />
       <div className={`mt-1 mb-2 ${styles.prise_info}`}>
@@ -20,7 +36,7 @@ const BurgerIngredient = ({ ingredient, onClick }) => {
       </div>
       <p className={`text text_type_main-default ${styles.name}`}>
         {ingredient.name}
-      </p>      
+      </p>
     </li>
   );
 };
