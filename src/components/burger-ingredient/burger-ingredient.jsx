@@ -13,6 +13,7 @@ const BurgerIngredient = ({ ingredient, count, onClick }) => {
     onClick(ingredient);
   };
 
+  console.log(count);
   const [{ opacity }, dragRef] = useDrag({
     type: ingredient.type === "bun" ? "bun" : "ingredients",
     item: { ingredient },
@@ -23,7 +24,7 @@ const BurgerIngredient = ({ ingredient, count, onClick }) => {
 
   return (
     <li className={styles.card} onClick={handleClick} ref={dragRef} style={{ opacity }}>
-      {count && <Counter count={ingredient.count} />}
+      {count && <Counter count={count} />}
       <img src={ingredient.image} alt={ingredient.name} className="ml-4 mr-4" />
       <div className={`mt-1 mb-2 ${styles.prise_info}`}>
         <p className="mr-2 text text_type_digits-default">{ingredient.price}</p>

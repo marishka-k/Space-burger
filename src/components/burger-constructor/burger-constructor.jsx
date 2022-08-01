@@ -1,17 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 
-import {
-  ConstructorElement,
-  CurrencyIcon,
-  Button,
-  DragIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-import IngredientPropTypes from "../../utils/types";
 
 import styles from "./burger-constructor.module.css";
 import { addItemToConstructor } from "../../services/actions/constructor";
@@ -33,8 +26,6 @@ const BurgerConstructor = () => {
   const bunPrice = bun !== null ? bun.price * 2 : 0;
 
   const totalPrice = ingredients.length !== 0 ? ingredients.reduce((acc, p) => acc + p.price, bunPrice) : 0;
-
-  let todoCounter = 1;
 
   return (
     <section className={`${styles.constructor} pt-25 pl-4`} ref={dropTarget}>
