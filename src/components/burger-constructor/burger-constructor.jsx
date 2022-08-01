@@ -10,9 +10,8 @@ import styles from "./burger-constructor.module.css";
 import { addItemToConstructor } from "../../services/actions/constructor";
 
 const BurgerConstructor = () => {
-  const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
-  console.log(bun);
-  console.log(ingredients);
+  const { bun, fillings } = useSelector((state) => state.burgerConstructor);
+  
   const dispatch = useDispatch();
 
   const [, dropTarget] = useDrop({
@@ -25,7 +24,7 @@ const BurgerConstructor = () => {
   const [modalActive, setModalActive] = React.useState(false);
   const bunPrice = bun !== null ? bun.price * 2 : 0;
 
-  const totalPrice = ingredients.length !== 0 ? ingredients.reduce((acc, p) => acc + p.price, bunPrice) : 0;
+  const totalPrice = fillings.length !== 0 ? fillings.reduce((acc, p) => acc + p.price, bunPrice) : 0;
 
   return (
     <section className={`${styles.constructor} pt-25 pl-4`} ref={dropTarget}>
@@ -42,13 +41,13 @@ const BurgerConstructor = () => {
           />
         </div>
       )}
-      {ingredients.length === 0 ? (
+      {fillings.length === 0 ? (
         <p className="text text_type_main-large">
           Необходимо добавить ингредиенты
         </p>
       ) : (
         <ul className={styles.scroller}>
-          {ingredients.map((ingredient) => {
+          {fillings.map((ingredient) => {
             return (
               <li className={styles.filling} key={ingredient.id}>
                 <DragIcon type="primary" />

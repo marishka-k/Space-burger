@@ -15,10 +15,10 @@ const BurgerIngredientsBlock = ({
   const burgerConstructor = useSelector((state) => state.burgerConstructor);
 
   const counterOfIngredient = useMemo(() => {
-    const { bun, ingredients } = burgerConstructor;
+    const { bun, fillings } = burgerConstructor;
     const counters = {};
-    console.log(counters);
-    ingredients.forEach((ingredient) => {
+   
+    fillings.forEach((ingredient) => {
       if (!counters[ingredient._id]) counters[ingredient._id] = 0;
       counters[ingredient._id]++;
     });

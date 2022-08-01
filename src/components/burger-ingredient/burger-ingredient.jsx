@@ -13,9 +13,8 @@ const BurgerIngredient = ({ ingredient, count, onClick }) => {
     onClick(ingredient);
   };
 
-  console.log(count);
   const [{ opacity }, dragRef] = useDrag({
-    type: ingredient.type === "bun" ? "bun" : "ingredients",
+    type: "ingredients" ,
     item: { ingredient },
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.4 : 1,
