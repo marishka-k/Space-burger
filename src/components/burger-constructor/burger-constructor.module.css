@@ -3,13 +3,6 @@
     flex-direction: column;
 }
 
-.filling {
-    display: grid;
-    grid-template-columns: 32px 1fr;
-    
-    align-items: center;
-}
-
 .scroller {
     display: grid;
     gap: 16px;

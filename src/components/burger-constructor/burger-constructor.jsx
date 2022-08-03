@@ -2,16 +2,20 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 
-import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 
 import styles from "./burger-constructor.module.css";
 import { addItemToConstructor } from "../../services/actions/constructor";
 
+
 const BurgerConstructor = () => {
-  const { bun, fillings } = useSelector((state) => state.burgerConstructor);
-  
+  const burgerIngredients = useSelector((state) => state.burgerConstructor);  
+
+
+
   const dispatch = useDispatch();
 
   const [, dropTarget] = useDrop({
@@ -22,55 +26,48 @@ const BurgerConstructor = () => {
   });
 
   const [modalActive, setModalActive] = React.useState(false);
-  const bunPrice = bun !== null ? bun.price * 2 : 0;
+  const bunPrice = burgerIngredients.bun !== null ? burgerIngredients.bun.price * 2 : 0;
 
-  const totalPrice = fillings.length !== 0 ? fillings.reduce((acc, p) => acc + p.price, bunPrice) : 0;
+  const totalPrice = burgerIngredients.fillings.length !== 0 ? burgerIngredients.fillings.reduce((acc, p) => acc + p.price, bunPrice) : 0;
 
   return (
     <section className={`${styles.constructor} pt-25 pl-4`} ref={dropTarget}>
-      {bun === null ? (
+      {burgerIngredients.bun === null ? (
         <p className="text text_type_main-large">Необходимо добавить булку</p>
       ) : (
         <div className="ml-8 mb-4">
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={`${bun?.name} (верх)`}
-            price={bun?.price}
-            thumbnail={bun?.image}
+            text={`${burgerIngredients.bun?.name} (верх)`}
+            price={burgerIngredients.bun?.price}
+            thumbnail={burgerIngredients.bun?.image}
           />
         </div>
       )}
-      {fillings.length === 0 ? (
+      {burgerIngredients.fillings.length === 0 ? (
         <p className="text text_type_main-large">
           Необходимо добавить ингредиенты
         </p>
       ) : (
         <ul className={styles.scroller}>
-          {fillings.map((ingredient) => {
+          {burgerIngredients.fillings.map((filling, index) => {
             return (
-              <li className={styles.filling} key={ingredient.id}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={ingredient.name}
-                  price={ingredient.price}
-                  thumbnail={ingredient.image}
-                />
-              </li>
+              <BurgerConstructorItem filling={filling} key={filling.id} index={index}/>
             );
           })}
         </ul>
       )}
-      {bun === null ? (
+      {burgerIngredients.bun === null ? (
         <p className="text text_type_main-large">Необходимо добавить булку</p>
       ) : (
         <div className="ml-8 mt-4">
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={`${bun?.name} (низ)`}
-            price={bun?.price}
-            thumbnail={bun?.image}
+            text={`${burgerIngredients.bun?.name} (низ)`}
+            price={burgerIngredients.bun?.price}
+            thumbnail={burgerIngredients.bun?.image}
           />
         </div>
       )}

@@ -6,18 +6,13 @@ import styles from "./burger-ingredients-block.module.css";
 import IngredientPropTypes from "../../utils/types";
 import { useMemo } from "react";
 
-const BurgerIngredientsBlock = ({
-  title,
-  titleId,
-  ingredients,
-  clickOnTheBlock,
-}) => {
+const BurgerIngredientsBlock = ({ title, titleId, ingredients }) => {
   const burgerConstructor = useSelector((state) => state.burgerConstructor);
 
   const counterOfIngredient = useMemo(() => {
     const { bun, fillings } = burgerConstructor;
     const counters = {};
-   
+
     fillings.forEach((ingredient) => {
       if (!counters[ingredient._id]) counters[ingredient._id] = 0;
       counters[ingredient._id]++;
@@ -37,7 +32,6 @@ const BurgerIngredientsBlock = ({
             <BurgerIngredient
               ingredient={ingredient}
               key={ingredient._id}
-              onClick={clickOnTheBlock}
               count={counterOfIngredient[ingredient._id]}
             />
           );
@@ -50,7 +44,6 @@ const BurgerIngredientsBlock = ({
 BurgerIngredientsBlock.propTypes = {
   title: PropTypes.string.isRequired,
   titleId: PropTypes.string.isRequired,
-  clickOnTheBlock: PropTypes.func.isRequired,
   ingredients: PropTypes.arrayOf(IngredientPropTypes).isRequired,
 };
 

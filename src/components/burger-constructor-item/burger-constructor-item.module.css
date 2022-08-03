@@ -1,0 +1,6 @@
+.filling {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    align-items: center;
+    cursor: grab;
+}

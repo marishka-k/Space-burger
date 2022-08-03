@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
+import { useDispatch } from "react-redux";
 
 import {
   CurrencyIcon,
@@ -7,12 +8,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientPropTypes from "../../utils/types";
 import styles from "./burger-ingredient.module.css";
+import { openIngredientModal } from "../../services/actions/ingredient-details";
 
-const BurgerIngredient = ({ ingredient, count, onClick }) => {
-  const handleClick = () => {
-    onClick(ingredient);
-  };
 
+const BurgerIngredient = ({ ingredient, count }) => {
+  const dispatch = useDispatch();
+  
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredients" ,
     item: { ingredient },
@@ -21,8 +22,12 @@ const BurgerIngredient = ({ ingredient, count, onClick }) => {
     }),
   });
 
+  const handleOpenIngredientDetailsModal = (ingredient) => {
+		dispatch(openIngredientModal(ingredient));
+	};
+
   return (
-    <li className={styles.card} onClick={handleClick} ref={dragRef} style={{ opacity }}>
+    <li className={styles.card} ref={dragRef} style={{ opacity }} onClick={() => handleOpenIngredientDetailsModal(ingredient)}>
       {count && <Counter count={count} />}
       <img src={ingredient.image} alt={ingredient.name} className="ml-4 mr-4" />
       <div className={`mt-1 mb-2 ${styles.prise_info}`}>
@@ -37,8 +42,7 @@ const BurgerIngredient = ({ ingredient, count, onClick }) => {
 };
 
 BurgerIngredient.propTypes = {
-  ingredient: IngredientPropTypes.isRequired,
-  onClick: PropTypes.func.isRequired,
+  ingredient: IngredientPropTypes.isRequired, 
 };
 
 export default BurgerIngredient;
