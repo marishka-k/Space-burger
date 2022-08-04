@@ -14,11 +14,11 @@ import {
   CONSTRUCTOR_MOVE,
 } from "../../services/actions/constructor";
 
-const BurgerConstructorItem = (filling, index) => {
+const BurgerConstructorItem = ({filling, index}) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
-  const id = filling.filling.id;
-    
+  const id = filling.id;
+       
   const deleteFilling = (id) => {
     dispatch({
       type: CONSTRUCTOR_DELETE,
@@ -42,16 +42,15 @@ const BurgerConstructorItem = (filling, index) => {
       }
       const dragIndex = item.index;
       const hoverIndex = index;
+      console.log(item.index);
 
-      console.log(dragIndex);
-      
       if (dragIndex === hoverIndex) {
         return;
       }
 
       dispatch({
         type: CONSTRUCTOR_MOVE,
-        payload: { dragIndex, hoverIndex },
+        payload: { to: dragIndex, from: hoverIndex },
       });
       item.index = hoverIndex;
     },
@@ -65,9 +64,9 @@ const BurgerConstructorItem = (filling, index) => {
     <li className={styles.filling} ref={ref} style={{ opacity }}>
       <DragIcon type="primary" />
       <ConstructorElement
-        text={filling.filling.name}
-        price={filling.filling.price}
-        thumbnail={filling.filling.image}
+        text={filling.name}
+        price={filling.price}
+        thumbnail={filling.image}
         handleClose={() => deleteFilling(id)}        
       />
     </li>
