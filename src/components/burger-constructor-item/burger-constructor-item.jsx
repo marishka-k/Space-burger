@@ -1,23 +1,20 @@
-import React, { useRef } from "react";
+import PropTypes from "prop-types";
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 
-import styles from "./burger-constructor-item.module.css";
-import {
-  ConstructorElement,
-  DragIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientPropTypes from "../../utils/types";
-import {
-  CONSTRUCTOR_DELETE,
-  CONSTRUCTOR_MOVE,
-} from "../../services/actions/constructor";
+import { CONSTRUCTOR_DELETE, CONSTRUCTOR_MOVE } from "../../services/actions/constructor";
 
-const BurgerConstructorItem = ({filling, index}) => {
+import styles from "./burger-constructor-item.module.css";
+
+
+const BurgerConstructorItem = ({ filling, index }) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
   const id = filling.id;
-       
+
   const deleteFilling = (id) => {
     dispatch({
       type: CONSTRUCTOR_DELETE,
@@ -41,7 +38,7 @@ const BurgerConstructorItem = ({filling, index}) => {
       }
       const dragIndex = item.index;
       const hoverIndex = index;
-      
+
       if (dragIndex === hoverIndex) {
         return;
       }
@@ -52,11 +49,9 @@ const BurgerConstructorItem = ({filling, index}) => {
       });
       item.index = hoverIndex;
     },
-    
   });
 
   drag(drop(ref));
-
 
   return (
     <li className={styles.filling} ref={ref} style={{ opacity }}>
@@ -65,7 +60,7 @@ const BurgerConstructorItem = ({filling, index}) => {
         text={filling.name}
         price={filling.price}
         thumbnail={filling.image}
-        handleClose={() => deleteFilling(id)}        
+        handleClose={() => deleteFilling(id)}
       />
     </li>
   );
@@ -73,6 +68,7 @@ const BurgerConstructorItem = ({filling, index}) => {
 
 BurgerConstructorItem.propTypes = {
   filling: IngredientPropTypes.isRequired,
+  index: PropTypes.string.isRequired,
 };
 
 export default BurgerConstructorItem;
