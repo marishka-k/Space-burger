@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import PropTypes from "prop-types";
 
 import styles from "./burger-constructor-item.module.css";
 import {
@@ -28,7 +27,7 @@ const BurgerConstructorItem = ({filling, index}) => {
 
   const [{ opacity }, drag] = useDrag({
     type: "fillings",
-    item: { id },
+    item: { index, id },
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.4 : 1,
     }),
@@ -42,8 +41,7 @@ const BurgerConstructorItem = ({filling, index}) => {
       }
       const dragIndex = item.index;
       const hoverIndex = index;
-      console.log(item.index);
-
+      
       if (dragIndex === hoverIndex) {
         return;
       }
