@@ -68,7 +68,7 @@ const BurgerConstructorItem = ({ filling, index }) => {
 
 BurgerConstructorItem.propTypes = {
   filling: IngredientPropTypes.isRequired,
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default BurgerConstructorItem;

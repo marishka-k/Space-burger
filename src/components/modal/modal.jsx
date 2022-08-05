@@ -44,6 +44,7 @@ const Modal = ({ onClickClose, title, children }) => {
 Modal.propTypes = {
   title: PropTypes.string,
   children: PropTypes.object.isRequired,
+  onClickClose: PropTypes.func.isRequired
 };
 
 export default Modal;
