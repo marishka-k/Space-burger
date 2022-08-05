@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 
@@ -9,12 +9,15 @@ import Modal from "../modal/modal";
 
 import styles from "./burger-constructor.module.css";
 import { addItemToConstructor } from "../../services/actions/constructor";
+import { closeOrderDetailsModal, getOrderDetails } from "../../services/actions/order-details";
+import { CONSTRUCTOR_RESET} from "../../services/actions/constructor"
 
 
 const BurgerConstructor = () => {
   const burgerIngredients = useSelector((state) => state.burgerConstructor);  
-
-
+  const orderNumber = useSelector(store => store.order.number);
+  const bun = burgerIngredients.bun
+  const fillings = burgerIngredients.fillings
 
   const dispatch = useDispatch();
 
@@ -24,50 +27,62 @@ const BurgerConstructor = () => {
       dispatch(addItemToConstructor(item.ingredient));
     },
   });
+  
+  const bunPrice = bun !== null ? bun.price * 2 : 0;
 
-  const [modalActive, setModalActive] = React.useState(false);
-  const bunPrice = burgerIngredients.bun !== null ? burgerIngredients.bun.price * 2 : 0;
+  const totalPrice = fillings.length !== 0 ? fillings.reduce((acc, p) => acc + p.price, bunPrice) : 0;
 
-  const totalPrice = burgerIngredients.fillings.length !== 0 ? burgerIngredients.fillings.reduce((acc, p) => acc + p.price, bunPrice) : 0;
+  const fillingsId = useMemo(
+		() => fillings.map((item) => item._id),
+		[fillings])
+
+  const orderDetailsModal = (productsId) => {
+		dispatch(getOrderDetails(fillingsId));
+	};
+
+  const handleCloseOrderDetailsModal = useCallback(() => {
+    dispatch(closeOrderDetailsModal())
+    dispatch({ type: CONSTRUCTOR_RESET });
+  }, [dispatch]);
 
   return (
     <section className={`${styles.constructor} pt-25 pl-4`} ref={dropTarget}>
-      {burgerIngredients.bun === null ? (
+      {bun === null ? (
         <p className="text text_type_main-large">Необходимо добавить булку</p>
       ) : (
         <div className="ml-8 mb-4">
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={`${burgerIngredients.bun?.name} (верх)`}
-            price={burgerIngredients.bun?.price}
-            thumbnail={burgerIngredients.bun?.image}
+            text={`${bun?.name} (верх)`}
+            price={bun?.price}
+            thumbnail={bun?.image}
           />
         </div>
       )}
-      {burgerIngredients.fillings.length === 0 ? (
+      {fillings.length === 0 ? (
         <p className="text text_type_main-large">
           Необходимо добавить ингредиенты
         </p>
       ) : (
         <ul className={styles.scroller}>
-          {burgerIngredients.fillings.map((filling, index) => {
+          {fillings.map((filling, index) => {
             return (
               <BurgerConstructorItem filling={filling} key={filling.id} index={index}/>
             );
           })}
         </ul>
       )}
-      {burgerIngredients.bun === null ? (
+      {bun === null ? (
         <p className="text text_type_main-large">Необходимо добавить булку</p>
       ) : (
         <div className="ml-8 mt-4">
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={`${burgerIngredients.bun?.name} (низ)`}
-            price={burgerIngredients.bun?.price}
-            thumbnail={burgerIngredients.bun?.image}
+            text={`${bun?.name} (низ)`}
+            price={bun?.price}
+            thumbnail={bun?.image}
           />
         </div>
       )}
@@ -77,20 +92,29 @@ const BurgerConstructor = () => {
           <CurrencyIcon type="primary" />
         </span>
         <div>
-          <Button
-            type="primary"
-            size="large"
-            onClick={() => setModalActive(true)}
-          >
-            Оформить заказ
-          </Button>
+        {(fillings.length === 0 || bun === null)
+					? (<Button
+						type="primary"
+						size="large"
+						onClick={() => { orderDetailsModal(fillingsId) }}
+						disabled
+					>
+						Оформить заказ
+					</Button>)
+					: (<Button
+						type="primary"
+						size="large"
+						onClick={() => { orderDetailsModal(fillingsId) }}
+					>
+						Оформить заказ
+					</Button>)}
         </div>
       </div>
-      {modalActive && (
-        <Modal active={modalActive} setActive={setModalActive}>
+      {!!orderNumber &&
+        <Modal onClickClose={handleCloseOrderDetailsModal}>
           <OrderDetails />
         </Modal>
-      )}
+      }
     </section>
   );
 };

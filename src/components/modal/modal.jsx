@@ -21,7 +21,7 @@ const Modal = ({ onClickClose, title, children }) => {
     return () => {
       window.removeEventListener("keydown", closePopupWithEsc);
     };
-  }, []);
+  }, [onClickClose]);
 
   return ReactDOM.createPortal(
     <div className={styles.container}>
