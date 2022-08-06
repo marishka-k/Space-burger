@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from "react";
+import { useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 
@@ -48,7 +48,7 @@ const BurgerConstructor = () => {
   return (
     <section className={`${styles.constructor} pt-25 pl-4`} ref={dropTarget}>
       {bun === null ? (
-        <p className="text text_type_main-large">Необходимо добавить булку</p>
+        <p className={`${styles.ingredient_absence} text text_type_main-medium mt-4 mb-4 p-4`}>Нужно добавить булки</p>
       ) : (
         <div className="ml-8 mb-4">
           <ConstructorElement
@@ -61,9 +61,7 @@ const BurgerConstructor = () => {
         </div>
       )}
       {fillings.length === 0 ? (
-        <p className="text text_type_main-large">
-          Необходимо добавить ингредиенты
-        </p>
+        <p className={`${styles.ingredient_absence} text text_type_main-medium  mt-4 mb-4 p-4`}>Нужно добавить ингредиенты</p>
       ) : (
         <ul className={styles.scroller}>
           {fillings.map((filling, index) => {
@@ -74,7 +72,7 @@ const BurgerConstructor = () => {
         </ul>
       )}
       {bun === null ? (
-        <p className="text text_type_main-large">Необходимо добавить булку</p>
+        <p className={`${styles.ingredient_absence} text text_type_main-medium mt-4 mb-4 p-4`}>Нужно добавить булки</p>
       ) : (
         <div className="ml-8 mt-4">
           <ConstructorElement

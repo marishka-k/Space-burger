@@ -3,6 +3,13 @@
     flex-direction: column;
 }
 
+.ingredient_absence {
+  border: 2px solid #4c4cff;
+  border-radius: 40px;
+  background-color: #2f2f37;
+}
+
+
 .scroller {
     display: grid;
     gap: 16px;

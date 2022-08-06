@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
@@ -10,7 +10,7 @@ import styles from "./modal.module.css";
 const Modal = ({ onClickClose, title, children }) => {
   const modalRoot = document.getElementById("modal-root");
 
-  React.useEffect(() => {
+  useEffect(() => {
     const closePopupWithEsc = (evt) => {
       if (evt.key === "Escape") {
         onClickClose();

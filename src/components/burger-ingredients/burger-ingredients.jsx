@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,7 +14,7 @@ const BurgerIngredients = () => {
   const dispatch = useDispatch();
   const ingredients = useSelector((store) => store.burgerIngredients.ingredients);
   const openIngredientDetailsModal = useSelector((store) => store.ingredientDetails.openModal);
-  const [current, setCurrent] = React.useState("bun");
+  const [current, setCurrent] = useState("bun");
 
   const bunList = useMemo(
     () => ingredients.filter((item) => item.type === "bun"),
