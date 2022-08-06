@@ -1,12 +1,12 @@
+import { useMemo, forwardRef } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import styles from "./burger-ingredients-block.module.css";
 import IngredientPropTypes from "../../utils/types";
-import { useMemo } from "react";
 
-const BurgerIngredientsBlock = ({ title, titleId, ingredients }) => {
+const BurgerIngredientsBlock = forwardRef(({ title, titleId, ingredients }, ref ) => {
   const burgerConstructor = useSelector((state) => state.burgerConstructor);
 
   const counterOfIngredient = useMemo(() => {
@@ -26,7 +26,7 @@ const BurgerIngredientsBlock = ({ title, titleId, ingredients }) => {
       <h2 className="text text_type_main-medium mb-6" id={titleId}>
         {title}
       </h2>
-      <ul className={`mt-6 ml-4 ${styles.items}`}>
+      <ul className={`mt-6 ml-4 ${styles.items}`} ref={ref}>
         {ingredients.map((ingredient) => {
           return (
             <BurgerIngredient
@@ -39,7 +39,8 @@ const BurgerIngredientsBlock = ({ title, titleId, ingredients }) => {
       </ul>
     </div>
   );
-};
+}
+)
 
 BurgerIngredientsBlock.propTypes = {
   title: PropTypes.string.isRequired,

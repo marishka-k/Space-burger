@@ -85,28 +85,26 @@ const BurgerIngredients = () => {
         </h1>
         <Tabs />
         <div className={`${styles.scroller}`}>
-          <div ref={bunRef}>
-            <BurgerIngredientsBlock
-              title={"Булки"}
-              titleId={"bun"}
-              ingredients={bunList}
-            />
-          </div>
-          <div ref={sauceRef}>
-            <BurgerIngredientsBlock
-              title={"Соусы"}
-              titleId={"sauce"}
-              ingredients={sauceList}
-            />
-          </div>
-          <div ref={mainRef}>
-            <BurgerIngredientsBlock
-              title={"Начинки"}
-              titleId={"main"}
-              ingredients={mainList}
-              ref={mainRef}
-            />
-          </div>
+          <BurgerIngredientsBlock
+            title={"Булки"}
+            titleId={"bun"}
+            ingredients={bunList}
+            ref={bunRef}
+          />
+
+          <BurgerIngredientsBlock
+            title={"Соусы"}
+            titleId={"sauce"}
+            ingredients={sauceList}
+            ref={sauceRef}
+          />
+
+          <BurgerIngredientsBlock
+            title={"Начинки"}
+            titleId={"main"}
+            ingredients={mainList}
+            ref={mainRef}
+          />
         </div>
       </section>
       {!!openIngredientDetailsModal && (
