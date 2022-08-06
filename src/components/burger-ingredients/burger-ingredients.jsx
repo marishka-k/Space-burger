@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { useInView } from "react-intersection-observer";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -8,42 +8,54 @@ import BurgerIngredientsBlock from "../burger-ingredients-block/burger-ingredien
 import Modal from "../modal/modal";
 import { closeIngredientModal } from "../../services/actions/ingredient-details";
 
-import IngredientPropTypes from "../../utils/types";
 import styles from "./burger-ingredients.module.css";
 
 const BurgerIngredients = () => {
-  const ingredients = useSelector(
-    (store) => store.burgerIngredients.ingredients
-  );
   const dispatch = useDispatch();
-  const openIngredientDetailsModal = useSelector(
-    (store) => store.ingredientDetails.openModal
+  const ingredients = useSelector((store) => store.burgerIngredients.ingredients);
+  const openIngredientDetailsModal = useSelector((store) => store.ingredientDetails.openModal);
+  const [current, setCurrent] = React.useState("bun");
+
+  const bunList = useMemo(
+    () => ingredients.filter((item) => item.type === "bun"),
+    [ingredients]
   );
 
-  const bunList = [];
-  const sauceList = [];
-  const mainList = [];
+  const sauceList = useMemo(
+    () => ingredients.filter((item) => item.type === "sauce"),
+    [ingredients]
+  );
+
+  const mainList = useMemo(
+    () => ingredients.filter((item) => item.type === "main"),
+    [ingredients]
+  );
+
+  const [bunRef, bunInView] = useInView({
+    threshold: 0,
+  });
+  const [sauceRef, sauceInView] = useInView({
+    threshold: 0,
+  });
+  const [mainRef, mainInView] = useInView({
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    if (bunInView) {
+      setCurrent("bun");
+    } else if (sauceInView) {
+      setCurrent("sauce");
+    } else if (mainInView) {
+      setCurrent("main");
+    }
+  }, [bunInView, sauceInView, mainInView]);
 
   const handleCloseIngredientDetailsModal = useCallback(() => {
     dispatch(closeIngredientModal());
   }, [dispatch]);
 
-  ingredients.map((ingredient) => {
-    if (ingredient.type === "bun") {
-      bunList.push(ingredient);
-      return bunList;
-    } else if (ingredient.type === "sauce") {
-      sauceList.push(ingredient);
-      return sauceList;
-    } else {
-      mainList.push(ingredient);
-      return mainList;
-    }
-  }, []);
-
   const Tabs = () => {
-    const [current, setCurrent] = React.useState("bun");
-
     const curentTarget = (id) => {
       setCurrent(id);
       const menuTarget = document.getElementById(id);
@@ -73,21 +85,28 @@ const BurgerIngredients = () => {
         </h1>
         <Tabs />
         <div className={`${styles.scroller}`}>
-          <BurgerIngredientsBlock
-            title={"Булки"}
-            titleId={"bun"}
-            ingredients={bunList}
-          />
-          <BurgerIngredientsBlock
-            title={"Соусы"}
-            titleId={"sauce"}
-            ingredients={sauceList}
-          />
-          <BurgerIngredientsBlock
-            title={"Начинки"}
-            titleId={"main"}
-            ingredients={mainList}
-          />
+          <div ref={bunRef}>
+            <BurgerIngredientsBlock
+              title={"Булки"}
+              titleId={"bun"}
+              ingredients={bunList}
+            />
+          </div>
+          <div ref={sauceRef}>
+            <BurgerIngredientsBlock
+              title={"Соусы"}
+              titleId={"sauce"}
+              ingredients={sauceList}
+            />
+          </div>
+          <div ref={mainRef}>
+            <BurgerIngredientsBlock
+              title={"Начинки"}
+              titleId={"main"}
+              ingredients={mainList}
+              ref={mainRef}
+            />
+          </div>
         </div>
       </section>
       {!!openIngredientDetailsModal && (

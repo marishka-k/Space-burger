@@ -1,11 +1,7 @@
-import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
 
-import {
-  CurrencyIcon,
-  Counter,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientPropTypes from "../../utils/types";
 import styles from "./burger-ingredient.module.css";
 import { openIngredientModal } from "../../services/actions/ingredient-details";
