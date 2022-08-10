@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types'
 
 import { ProfileIcon, ListIcon, BurgerIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
