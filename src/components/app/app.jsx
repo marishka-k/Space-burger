@@ -5,7 +5,7 @@ import { DndProvider } from "react-dnd";
 
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerIngredients from "../burger-ingredient/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { getBurgerIngredients } from "../../services/actions/ingredients";
 

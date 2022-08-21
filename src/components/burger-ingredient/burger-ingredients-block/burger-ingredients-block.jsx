@@ -2,9 +2,9 @@ import { useMemo, forwardRef } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-import BurgerIngredient from "../burger-ingredient/burger-ingredient";
+import BurgerIngredient from "../burger-ingredient";
 import styles from "./burger-ingredients-block.module.css";
-import IngredientPropTypes from "../../utils/types";
+import IngredientPropTypes from "../../../utils/types";
 
 const BurgerIngredientsBlock = forwardRef(({ title, titleId, ingredients }, ref ) => {
   const burgerConstructor = useSelector((state) => state.burgerConstructor);

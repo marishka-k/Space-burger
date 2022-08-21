@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
+import BurgerConstructorItem from "./burger-constructor-item/burger-constructor-item";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 
