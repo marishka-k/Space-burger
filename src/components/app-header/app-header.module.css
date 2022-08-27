@@ -34,7 +34,17 @@
     align-items: center;
     line-height: 24px;
     text-decoration: none;
-    color: #f2f2f3;
+    cursor: pointer;
+    transition: opacity .2s linear;    
+}
+
+.link:hover {
+	opacity: 0.5;
+}
+
+.link_active {
+  color: #f2f2f3;
+  cursor: default;
 }
 
 .profile {
