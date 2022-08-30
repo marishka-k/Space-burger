@@ -3,10 +3,10 @@ import { useInView } from "react-intersection-observer";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientDetails from "../../ingredient-details/ingredient-details";
-import BurgerIngredientsBlock from "../burger-ingredients-block/burger-ingredients-block";
-import Modal from "../../modal/modal";
-import { closeIngredientModal } from "../../../services/actions/ingredient-details";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import BurgerIngredientsBlock from "./burger-ingredients-block/burger-ingredients-block";
+import Modal from "../modal/modal";
+import { closeIngredientModal } from "../../services/actions/ingredient-details";
 
 import styles from "./burger-ingredients.module.css";
 

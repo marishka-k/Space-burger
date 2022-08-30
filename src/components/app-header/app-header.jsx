@@ -33,7 +33,7 @@ const isProfileActive = !!useRouteMatch('/profile');
 
   return (
     <header className={`mr-10 ml-10 mt-10 ${styles.header}`}>
-      <ul className={styles.list}>
+      <ul className={`${styles.list} pt-4 pb-4`}>
         <li className={styles.group}>
           <div className={styles.group_links}>
             <NavigationItem link="/" text="Конструктор">

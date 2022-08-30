@@ -6,9 +6,13 @@ import { Switch, Route, useLocation } from "react-router-dom";
 
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredient/burger-ingredients/burger-ingredients";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { getBurgerIngredients } from "../../services/actions/ingredients";
+import { Login } from "../../pages/login/login";
+import { Register } from "../../pages/register/register";
+import { ProtectedRoute } from "../protected-route/protected-route";
+import { Profile } from "../../pages/profile/profile";
 
 function App() {
   const location = useLocation();
@@ -32,8 +36,19 @@ function App() {
           </main>
         </Route>
         <Route path="/login" exact>
-          
+          <Login/>
         </Route>
+        <Route path='/register' exact>
+          <Register />
+        </Route>
+        <ProtectedRoute path='/profile'>
+            <Profile/>
+        </ProtectedRoute>
+
+        <ProtectedRoute path='/feed'>
+            <p>Feed </p>
+        </ProtectedRoute>
+
       </Switch>
     </div>
   );
