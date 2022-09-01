@@ -14,22 +14,20 @@ const config = {
 };
 
 export const orderDetailsRequest = async (productsId) => {
-  const res = await fetch(`${config.url}/orders`, {
+  return await fetch(`${config.url}/orders`, {
     method: "POST",
     headers: config.headers_one,
     body: JSON.stringify({
       ingredients: productsId,
     }),
-  });
-  return checkResponse(res);
+  }).then(checkResponse);
 };
 
 export const getIngredientsData = async () => {
-  const res = await fetch(`${config.url}/ingredients`, {
+  return await fetch(`${config.url}/ingredients`, {
     method: "GET",
     headers: config.headers_two,
-  });
-  return checkResponse(res);
+  }).then(checkResponse);
 };
 
 export const getUserRequest = async () => {
@@ -63,25 +61,23 @@ export const resgisterUserRequest = async (email, password, userName) => {
 };
 
 export const logoutRequest = async () => {
-	return await fetch(`${config.url}/auth/logout`, {
-		method: 'POST',
-		headers: config.headers_one,
-		body: JSON.stringify({
-			token: localStorage.getItem('refreshToken'),
-		}),
-	})
-		.then(checkResponse);
-}
+  return await fetch(`${config.url}/auth/logout`, {
+    method: "POST",
+    headers: config.headers_one,
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
+    }),
+  }).then(checkResponse);
+};
 
 export const changeUserInfoRequest = async (name, email, password) => {
-	return await fetch(`${config.url}/auth/user`, {
-		method: 'PATCH',
-		headers: config.headers_two,
-		body: JSON.stringify({
-			name: name,
+  return await fetch(`${config.url}/auth/user`, {
+    method: "PATCH",
+    headers: config.headers_two,
+    body: JSON.stringify({
+      name: name,
       email: email,
-			password: password,
-		}),
-	})
-		.then(checkResponse);
-}
+      password: password,
+    }),
+  }).then(checkResponse);
+};
