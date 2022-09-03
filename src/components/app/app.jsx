@@ -13,6 +13,7 @@ import { Login } from "../../pages/login/login";
 import { Register } from "../../pages/register/register";
 import { ProtectedRoute } from "../protected-route/protected-route";
 import { Profile } from "../../pages/profile/profile";
+import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
 
 function App() {
   const location = useLocation();
@@ -26,7 +27,7 @@ function App() {
   return (
     <div>
       <AppHeader />
-      <Switch location={background ||  location}>
+      <Switch location={background || location}>
         <Route path="/" exact>
           <main className={styles.main}>
             <DndProvider backend={HTML5Backend}>
@@ -36,19 +37,21 @@ function App() {
           </main>
         </Route>
         <Route path="/login" exact>
-          <Login/>
+          <Login />
         </Route>
-        <Route path='/register' exact>
+        <Route path="/register" exact>
           <Register />
         </Route>
-        <ProtectedRoute path='/profile'>
-            <Profile/>
+        <Route path="/forgot-password" exact>
+          <ForgotPassword />
+        </Route>
+        <ProtectedRoute path="/profile">
+          <Profile />
         </ProtectedRoute>
 
-        <ProtectedRoute path='/feed'>
-            <p>Feed </p>
+        <ProtectedRoute path="/feed">
+          <p>Feed </p>
         </ProtectedRoute>
-
       </Switch>
     </div>
   );

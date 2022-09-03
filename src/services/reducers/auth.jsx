@@ -13,6 +13,9 @@ import {
   CHANGE_USER_REQUEST,
   CHANGE_USER_SUCCESS,
   CHANGE_USER_FAILED,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAILED,
 } from "../actions/auth";
 
 const initialState = {
@@ -39,6 +42,10 @@ const initialState = {
 
   chgangeUserRequest: false,
   chgangeUserFailed: false,
+
+  forgotPasswordRequest: false,
+  forgotPasswordFailed: false,
+  forgotPasswordSuccess: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -180,6 +187,36 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         chgangeUserFailed: true,
         chgangeUserRequest: false,
+      };
+    }
+
+    case FORGOT_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        forgotPasswordFailed: false,
+        forgotPasswordRequest: true,
+      };
+    }
+
+    case FORGOT_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        form: {
+          ...state.data,
+          email: "",
+        },
+        message: action.message,
+        forgotPasswordRequest: false,
+        forgotPasswordFailed: false,
+        forgotPasswordSuccess: true,
+      };
+    }
+
+    case FORGOT_PASSWORD_FAILED: {
+      return {
+        ...state,
+        forgotPasswordFailed: true,
+        forgotPasswordRequest: false,
       };
     }
 
