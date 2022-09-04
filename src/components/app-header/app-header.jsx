@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { NavLink, useRouteMatch } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { ProfileIcon, ListIcon, BurgerIcon, Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -29,7 +30,9 @@ const AppHeader = () => {
 const isConstructorActive = !!useRouteMatch({path: "/", exact: true})
 const isListActive = !!useRouteMatch('/feed');
 const isProfileActive = !!useRouteMatch('/profile');
-  
+const { name } = useSelector(state => state.auth.user);
+let profileName = name ? name : "Личный кабинет";
+
 
   return (
     <header className={`mr-10 ml-10 mt-10 ${styles.header}`}>
@@ -48,7 +51,7 @@ const isProfileActive = !!useRouteMatch('/profile');
           <Logo />
         </li>
         <li className={styles.profile}>
-          <NavigationItem link="/profile" text="Личный кабинет">
+          <NavigationItem link="/profile" text={profileName}>
             <ProfileIcon type={isProfileActive ? "primary" : "secondary" }/>
           </NavigationItem>
         </li>

@@ -9,7 +9,6 @@ import { getCookie } from "../../utils/cookie";
 
 import styles from "./forgot-password.module.css";
 
-
 export const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
@@ -28,11 +27,12 @@ export const ForgotPassword = () => {
     e.preventDefault();
     dispatch(forgotPassword({ email }));
   };
+
   if (forgotPasswordSuccess) {
     return (
       <Redirect
         to={{
-          pathname: '/reset-password'
+          pathname: "/reset-password",
         }}
       />
     );
@@ -44,12 +44,7 @@ export const ForgotPassword = () => {
 
   return (
     <div className={styles.fogot_content}>
-      <Form
-        formName="Восстановление пароля"
-        buttonText="Восстановить"
-        onSubmit={onFormSubmit}
-        disabled={isDisabled}
-      >
+      <Form formName="Восстановление пароля" buttonText="Восстановить" onSubmit={onFormSubmit} disabled={isDisabled}>
         <Input
           type={"email"}
           placeholder={"Укажите e-mail"}

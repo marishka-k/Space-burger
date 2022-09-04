@@ -83,28 +83,32 @@ export const changeUserInfoRequest = async (name, email, password) => {
 };
 
 export const updateTokenRequest = async () => {
-	return await fetch(`${config.url}/auth/token`, {
-		method: 'POST',
-		headers: config.headers_one,
-		body: JSON.stringify({
-			token: localStorage.getItem('refreshToken'),
-		}),
-	})
-		.then(checkResponse);
-}
-
-export const forgotPasswordRequest = async email => {
-	return await fetch(`${config.url}/password-reset`, {
-		method: 'POST',
+  return await fetch(`${config.url}/auth/token`, {
+    method: "POST",
     headers: config.headers_one,
-		body: JSON.stringify(
-			email
-		),
-		mode: 'cors',
-		cache: 'no-cache',
-		credentials: 'same-origin',
-		redirect: 'follow',
-		referrerPolicy: 'no-referrer',
-	})
-		.then(checkResponse);
-}
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
+    }),
+  }).then(checkResponse);
+};
+
+export const forgotPasswordRequest = async (email) => {
+  return await fetch(`${config.url}/password-reset`, {
+    method: "POST",
+    headers: config.headers_one,
+    body: JSON.stringify(email),
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+  }).then(checkResponse);
+};
+
+export const resetPasswordRequest = async (password, token) => {
+  return await fetch(`${config.url}/password-reset/reset`, {
+    method: "POST",
+    headers: config.headers_one,
+    body: JSON.stringify(password, token),
+  }).then(checkResponse);
+};

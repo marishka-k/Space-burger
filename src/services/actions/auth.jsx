@@ -6,6 +6,8 @@ import {
   logoutRequest,
   resgisterUserRequest,
   updateTokenRequest,
+  resetPasswordRequest,
+  getUserRequest
 } from "../../components/api/api";
 
 export const LOGIN_FORM_REQUEST = "LOGIN_FORM_REQUEST";
@@ -30,15 +32,23 @@ export const UPDATE_TOKEN_REQUEST = "UPDATE_TOKEN_REQUEST";
 export const UPDATE_TOKEN_SUCCESS = "UPDATE_TOKEN_SUCCESS";
 export const UPDATE_TOKEN_FAILED = "UPDATE_TOKEN_FAILED";
 
-export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
-export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
-export const FORGOT_PASSWORD_FAILED = 'FORGOT_PASSWORD_FAILED';
+export const FORGOT_PASSWORD_REQUEST = "FORGOT_PASSWORD_REQUEST";
+export const FORGOT_PASSWORD_SUCCESS = "FORGOT_PASSWORD_SUCCESS";
+export const FORGOT_PASSWORD_FAILED = "FORGOT_PASSWORD_FAILED";
 
+export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
+export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
+export const RESET_PASSWORD_FAILED = "RESET_PASSWORD_FAILED";
+export const RESET_FORM_SET_VALUE = "RESET_FORM_SET_VALUE";
+
+export const GET_USER_REQUEST = 'GET_USER_REQUEST';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_FAILED = 'GET_USER_FAILED';
 
 export const setLoginFormValue = (field, value) => ({
-	type: LOGIN_FORM_SET_VALUE,
-	field,
-	value,
+  type: LOGIN_FORM_SET_VALUE,
+  field,
+  value,
 });
 
 export function singIn(email, password) {
@@ -183,20 +193,65 @@ export function changeUser(email, name, password) {
 }
 
 export function forgotPassword(email) {
+  return function (dispatch) {
+    dispatch({
+      type: FORGOT_PASSWORD_REQUEST,
+    });
+    forgotPasswordRequest(email)
+      .then((res) => {
+        dispatch({
+          type: FORGOT_PASSWORD_SUCCESS,
+          message: res.message,
+        });
+      })
+      .catch(() => {
+        dispatch({
+          type: FORGOT_PASSWORD_FAILED,
+        });
+      });
+  };
+}
+
+export const setResetFormValue = (field, value) => ({
+  type: RESET_FORM_SET_VALUE,
+  field,
+  value,
+});
+
+export function resetPassword(password, token) {
+  return function (dispatch) {
+    dispatch({
+      type: RESET_PASSWORD_REQUEST,
+    });
+    resetPasswordRequest(password, token)
+      .then(() => {
+        dispatch({
+          type: RESET_PASSWORD_SUCCESS,
+        });
+      })
+      .catch(() => {
+        dispatch({
+          type: RESET_PASSWORD_FAILED,
+        });
+      });
+  };
+}
+
+export function getUser() {
 	return function (dispatch) {
 		dispatch({
-			type: FORGOT_PASSWORD_REQUEST,
+			type: GET_USER_REQUEST,
 		});
-		forgotPasswordRequest(email)
+		getUserRequest()
 			.then((res) => {
 				dispatch({
-					type: FORGOT_PASSWORD_SUCCESS,
-					message: res.message,
+					type: GET_USER_SUCCESS,
+					user: res.user,
 				});
 			})
 			.catch(() => {
 				dispatch({
-					type: FORGOT_PASSWORD_FAILED,
+					type: GET_USER_FAILED,
 				});
 			})
 	};

@@ -16,6 +16,13 @@ import {
   FORGOT_PASSWORD_REQUEST,
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_FAILED,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILED,
+  RESET_FORM_SET_VALUE,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAILED,
 } from "../actions/auth";
 
 const initialState = {
@@ -46,6 +53,13 @@ const initialState = {
   forgotPasswordRequest: false,
   forgotPasswordFailed: false,
   forgotPasswordSuccess: false,
+
+  resetPasswordRequest: false,
+  resetPasswordFailed: false,
+  resetPasswordSuccess: false,
+
+  getUserRequest: false,
+	getUserFailed: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -129,6 +143,7 @@ export const authReducer = (state = initialState, action) => {
         },
       };
     }
+
     case REGISTER_FORM_REQUEST: {
       return {
         ...state,
@@ -136,6 +151,7 @@ export const authReducer = (state = initialState, action) => {
         loginRequest: true,
       };
     }
+
     case REGISTER_FORM_FAILED: {
       return {
         ...state,
@@ -143,6 +159,7 @@ export const authReducer = (state = initialState, action) => {
         loginRequest: false,
       };
     }
+
     case REGISTER_FORM_SUCCESS: {
       return {
         ...state,
@@ -201,7 +218,7 @@ export const authReducer = (state = initialState, action) => {
     case FORGOT_PASSWORD_SUCCESS: {
       return {
         ...state,
-        form: {
+        data: {
           ...state.data,
           email: "",
         },
@@ -217,6 +234,66 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         forgotPasswordFailed: true,
         forgotPasswordRequest: false,
+      };
+    }
+
+    case RESET_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        resetPasswordFailed: false,
+        resetPasswordRequest: true,
+      };
+    }
+
+    case RESET_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        resetPasswordRequest: false,
+        resetPasswordFailed: false,
+        resetPasswordSuccess: true,
+      };
+    }
+
+    case RESET_PASSWORD_FAILED: {
+      return {
+        ...state,
+        resetPasswordFailed: true,
+        resetPasswordRequest: false,
+      };
+    }
+
+    case RESET_FORM_SET_VALUE: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [action.field]: action.value,
+        },
+      };
+    }
+
+    case GET_USER_REQUEST: {
+      return {
+        ...state,
+        getUserFailed: false,
+        getUserRequest: true,
+      };
+    }
+
+    case GET_USER_SUCCESS: {
+      return {
+        ...state,
+        user: action.user,
+        getUserRequest: false,
+        getUserFailed: false,
+      };
+    }
+
+    case GET_USER_FAILED: {
+      return {
+        ...state,
+        getUserFailed: true,
+        getUserRequest: false,
       };
     }
 

@@ -14,6 +14,7 @@ import { Register } from "../../pages/register/register";
 import { ProtectedRoute } from "../protected-route/protected-route";
 import { Profile } from "../../pages/profile/profile";
 import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
+import { ResetPassword } from "../../pages/reset-password/reset-password";
 
 function App() {
   const location = useLocation();
@@ -45,6 +46,10 @@ function App() {
         <Route path="/forgot-password" exact>
           <ForgotPassword />
         </Route>
+        <Route path="/reset-password" exact>
+          <ResetPassword />
+        </Route>
+        
         <ProtectedRoute path="/profile">
           <Profile />
         </ProtectedRoute>

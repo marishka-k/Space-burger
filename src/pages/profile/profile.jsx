@@ -12,6 +12,8 @@ export const Profile = () => {
   const dispatch = useDispatch();
   const { email, name } = useSelector((state) => state.auth.user);
 
+  console.log(email);
+
   const [data, setData] = useState({
     email: email,
     name: name,

@@ -2,7 +2,7 @@ import style from "./form.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 
-export function Form({ formName, buttonText, onSubmit, children, disabled }) {
+export const Form = ({ formName, buttonText, onSubmit, children, disabled }) => {
   return (
     <form className={`${style.form} pb-20`} onSubmit={onSubmit}>
       <h2 className={`text text_type_main-medium ${style.text}`}>{formName}</h2>
