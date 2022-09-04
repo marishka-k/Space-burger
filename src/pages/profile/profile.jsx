@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, Route, Switch } from "react-router-dom";
 
-import { Button,Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { singOut, changeUser } from "../../services/actions/auth";
 import { Orders } from "./orders/orders";
 
@@ -11,8 +11,6 @@ import styles from "./profile.module.css";
 export const Profile = () => {
   const dispatch = useDispatch();
   const { email, name } = useSelector((state) => state.auth.user);
-
-  console.log(email);
 
   const [data, setData] = useState({
     email: email,
@@ -43,10 +41,10 @@ export const Profile = () => {
   };
 
   return (
-    <div>
-      <nav>
-        <ul>
-          <li>
+    <div className={styles.form_container}>
+      <nav className={styles.navigation}>
+        <ul className={styles.list}>
+          <li className={styles.list_element}>
             <NavLink
               to="/profile"
               exact
@@ -56,21 +54,21 @@ export const Profile = () => {
               Профиль
             </NavLink>
           </li>
-          <li>
+          <li className={styles.list_element}>
             <NavLink
               to="/profile/orders"
               exact
-              className={`text text_type_main-medium text_color_inactive`}
+              className={`${styles.link} text text_type_main-medium text_color_inactive`}
               activeClassName={`${styles.link_active} text text_type_main-medium`}
             >
               История заказов
             </NavLink>
           </li>
-          <li>
+          <li className={styles.list_element}>
             <NavLink
               to="/login"
               exact
-              className={`text text_type_main-medium text_color_inactive`}
+              className={`${styles.link} text text_type_main-medium text_color_inactive`}
               activeClassName={`${styles.link_active} text text_type_main-medium`}
               onClick={handleSingOut}
             >
@@ -78,7 +76,7 @@ export const Profile = () => {
             </NavLink>
           </li>
         </ul>
-        <p className={"text text_type_main-default text_color_inactive"}>
+        <p className={"text text_type_main-small text_color_inactive mt-20"}>
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </nav>
@@ -87,8 +85,8 @@ export const Profile = () => {
           <Orders />
         </Route>
         <Route exact path="/profile">
-          <form onSubmit={onSubmit}>
-            <div className="pb-6">
+          <form className={styles.form} onSubmit={onSubmit}>
+            <div className={`pb-6 ${styles.input}`}>
               <Input
                 type={"text"}
                 placeholder={"Имя"}
@@ -101,7 +99,7 @@ export const Profile = () => {
                 size={"default"}
               />
             </div>
-            <div className="pb-6">
+            <div className={`pb-6 ${styles.input}`}>
               <Input
                 type={"email"}
                 placeholder={"Логин"}
@@ -114,7 +112,7 @@ export const Profile = () => {
                 size={"default"}
               />
             </div>
-            <div className="pb-6">
+            <div className={`pb-6 ${styles.input}`}>
               <Input
                 type={"password"}
                 placeholder={"Пароль"}
@@ -127,12 +125,14 @@ export const Profile = () => {
                 size={"default"}
               />
             </div>
-            <Button type="secondary" size="medium" onClick={onResetForm}>
-              Oтмена
-            </Button>
-            <Button type="primary" size="medium">
-              Сохранить
-            </Button>
+            <div>
+              <Button type="secondary" size="medium" onClick={onResetForm}>
+                Oтмена
+              </Button>
+              <Button type="primary" size="medium">
+                Сохранить
+              </Button>
+            </div>
           </form>
         </Route>
       </Switch>
