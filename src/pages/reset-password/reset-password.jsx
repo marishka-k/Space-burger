@@ -40,7 +40,7 @@ export const ResetPassword = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.reset_content}>
       <Form formName="Восстановление пароля" buttonText="Сохранить" onSubmit={onFormSubmit} disabled={isDisabled} >
         <PasswordInput
           placeholder={"Введите новый пароль"}

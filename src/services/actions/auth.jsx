@@ -7,7 +7,7 @@ import {
   resgisterUserRequest,
   updateTokenRequest,
   resetPasswordRequest,
-  getUserRequest
+  getUserRequest,
 } from "../../components/api/api";
 
 export const LOGIN_FORM_REQUEST = "LOGIN_FORM_REQUEST";
@@ -41,9 +41,9 @@ export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
 export const RESET_PASSWORD_FAILED = "RESET_PASSWORD_FAILED";
 export const RESET_FORM_SET_VALUE = "RESET_FORM_SET_VALUE";
 
-export const GET_USER_REQUEST = 'GET_USER_REQUEST';
-export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
-export const GET_USER_FAILED = 'GET_USER_FAILED';
+export const GET_USER_REQUEST = "GET_USER_REQUEST";
+export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+export const GET_USER_FAILED = "GET_USER_FAILED";
 
 export const setLoginFormValue = (field, value) => ({
   type: LOGIN_FORM_SET_VALUE,
@@ -89,21 +89,13 @@ export function updateToken() {
     dispatch({ type: UPDATE_TOKEN_REQUEST });
     updateTokenRequest()
       .then((res) => {
-        if (res && res.success) {
-          dispatch({
-            type: UPDATE_TOKEN_SUCCESS,
-          });
-          const authToken = res.accessToken.split("Bearer ")[1];
-          const refreshToken = res.refreshToken;
-          setCookie("token", authToken);
-          localStorage.setItem("refreshToken", refreshToken);
-          return res;
-        } else {
-          dispatch({
-            type: UPDATE_TOKEN_FAILED,
-          });
-          return res;
-        }
+        const authToken = res.accessToken.split("Bearer ")[1];
+        const refreshToken = res.refreshToken;
+        setCookie("token", authToken);
+        localStorage.setItem("refreshToken", refreshToken);
+        dispatch({
+          type: UPDATE_TOKEN_SUCCESS,
+        });
       })
       .catch(() => {
         dispatch({
@@ -238,21 +230,24 @@ export function resetPassword(password, token) {
 }
 
 export function getUser() {
-	return function (dispatch) {
-		dispatch({
-			type: GET_USER_REQUEST,
-		});
-		getUserRequest()
-			.then((res) => {
-				dispatch({
-					type: GET_USER_SUCCESS,
-					user: res.user,
-				});
-			})
-			.catch(() => {
-				dispatch({
-					type: GET_USER_FAILED,
-				});
-			})
-	};
+  return function (dispatch) {
+    dispatch({
+      type: GET_USER_REQUEST,
+    });
+    getUserRequest()
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: GET_USER_SUCCESS,
+            user: res.user,
+          });
+          return res
+        }
+      })
+      .catch(() => {
+        dispatch({
+          type: GET_USER_FAILED,
+        });
+      });
+  };
 }

@@ -59,7 +59,7 @@ const initialState = {
   resetPasswordSuccess: false,
 
   getUserRequest: false,
-	getUserFailed: false,
+  getUserFailed: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -248,6 +248,10 @@ export const authReducer = (state = initialState, action) => {
     case RESET_PASSWORD_SUCCESS: {
       return {
         ...state,
+        data: {
+          ...state.data,
+          password: "",
+        },
         resetPasswordRequest: false,
         resetPasswordFailed: false,
         resetPasswordSuccess: true,
