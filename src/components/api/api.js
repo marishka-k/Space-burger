@@ -9,7 +9,7 @@ const config = {
   },
   headers_two: {
     "Content-type": "application/json",
-    authorization: "Bearer " + getCookie("token"),
+    Authorization: "Bearer " + getCookie("token"),
   },
 };
 
@@ -26,14 +26,14 @@ export const orderDetailsRequest = async (productsId) => {
 export const getIngredientsData = async () => {
   return await fetch(`${config.url}/ingredients`, {
     method: "GET",
-    headers: config.headers_two,
+    headers: config.headers_one,
   }).then(checkResponse);
 };
 
 export const getUserRequest = async () => {
   return await fetch(`${config.url}/auth/user`, {
     method: "GET",
-    headers: config.headers_one,
+    headers: config.headers_two,
   }).then(checkResponse);
 };
 
