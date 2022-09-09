@@ -1,8 +1,9 @@
 import { Input, PasswordInput,} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { Link, Redirect, useLocation } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 import { Form } from "../../components/form/form";
+import { FormLink } from "../../components/form/form-link/form-link";
 import { registerUser, setRegisterFormValue } from "../../services/actions/auth";
 import { getCookie } from "../../utils/cookie";
 import styles from "./register.module.css";
@@ -33,12 +34,7 @@ export const Register = () => {
         <Input type={"text"} placeholder={"E-mail"} value={email} name="email" onChange={onChange}/>
         <PasswordInput value={password} name={"password"} onChange={onChange} />
       </Form>
-      <p className={`text text_type_main-default text_color_inactive ${styles.navigation} pb-4 `}>
-        Уже зарегистрированы?
-        <Link className={`pl-2 ${styles.link}`} to="/login">
-            Войти  
-        </Link>
-      </p>  
+      <FormLink formName="Уже зарегистрированы?" linkName = "Войти" link = "/login" />      
     </div>
   );
 };

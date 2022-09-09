@@ -1,26 +1,29 @@
-import PropTypes from 'prop-types';
 import IngredientProperty from "../ingredient-property/ingredient-property";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import styles from "./ingredient-details.module.css"
+import styles from "./ingredient-details.module.css";
 
-const IngredientDetails = ({showIngredient}) => {
-   
+export const IngredientDetails = () => {
+  const { id } = useParams();
+  const ingredients = useSelector((store) => store.burgerIngredients.ingredients);
+  const ingredient = ingredients.find((ingredient) => ingredient._id === id);
+
   return (
-    <div className={styles.content}>
-      <img src={showIngredient.image} alt={showIngredient.name} className={`mb-4 ${styles.image}`} />
-      <p className="text text_type_main-medium mb-8">{showIngredient.name}</p>
-      <ul className={`${styles.properties} mb-15 `}>
-        <IngredientProperty name = {"Калории,ккал"} value={showIngredient.calories}/>
-        <IngredientProperty name = {"Белки, г"} value={showIngredient.proteins}/>
-        <IngredientProperty name = {"Жиры, г"} value={showIngredient.fat}/>
-        <IngredientProperty name = {"Углеводы, г"} value={showIngredient.carbohydrates}/>
-      </ul>
-    </div>
+    <>
+      {ingredient && (
+        <div className={styles.content}>
+          <img src={ingredient.image} alt={ingredient.name} className={`mb-4 ${styles.image}`} />
+          <p className="text text_type_main-medium mb-8">{ingredient.name}</p>
+          <ul className={`${styles.properties} mb-15 `}>
+            <IngredientProperty name={"Калории,ккал"} value={ingredient.calories} />
+            <IngredientProperty name={"Белки, г"} value={ingredient.proteins} />
+            <IngredientProperty name={"Жиры, г"} value={ingredient.fat} />
+            <IngredientProperty name={"Углеводы, г"} value={ingredient.carbohydrates} />
+          </ul>
+        </div>
+      )}
+    </>
   );
 };
 
-IngredientDetails.propTypes = {
-    showIngredient: PropTypes.object.isRequired,
-  };
-
-export default IngredientDetails;

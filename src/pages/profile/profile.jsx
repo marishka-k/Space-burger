@@ -81,10 +81,10 @@ export const Profile = () => {
         </p>
       </nav>
       <Switch>
-        <Route exact path="/profile/orders">
+        <Route path="/profile/orders" exact>
           <Orders />
         </Route>
-        <Route exact path="/profile">
+        <Route path="/profile" exact >
           <form className={styles.form} onSubmit={onSubmit}>
             <div className={`pb-6 ${styles.input}`}>
               <Input

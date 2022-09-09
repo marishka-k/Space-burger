@@ -5,9 +5,10 @@ import {Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-comp
 import { resetPassword, setResetFormValue } from "../../services/actions/auth";
 import { getCookie } from "../../utils/cookie";
 import { Form } from "../../components/form/form";
+import { FormLink } from "../../components/form/form-link/form-link";
 
 import styles from "./reset-password.module.css";
-import { FormLink } from "../../components/form/form-link/form-link";
+
 
 export const ResetPassword = () => {
   const dispatch = useDispatch();

@@ -42,6 +42,7 @@
     width: 480px;
     display: grid;
     gap: 24px;
+    text-align: end;
 }
 
 .input {

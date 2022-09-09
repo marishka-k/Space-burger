@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect, useLocation } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { forgotPassword } from "../../services/actions/auth";
 import { Form } from "../../components/form/form";
+import { FormLink } from "../../components/form/form-link/form-link";
 import { getCookie } from "../../utils/cookie";
 
 import styles from "./forgot-password.module.css";
+
 
 export const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -55,10 +57,7 @@ export const ForgotPassword = () => {
           errorText={"Ошибка"}
         />
       </Form>
-      <p className={`text text_type_main-default text_color_inactive ${styles.navigation}`}>
-        Вспомнили пароль?
-        <Link className={`pl-2 ${styles.link}`} to="/login"> Войти </Link>
-      </p>
+      <FormLink formName="Вспомнили пароль?" linkName = "Войти" link = "/login" />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { deleteCookie, setCookie } from "../../utils/cookie";
+import { deleteCookie, getCookie, setCookie } from "../../utils/cookie";
 import {
   changeUserInfoRequest,
   forgotPasswordRequest,
@@ -45,6 +45,8 @@ export const GET_USER_REQUEST = "GET_USER_REQUEST";
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
 export const GET_USER_FAILED = "GET_USER_FAILED";
 
+export const AUTH_CHECKED = "AUTH_CHECKED";
+
 export const setLoginFormValue = (field, value) => ({
   type: LOGIN_FORM_SET_VALUE,
   field,
@@ -75,11 +77,12 @@ export function singIn(email, password) {
           return res;
         }
       })
-
-      .catch(() => {
+      .catch((err) => {
+        console.error(err.message);
         dispatch({
           type: LOGIN_FORM_FAILED,
         });
+        return err;
       });
   };
 }
@@ -89,13 +92,21 @@ export function updateToken() {
     dispatch({ type: UPDATE_TOKEN_REQUEST });
     updateTokenRequest()
       .then((res) => {
-        const authToken = res.accessToken.split("Bearer ")[1];
-        const refreshToken = res.refreshToken;
-        setCookie("token", authToken);
-        localStorage.setItem("refreshToken", refreshToken);
-        dispatch({
-          type: UPDATE_TOKEN_SUCCESS,
-        });
+        if (res && res.success) {
+          dispatch({
+            type: UPDATE_TOKEN_SUCCESS,
+          });
+          const authToken = res.accessToken.split("Bearer ")[1];
+          const refreshToken = res.refreshToken;
+          setCookie("token", authToken);
+          localStorage.setItem("refreshToken", refreshToken);
+          return res;
+        } else {
+          dispatch({
+            type: UPDATE_TOKEN_FAILED,
+          });
+          return res;
+        }
       })
       .catch(() => {
         dispatch({
@@ -112,15 +123,17 @@ export function singOut() {
     });
     logoutRequest()
       .then((res) => {
-        const refreshToken = res.refreshToken;
-        deleteCookie("token");
-        localStorage.removeItem("refreshToken", refreshToken);
         if (res && res.success) {
           dispatch({
             type: LOGOUT_FORM_SUCCESS,
           });
+          const refreshToken = res.refreshToken;
+          deleteCookie("token");
+          localStorage.removeItem("refreshToken", refreshToken);
+          return res;
         } else {
           dispatch({ type: LOGOUT_FORM_FAILED });
+          return res;
         }
       })
       .catch(() => {
@@ -241,7 +254,7 @@ export function getUser() {
             type: GET_USER_SUCCESS,
             user: res.user,
           });
-          return res
+          return res;
         }
       })
       .catch(() => {
@@ -251,3 +264,18 @@ export function getUser() {
       });
   };
 }
+
+export const checkUzerAuth = () => {
+  return function (dispatch) {
+    if (getCookie("accessToken")) {
+      dispatch(getUser());
+      dispatch({
+        type: AUTH_CHECKED,
+      });
+    } else {
+      dispatch({
+        type: AUTH_CHECKED,
+      });
+    }
+  };
+};
