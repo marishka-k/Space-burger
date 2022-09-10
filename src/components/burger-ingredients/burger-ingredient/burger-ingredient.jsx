@@ -25,7 +25,7 @@ export const BurgerIngredient = ({ ingredient, count }) => {
 
   return (
     <Link
-      to={{pathname: `/ingredients/${ingredient._id}`, state: { background: location }, }}
+      to={{pathname: `/ingredients/${ingredient._id}`, state: { background: location } }}
       onClick={() => handleOpenIngredientDetailsModal(ingredient)}
       className={`${styles.link}`}
     >

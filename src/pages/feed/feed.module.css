@@ -1,0 +1,22 @@
+.container {
+	display: flex;
+    flex-direction: column;
+    margin: 180px auto 0;    
+    max-width: 800px;
+	border: 2px solid #4c4cff;
+    border-radius: 40px;
+    background-color: #1C1C21;
+	text-align: center;	
+}
+
+.link {
+    text-decoration: none;
+    color: #4C4CFF;
+    display: flex;
+	justify-content: center;
+    transition: opacity .2s linear;
+}
+
+.link:hover {
+    opacity: 0.5;
+}

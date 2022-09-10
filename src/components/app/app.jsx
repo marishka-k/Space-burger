@@ -15,22 +15,25 @@ import { ProtectedRoute } from "../protected-route/protected-route";
 import { Profile } from "../../pages/profile/profile";
 import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
 import { ResetPassword } from "../../pages/reset-password/reset-password";
-import { checkUzerAuth } from "../../services/actions/auth";
+import { checkUzerAuth, updateToken } from "../../services/actions/auth";
 import { NotFound404 } from "../../pages/not-found-404/not-found-404";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { closeIngredientModal } from "../../services/actions/ingredient-details";
 import Modal from "../modal/modal";
+import { getCookie } from "../../utils/cookie";
+import { Feed } from "../../pages/feed/feed";
 
 function App() {
   const location = useLocation();
   const background = location.state?.background;
   const dispatch = useDispatch();
   const history = useHistory();
-  
+  const cookie = getCookie('token');
+  const token = localStorage.getItem('refreshToken');
 
   const handleCloseIngredientDetailsModal = useCallback(() => {
     dispatch(closeIngredientModal());
-    history.replace('/');
+    history.replace("/");
   }, [dispatch]);
 
   useEffect(() => {
@@ -38,8 +41,15 @@ function App() {
     dispatch(checkUzerAuth());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (!cookie && token) {
+      dispatch(updateToken());
+    }
+  }, [dispatch, token, cookie]);
+
+
   return (
-    <div>
+    <>
       <AppHeader />
       <Switch location={background || location}>
         <Route path="/" exact>
@@ -68,9 +78,9 @@ function App() {
         </ProtectedRoute>
 
         <ProtectedRoute path="/feed" exact>
-          <p>Feed </p>
+          <Feed />
         </ProtectedRoute>
-        <Route path="/ingredients/:id" exact={true}>
+        <Route path="/ingredients/:id">
           <IngredientDetails />
         </Route>
         <Route>
@@ -78,17 +88,15 @@ function App() {
         </Route>
       </Switch>
       {background && (
-          <Route path='/ingredients/:id' exact={true}>
-            <Modal
-              title='Детали ингредиента'
-              onClickClose={handleCloseIngredientDetailsModal}>
+          <Route path='/ingredients/:id'>
+            <Modal title='Детали ингредиента' onClickClose={handleCloseIngredientDetailsModal}>
               <IngredientDetails />
             </Modal>
           </Route>
         )
         }
       
-    </div>
+    </>
   );
 }
 

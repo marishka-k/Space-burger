@@ -3,34 +3,44 @@ import {
   LOGIN_FORM_SUCCESS,
   LOGIN_FORM_FAILED,
   LOGIN_FORM_SET_VALUE,
+
   LOGOUT_FORM_REQUEST,
   LOGOUT_FORM_SUCCESS,
   LOGOUT_FORM_FAILED,
+
   REGISTER_FORM_REQUEST,
   REGISTER_FORM_SUCCESS,
   REGISTER_FORM_FAILED,
   REGISTER_FORM_SET_VALUE,
+
   CHANGE_USER_REQUEST,
   CHANGE_USER_SUCCESS,
   CHANGE_USER_FAILED,
+
   FORGOT_PASSWORD_REQUEST,
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_FAILED,
+
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILED,
   RESET_FORM_SET_VALUE,
+
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
   GET_USER_FAILED,
+  
+  UPDATE_TOKEN_REQUEST,
+  UPDATE_TOKEN_FAILED,
+  UPDATE_TOKEN_SUCCESS,
 } from "../actions/auth";
 
 const initialState = {
   message: "",
 
   user: {
-    name: "",
     email: "",
+    name: "",
   },
 
   data: {
@@ -60,6 +70,10 @@ const initialState = {
 
   getUserRequest: false,
   getUserFailed: false,
+
+  updateTokenRequest: false,
+  updateTokenSuccess: false,
+  updateTokenFailed: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -300,6 +314,28 @@ export const authReducer = (state = initialState, action) => {
         getUserRequest: false,
       };
     }
+
+    case UPDATE_TOKEN_REQUEST:
+      return {
+        ...state,
+        updateTokenRequest: true,
+        updateTokenFailed: false,
+      };
+
+    case UPDATE_TOKEN_SUCCESS:
+      return {
+        ...state,
+        updateTokenRequest: false,
+        updateTokenSuccess: true,
+        updateTokenFailed: false,
+      };
+
+    case UPDATE_TOKEN_FAILED:
+      return {
+        ...state,
+        updateTokenRequest: false,
+        updateTokenFailed: true,
+      };
 
     default: {
       return state;

@@ -2,10 +2,10 @@ import { useSelector } from "react-redux";
 import { Redirect, Route, useLocation } from "react-router-dom";
 
 export function ProtectedRoute({ notAuthOnly = false, children, ...rest }) {
-  const { user } = useSelector((state) => state.auth);
+  const { email , name } = useSelector((state) => state.auth.user);
   const location = useLocation();
 
-  if (notAuthOnly && Object.keys(user).length > 0) {
+  if (notAuthOnly && email !== "" && name !== "" ) {
     const { from } = location.state || { from: { pathname: "/" } };
     return (
       <Route {...rest}>
@@ -13,7 +13,7 @@ export function ProtectedRoute({ notAuthOnly = false, children, ...rest }) {
       </Route>
     );
   }
-  if (!notAuthOnly && !Object.keys(user).length) {
+  if (!notAuthOnly && email === "" && name === "" ) {
     return (
       <Route {...rest}>
         <Redirect to={{ pathname: "/login", state: { from: location } }} />
