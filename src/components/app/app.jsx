@@ -72,11 +72,9 @@ function App() {
         <ProtectedRoute notAuthOnly={true} path="/reset-password" exact>
           <ResetPassword />
         </ProtectedRoute>
-
         <ProtectedRoute path="/profile">
           <Profile />
         </ProtectedRoute>
-
         <ProtectedRoute path="/feed" exact>
           <Feed />
         </ProtectedRoute>
