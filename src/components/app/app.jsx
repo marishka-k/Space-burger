@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
@@ -22,14 +22,16 @@ import { closeIngredientModal } from "../../services/actions/ingredient-details"
 import Modal from "../modal/modal";
 import { getCookie } from "../../utils/cookie";
 import { Feed } from "../../pages/feed/feed";
+import { Preloader } from "../preloader/preloader";
 
 function App() {
+  const isLoading = useSelector(store => store.ingredients);
   const location = useLocation();
   const background = location.state?.background;
   const dispatch = useDispatch();
   const history = useHistory();
-  const cookie = getCookie('token');
-  const token = localStorage.getItem('refreshToken');
+  const cookie = getCookie("token");
+  const token = localStorage.getItem("refreshToken");
 
   const handleCloseIngredientDetailsModal = useCallback(() => {
     dispatch(closeIngredientModal());
@@ -47,18 +49,21 @@ function App() {
     }
   }, [dispatch, token, cookie]);
 
-
   return (
     <>
       <AppHeader />
       <Switch location={background || location}>
         <Route path="/" exact>
-          <main className={styles.main}>
-            <DndProvider backend={HTML5Backend}>
-              <BurgerIngredients />
-              <BurgerConstructor />
-            </DndProvider>
-          </main>
+          {isLoading ? (
+            <Preloader />
+          ) : (
+            <main className={styles.main}>
+              <DndProvider backend={HTML5Backend}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+              </DndProvider>
+            </main>
+          )}
         </Route>
         <ProtectedRoute notAuthOnly={true} path="/login" exact>
           <Login />
@@ -72,7 +77,10 @@ function App() {
         <ProtectedRoute notAuthOnly={true} path="/reset-password" exact>
           <ResetPassword />
         </ProtectedRoute>
-        <ProtectedRoute path="/profile">
+        <ProtectedRoute path="/profile" exact>
+          <Profile />
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile/orders" exact>
           <Profile />
         </ProtectedRoute>
         <ProtectedRoute path="/feed" exact>
@@ -86,14 +94,15 @@ function App() {
         </Route>
       </Switch>
       {background && (
-          <Route path='/ingredients/:id'>
-            <Modal title='Детали ингредиента' onClickClose={handleCloseIngredientDetailsModal}>
-              <IngredientDetails />
-            </Modal>
-          </Route>
-        )
-        }
-      
+        <Route path="/ingredients/:id">
+          <Modal
+            title="Детали ингредиента"
+            onClickClose={handleCloseIngredientDetailsModal}
+          >
+            <IngredientDetails />
+          </Modal>
+        </Route>
+      )}
     </>
   );
 }

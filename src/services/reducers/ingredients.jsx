@@ -8,16 +8,17 @@ const ingredientsInitialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
+  isLoading: true,
 };
 
 export const ingredientsReducer = (state = ingredientsInitialState, action) => {
   switch (action.type) {
-
     case INGREDIENTS_FAILED: {
       return {
         ...state,
         ingredientsRequest: false,
         ingredientsFailed: true,
+        isLoading: false,
       };
     }
 
@@ -26,6 +27,7 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
         ...state,
         ingredientsRequest: true,
         ingredientsFailed: false,
+        isLoading: true,
       };
     }
 
@@ -34,14 +36,13 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
         ...state,
         ingredientsRequest: false,
         ingredientsFailed: false,
-        ingredients: action.ingredients,
+        isLoading: false,
+        ingredients: action.ingredients,        
       };
-
     }
 
     default: {
       return state;
-      
     }
   }
 };

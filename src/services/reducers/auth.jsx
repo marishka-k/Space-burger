@@ -33,6 +33,8 @@ import {
   UPDATE_TOKEN_REQUEST,
   UPDATE_TOKEN_FAILED,
   UPDATE_TOKEN_SUCCESS,
+
+  AUTH_CHECKED,
 } from "../actions/auth";
 
 const initialState = {
@@ -74,10 +76,19 @@ const initialState = {
   updateTokenRequest: false,
   updateTokenSuccess: false,
   updateTokenFailed: false,
+
+  isAuthCheked: false,
 };
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case AUTH_CHECKED: {
+      return {
+        ...state,
+        isAuthCheked: true 
+      }
+    }
+
     case LOGIN_FORM_REQUEST: {
       return {
         ...state,

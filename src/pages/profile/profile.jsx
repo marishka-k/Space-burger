@@ -18,7 +18,9 @@ export const Profile = () => {
     password: "",
   });
 
-  const isDisabled = Boolean(data.email === email && data.name === name && data.password === "");
+  const isDisabled = Boolean(
+    data.email === email && data.name === name && data.password === ""
+  );
 
   const onChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -86,7 +88,7 @@ export const Profile = () => {
         <Route path="/profile/orders" exact>
           <Orders />
         </Route>
-        <Route path="/profile" exact >
+        <Route path="/profile" exact>
           <form className={styles.form} onSubmit={onSubmit}>
             <div className={`pb-6 ${styles.input}`}>
               <Input
@@ -128,7 +130,12 @@ export const Profile = () => {
               />
             </div>
             <div>
-              <Button type="secondary" size="medium" onClick={onResetForm} disabled={isDisabled}>
+              <Button
+                type="secondary"
+                size="medium"
+                onClick={onResetForm}
+                disabled={isDisabled}
+              >
                 Oтмена
               </Button>
               <Button type="primary" size="medium" disabled={isDisabled}>
@@ -136,7 +143,7 @@ export const Profile = () => {
               </Button>
             </div>
           </form>
-        </Route>
+        </Route>        
       </Switch>
     </div>
   );
