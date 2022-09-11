@@ -177,7 +177,7 @@ export const authReducer = (state = initialState, action) => {
     case REGISTER_FORM_SUCCESS: {
       return {
         ...state,
-        user: action.playload,
+        user: action.user,
         data: {
           ...state.data,
           email: "",

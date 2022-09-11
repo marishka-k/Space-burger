@@ -155,7 +155,7 @@ export function registerUser(email, password, name) {
       .then((res) => {
         dispatch({
           type: REGISTER_FORM_SUCCESS,
-          user: res,
+          user: res.user,
         });
       })
       .catch(() => {
@@ -257,7 +257,7 @@ export function getUser() {
 
 export const checkUzerAuth = () => {
   return function (dispatch) {
-    if (getCookie("accessToken")) {
+    if (getCookie("token")) {
       dispatch(getUser());
       dispatch({
         type: AUTH_CHECKED,
