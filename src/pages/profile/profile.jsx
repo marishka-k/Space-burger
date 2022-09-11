@@ -18,6 +18,8 @@ export const Profile = () => {
     password: "",
   });
 
+  const isDisabled = Boolean(data.email === email && data.name === name && data.password === "");
+
   const onChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -126,10 +128,10 @@ export const Profile = () => {
               />
             </div>
             <div>
-              <Button type="secondary" size="medium" onClick={onResetForm}>
+              <Button type="secondary" size="medium" onClick={onResetForm} disabled={isDisabled}>
                 Oтмена
               </Button>
-              <Button type="primary" size="medium">
+              <Button type="primary" size="medium" disabled={isDisabled}>
                 Сохранить
               </Button>
             </div>

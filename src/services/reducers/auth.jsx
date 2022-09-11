@@ -201,7 +201,7 @@ export const authReducer = (state = initialState, action) => {
     case CHANGE_USER_SUCCESS: {
       return {
         ...state,
-        user: action.playload,
+        user: action.user,
         data: {
           ...state.data,
           email: "",

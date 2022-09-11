@@ -166,7 +166,7 @@ export function registerUser(email, password, name) {
   };
 }
 
-export function changeUser(email, name, password) {
+export function changeUser(name, email, password) {
   return function (dispatch) {
     dispatch({
       type: CHANGE_USER_REQUEST,
@@ -175,7 +175,7 @@ export function changeUser(email, name, password) {
       .then((res) => {
         dispatch({
           type: CHANGE_USER_SUCCESS,
-          user: res,
+          user: res.user,
         });
       })
       .catch((err) => {
