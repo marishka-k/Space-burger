@@ -47,6 +47,19 @@ export const GET_USER_FAILED = "GET_USER_FAILED";
 
 export const AUTH_CHECKED = "AUTH_CHECKED";
 
+const onlyOneTypeActionCreator = (type) => {
+  return {
+    type: type,
+  };
+};
+
+const userActionsActionCreator = (type, user) => {
+  return {
+    type: type,
+    user: user,
+  };
+};
+
 export const setLoginFormValue = (field, value) => ({
   type: LOGIN_FORM_SET_VALUE,
   field,
@@ -55,9 +68,7 @@ export const setLoginFormValue = (field, value) => ({
 
 export function singIn(email, password) {
   return function (dispatch) {
-    dispatch({
-      type: LOGIN_FORM_REQUEST,
-    });
+    dispatch(onlyOneTypeActionCreator(LOGIN_FORM_REQUEST));
     loginRequest(email, password)
       .then((res) => {
         const accessToken = res.accessToken.split("Bearer ")[1];
@@ -67,16 +78,11 @@ export function singIn(email, password) {
         return res;
       })
       .then((res) => {
-        dispatch({
-          type: LOGIN_FORM_SUCCESS,
-          user: res.user,
-        });
+        dispatch(userActionsActionCreator(LOGIN_FORM_SUCCESS, res.user));
       })
       .catch((err) => {
         console.error(err.message);
-        dispatch({
-          type: LOGIN_FORM_FAILED,
-        });
+        dispatch(onlyOneTypeActionCreator(LOGIN_FORM_FAILED));
         return err;
       });
   };
@@ -84,22 +90,18 @@ export function singIn(email, password) {
 
 export function updateToken() {
   return function (dispatch) {
-    dispatch({ type: UPDATE_TOKEN_REQUEST });
+    dispatch(onlyOneTypeActionCreator(UPDATE_TOKEN_REQUEST));
     updateTokenRequest()
       .then((res) => {
         const authToken = res.accessToken.split("Bearer ")[1];
         const refreshToken = res.refreshToken;
         setCookie("token", authToken);
         localStorage.setItem("refreshToken", refreshToken);
-        dispatch({
-          type: UPDATE_TOKEN_SUCCESS,
-        });
+        dispatch(onlyOneTypeActionCreator(UPDATE_TOKEN_SUCCESS));
       })
       .catch((err) => {
         console.error(err.message);
-        dispatch({
-          type: UPDATE_TOKEN_FAILED,
-        });
+        dispatch(onlyOneTypeActionCreator(UPDATE_TOKEN_FAILED));
         return err;
       });
   };
@@ -107,27 +109,21 @@ export function updateToken() {
 
 export function singOut() {
   return function (dispatch) {
-    dispatch({
-      type: LOGOUT_FORM_REQUEST,
-    });
+    dispatch(onlyOneTypeActionCreator(LOGOUT_FORM_REQUEST));
     logoutRequest()
       .then((res) => {
         const refreshToken = res.refreshToken;
         deleteCookie("token");
         localStorage.removeItem("refreshToken", refreshToken);
         if (res && res.success) {
-          dispatch({
-            type: LOGOUT_FORM_SUCCESS,
-          });
+          dispatch(onlyOneTypeActionCreator(LOGOUT_FORM_SUCCESS));
         } else {
           dispatch({ type: LOGOUT_FORM_FAILED });
         }
       })
       .catch((err) => {
         console.error(err.message);
-        dispatch({
-          type: LOGOUT_FORM_FAILED,
-        });
+        dispatch(onlyOneTypeActionCreator(LOGOUT_FORM_FAILED));
         return err;
       });
   };
@@ -141,9 +137,7 @@ export const setRegisterFormValue = (field, value) => ({
 
 export function registerUser(email, password, name) {
   return function (dispatch) {
-    dispatch({
-      type: REGISTER_FORM_REQUEST,
-    });
+    dispatch(onlyOneTypeActionCreator(REGISTER_FORM_REQUEST));
     resgisterUserRequest(email, password, name)
       .then((res) => {
         const accessToken = res.accessToken.split("Bearer ")[1];
@@ -153,36 +147,24 @@ export function registerUser(email, password, name) {
         return res;
       })
       .then((res) => {
-        dispatch({
-          type: REGISTER_FORM_SUCCESS,
-          user: res.user,
-        });
+        dispatch(userActionsActionCreator(REGISTER_FORM_SUCCESS, res.user));
       })
       .catch(() => {
-        dispatch({
-          type: REGISTER_FORM_FAILED,
-        });
+        dispatch(onlyOneTypeActionCreator(REGISTER_FORM_FAILED));
       });
   };
 }
 
 export function changeUser(name, email, password) {
   return function (dispatch) {
-    dispatch({
-      type: CHANGE_USER_REQUEST,
-    });
+    dispatch(onlyOneTypeActionCreator(CHANGE_USER_REQUEST));
     changeUserInfoRequest(email, name, password)
       .then((res) => {
-        dispatch({
-          type: CHANGE_USER_SUCCESS,
-          user: res.user,
-        });
+        dispatch(userActionsActionCreator(CHANGE_USER_SUCCESS, res.user));
       })
       .catch((err) => {
         console.error(err.message);
-        dispatch({
-          type: CHANGE_USER_FAILED,
-        });
+        dispatch(onlyOneTypeActionCreator(CHANGE_USER_FAILED));
         return err;
       });
   };
@@ -190,9 +172,7 @@ export function changeUser(name, email, password) {
 
 export function forgotPassword(email) {
   return function (dispatch) {
-    dispatch({
-      type: FORGOT_PASSWORD_REQUEST,
-    });
+    dispatch(onlyOneTypeActionCreator(FORGOT_PASSWORD_REQUEST));
     forgotPasswordRequest(email)
       .then((res) => {
         dispatch({
@@ -201,9 +181,7 @@ export function forgotPassword(email) {
         });
       })
       .catch(() => {
-        dispatch({
-          type: FORGOT_PASSWORD_FAILED,
-        });
+        dispatch(onlyOneTypeActionCreator(FORGOT_PASSWORD_FAILED));
       });
   };
 }
@@ -216,40 +194,27 @@ export const setResetFormValue = (field, value) => ({
 
 export function resetPassword(password, token) {
   return function (dispatch) {
-    dispatch({
-      type: RESET_PASSWORD_REQUEST,
-    });
+    dispatch(onlyOneTypeActionCreator(RESET_PASSWORD_REQUEST));
     resetPasswordRequest(password, token)
       .then(() => {
-        dispatch({
-          type: RESET_PASSWORD_SUCCESS,
-        });
+        dispatch(onlyOneTypeActionCreator(RESET_PASSWORD_SUCCESS));
       })
       .catch(() => {
-        dispatch({
-          type: RESET_PASSWORD_FAILED,
-        });
+        dispatch(onlyOneTypeActionCreator(RESET_PASSWORD_FAILED));
       });
   };
 }
 
 export function getUser() {
   return function (dispatch) {
-    dispatch({
-      type: GET_USER_REQUEST,
-    });
+    dispatch(onlyOneTypeActionCreator(GET_USER_REQUEST));
     getUserRequest()
       .then((res) => {
-        dispatch({
-          type: GET_USER_SUCCESS,
-          user: res.user,
-        });
+        dispatch(userActionsActionCreator(GET_USER_SUCCESS, res.user));
       })
       .catch((err) => {
         console.error(err.message);
-        dispatch({
-          type: GET_USER_FAILED,
-        });
+        dispatch(onlyOneTypeActionCreator(GET_USER_FAILED));
         return err;
       });
   };
@@ -259,13 +224,9 @@ export const checkUzerAuth = () => {
   return function (dispatch) {
     if (getCookie("token")) {
       dispatch(getUser());
-      dispatch({
-        type: AUTH_CHECKED,
-      });
+      dispatch(onlyOneTypeActionCreator(AUTH_CHECKED));
     } else {
-      dispatch({
-        type: AUTH_CHECKED,
-      });
+      dispatch(onlyOneTypeActionCreator(AUTH_CHECKED));
     }
   };
 };
