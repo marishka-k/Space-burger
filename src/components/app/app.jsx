@@ -87,7 +87,7 @@ function App() {
           <Feed />
         </ProtectedRoute>
         <Route path="/ingredients/:id">
-          <IngredientDetails />
+          <IngredientDetails title="Детали ингредиента"/>
         </Route>
         <Route>
           <NotFound404 />
