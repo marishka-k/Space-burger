@@ -2,8 +2,7 @@ import {
   LOGIN_FORM_REQUEST,
   LOGIN_FORM_SUCCESS,
   LOGIN_FORM_FAILED,
-  LOGIN_FORM_SET_VALUE,
-
+  
   LOGOUT_FORM_REQUEST,
   LOGOUT_FORM_SUCCESS,
   LOGOUT_FORM_FAILED,
@@ -11,8 +10,7 @@ import {
   REGISTER_FORM_REQUEST,
   REGISTER_FORM_SUCCESS,
   REGISTER_FORM_FAILED,
-  REGISTER_FORM_SET_VALUE,
-
+ 
   CHANGE_USER_REQUEST,
   CHANGE_USER_SUCCESS,
   CHANGE_USER_FAILED,
@@ -23,8 +21,7 @@ import {
 
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_FAILED,
-  RESET_FORM_SET_VALUE,
+  RESET_PASSWORD_FAILED,  
 
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
@@ -42,7 +39,7 @@ const initialState = {
 
   user: {
     email: "",
-    name: "",
+    name: "",   
   },
 
   data: {
@@ -120,16 +117,6 @@ export const authReducer = (state = initialState, action) => {
       };
     }
 
-    case LOGIN_FORM_SET_VALUE: {
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [action.field]: action.value,
-        },
-      };
-    }
-
     case LOGOUT_FORM_REQUEST: {
       return {
         ...state,
@@ -156,16 +143,6 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         logoutFailed: true,
         logoutRequest: false,
-      };
-    }
-
-    case REGISTER_FORM_SET_VALUE: {
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [action.field]: action.value,
-        },
       };
     }
 
@@ -288,16 +265,6 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         resetPasswordFailed: true,
         resetPasswordRequest: false,
-      };
-    }
-
-    case RESET_FORM_SET_VALUE: {
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [action.field]: action.value,
-        },
       };
     }
 

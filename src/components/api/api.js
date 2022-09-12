@@ -13,7 +13,6 @@ const config = {
   },
 };
 
-
 export const orderDetailsRequest = async (productsId) => {
   return await request(`${config.url}/orders`, {
     method: "POST",
@@ -49,14 +48,14 @@ export const loginRequest = async (email, password) => {
   });
 };
 
-export const resgisterUserRequest = async (email, password, userName) => {
+export const resgisterUserRequest = async (name, email, password) => {
   return await request(`${config.url}/auth/register`, {
     method: "POST",
     headers: config.headers_one,
     body: JSON.stringify({
+      name: name,
       email: email,
       password: password,
-      name: userName,
     }),
   });
 };

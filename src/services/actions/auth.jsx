@@ -13,7 +13,6 @@ import {
 export const LOGIN_FORM_REQUEST = "LOGIN_FORM_REQUEST";
 export const LOGIN_FORM_SUCCESS = "LOGIN_FORM_SUCCESS";
 export const LOGIN_FORM_FAILED = "LOGIN_FORM_FAILED";
-export const LOGIN_FORM_SET_VALUE = "LOGIN_FORM_SET_VALUE";
 
 export const LOGOUT_FORM_REQUEST = "LOGOUT_FORM_REQUEST";
 export const LOGOUT_FORM_SUCCESS = "LOGOUT_FORM_SUCCESS";
@@ -22,7 +21,6 @@ export const LOGOUT_FORM_FAILED = "LOGOUT_FORM_FAILED";
 export const REGISTER_FORM_REQUEST = "REGISTER_FORM_REQUEST";
 export const REGISTER_FORM_SUCCESS = "REGISTER_FORM_SUCCESS";
 export const REGISTER_FORM_FAILED = "REGISTER_FORM_FAILED";
-export const REGISTER_FORM_SET_VALUE = "REGISTER_FORM_SET_VALUE";
 
 export const CHANGE_USER_REQUEST = "CHANGE_USER_REQUEST";
 export const CHANGE_USER_SUCCESS = "CHANGE_USER_SUCCESS";
@@ -39,7 +37,6 @@ export const FORGOT_PASSWORD_FAILED = "FORGOT_PASSWORD_FAILED";
 export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
 export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
 export const RESET_PASSWORD_FAILED = "RESET_PASSWORD_FAILED";
-export const RESET_FORM_SET_VALUE = "RESET_FORM_SET_VALUE";
 
 export const GET_USER_REQUEST = "GET_USER_REQUEST";
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
@@ -59,12 +56,6 @@ const userActionsActionCreator = (type, user) => {
     user: user,
   };
 };
-
-export const setLoginFormValue = (field, value) => ({
-  type: LOGIN_FORM_SET_VALUE,
-  field,
-  value,
-});
 
 export function singIn(email, password) {
   return function (dispatch) {
@@ -129,16 +120,10 @@ export function singOut() {
   };
 }
 
-export const setRegisterFormValue = (field, value) => ({
-  type: REGISTER_FORM_SET_VALUE,
-  field,
-  value,
-});
-
-export function registerUser(email, password, name) {
+export function registerUser(name, email, password) {
   return function (dispatch) {
     dispatch(onlyOneTypeActionCreator(REGISTER_FORM_REQUEST));
-    resgisterUserRequest(email, password, name)
+    resgisterUserRequest(name, email, password)
       .then((res) => {
         const accessToken = res.accessToken.split("Bearer ")[1];
         const refreshToken = res.refreshToken;
@@ -158,7 +143,7 @@ export function registerUser(email, password, name) {
 export function changeUser(name, email, password) {
   return function (dispatch) {
     dispatch(onlyOneTypeActionCreator(CHANGE_USER_REQUEST));
-    changeUserInfoRequest(email, name, password)
+    changeUserInfoRequest(name, email, password)
       .then((res) => {
         dispatch(userActionsActionCreator(CHANGE_USER_SUCCESS, res.user));
       })
@@ -185,12 +170,6 @@ export function forgotPassword(email) {
       });
   };
 }
-
-export const setResetFormValue = (field, value) => ({
-  type: RESET_FORM_SET_VALUE,
-  field,
-  value,
-});
 
 export function resetPassword(password, token) {
   return function (dispatch) {

@@ -7,28 +7,24 @@ import { singOut, changeUser } from "../../services/actions/auth";
 import { Orders } from "./orders/orders";
 
 import styles from "./profile.module.css";
+import { useForm } from "../../hooks/use-form";
 
 export const Profile = () => {
   const dispatch = useDispatch();
-  const { email, name } = useSelector((state) => state.auth.user);
-
-  const [data, setData] = useState({
-    email: email,
+  const { name, email } = useSelector((state) => state.auth.user);
+  const { values, handleChange, setValues } = useForm({
     name: name,
+    email: email,
     password: "",
   });
 
   const isDisabled = Boolean(
-    data.email === email && data.name === name && data.password === ""
+    values.name === name && values.email === email && values.password === ""
   );
-
-  const onChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(changeUser(data.email, data.name, data.password));
+    dispatch(changeUser(values.name, values.email));
   };
 
   function handleSingOut() {
@@ -37,9 +33,9 @@ export const Profile = () => {
 
   const onResetForm = (e) => {
     e.preventDefault();
-    setData({
-      email: email,
+    setValues({
       name: name,
+      email: email,
       password: "",
     });
   };
@@ -94,9 +90,9 @@ export const Profile = () => {
               <Input
                 type={"text"}
                 placeholder={"Имя"}
-                onChange={onChange}
+                onChange={handleChange}
                 icon={"EditIcon"}
-                value={data.name}
+                value={values.name}
                 name={"name"}
                 error={false}
                 errorText={"Ошибка"}
@@ -107,9 +103,9 @@ export const Profile = () => {
               <Input
                 type={"email"}
                 placeholder={"Логин"}
-                onChange={onChange}
+                onChange={handleChange}
                 icon={"EditIcon"}
-                value={data.email}
+                value={values.email}
                 name={"email"}
                 error={false}
                 errorText={"Ошибка"}
@@ -120,9 +116,9 @@ export const Profile = () => {
               <Input
                 type={"password"}
                 placeholder={"Пароль"}
-                onChange={onChange}
+                onChange={handleChange}
                 icon={"EditIcon"}
-                value={data.password}
+                value={values.password}
                 name={"password"}
                 error={false}
                 errorText={"Ошибка"}
@@ -143,7 +139,7 @@ export const Profile = () => {
               </Button>
             </div>
           </form>
-        </Route>        
+        </Route>
       </Switch>
     </div>
   );

@@ -2,35 +2,26 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useLocation } from "react-router-dom";
 
 import {Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import { resetPassword, setResetFormValue } from "../../services/actions/auth";
-import { getCookie } from "../../utils/cookie";
+import { resetPassword } from "../../services/actions/auth";
 import { Form } from "../../components/form/form";
 import { FormLink } from "../../components/form/form-link/form-link";
 
 import styles from "./reset-password.module.css";
+import { useForm } from "../../hooks/use-form";
 
 
 export const ResetPassword = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const cookie = getCookie("token");
-  const { password, code } = useSelector((state) => state.auth.data);
+  const {values, handleChange } = useForm({password: "", code: ""});
   const { resetPasswordSuccess, forgotPasswordSuccess } = useSelector((state) => state.auth);
 
-  const isDisabled = Boolean(!password || !code);
-
-  const onChange = (e) => {
-    dispatch(setResetFormValue(e.target.name, e.target.value));
-  };
+  const isDisabled = Boolean(values.password === "" || values.code === "" );
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(resetPassword({ password, token: code }));
+    dispatch(resetPassword({ password: values.password, token: values.code }));;
   };
-
-  if (cookie) {
-    return <Redirect to={location.state?.from || "/"} />;
-  }
 
   if (!forgotPasswordSuccess) {
     return <Redirect to={{ pathname: "/forgot-password" }} />;
@@ -45,15 +36,15 @@ export const ResetPassword = () => {
       <Form formName="Восстановление пароля" buttonText="Сохранить" onSubmit={onFormSubmit} disabled={isDisabled} >
         <PasswordInput
           placeholder={"Введите новый пароль"}
-          onChange={onChange}
-          value={password}
+          onChange={handleChange}
+          value={values.password}
           name={"password"}
         />
         <Input
           type={"text"}
           placeholder={"Введите код из письма"}
-          onChange={onChange}
-          value={code}
+          onChange={handleChange}
+          value={values.code}
           name={"code"}
           error={false}
           errorText={"Ошибка"}
