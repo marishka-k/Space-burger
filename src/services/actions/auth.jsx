@@ -118,7 +118,7 @@ export function singOut() {
         if (res && res.success) {
           dispatch(onlyOneTypeActionCreator(LOGOUT_FORM_SUCCESS));
         } else {
-          dispatch({ type: LOGOUT_FORM_FAILED });
+          dispatch(onlyOneTypeActionCreator(LOGOUT_FORM_FAILED));
         }
       })
       .catch((err) => {
