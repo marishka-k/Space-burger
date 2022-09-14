@@ -1,0 +1,64 @@
+.form_container {
+    width: 480px;
+    margin: 180px auto auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.list {
+    padding: 0;
+    list-style: none;
+}
+
+.list_element {
+    display: flex;
+    height: 64px;
+}
+
+.link {
+    align-self: center;
+    text-decoration: none;
+    transition: opacity .2s linear;
+}
+
+.link:hover {
+    opacity: 0.5;
+}
+
+.link_active {
+	color: #f2f2f3;
+	cursor: default;
+}
+
+.navigation {
+    width: 320px;
+    position: absolute;
+    left: -380px;
+}
+
+.form {
+    width: 480px;
+    display: grid;
+    gap: 24px;
+    text-align: end;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.input div {
+    width: 100%;
+    display: flex;
+}
+
+.input > div > div > input + div {
+    width: fit-content;
+}
+

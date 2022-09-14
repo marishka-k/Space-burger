@@ -1,19 +1,15 @@
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import BurgerIngredientsBlock from "../burger-ingredients-block/burger-ingredients-block";
-import Modal from "../modal/modal";
-import { closeIngredientModal } from "../../services/actions/ingredient-details";
+import BurgerIngredientsBlock from "./burger-ingredients-block/burger-ingredients-block";
 
 import styles from "./burger-ingredients.module.css";
 
 const BurgerIngredients = () => {
-  const dispatch = useDispatch();
   const ingredients = useSelector((store) => store.burgerIngredients.ingredients);
-  const openIngredientDetailsModal = useSelector((store) => store.ingredientDetails.openModal);
+
   const [current, setCurrent] = useState("bun");
 
   const bunList = useMemo(
@@ -51,10 +47,6 @@ const BurgerIngredients = () => {
     }
   }, [bunInView, sauceInView, mainInView]);
 
-  const handleCloseIngredientDetailsModal = useCallback(() => {
-    dispatch(closeIngredientModal());
-  }, [dispatch]);
-
   const Tabs = () => {
     const curentTarget = (id) => {
       setCurrent(id);
@@ -78,44 +70,30 @@ const BurgerIngredients = () => {
   };
 
   return (
-    <>
-      <section>
-        <h1 className="text text_type_main-large mt-10 mb-5">
-          Соберите бургер
-        </h1>
-        <Tabs />
-        <div className={`${styles.scroller}`}>
-          <BurgerIngredientsBlock
-            title={"Булки"}
-            titleId={"bun"}
-            ingredients={bunList}
-            ref={bunRef}
-          />
-
-          <BurgerIngredientsBlock
-            title={"Соусы"}
-            titleId={"sauce"}
-            ingredients={sauceList}
-            ref={sauceRef}
-          />
-
-          <BurgerIngredientsBlock
-            title={"Начинки"}
-            titleId={"main"}
-            ingredients={mainList}
-            ref={mainRef}
-          />
-        </div>
-      </section>
-      {!!openIngredientDetailsModal && (
-        <Modal
-          onClickClose={handleCloseIngredientDetailsModal}
-          title="Детали ингредиента"
-        >
-          <IngredientDetails showIngredient={openIngredientDetailsModal} />
-        </Modal>
-      )}
-    </>
+    <section>
+      <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
+      <Tabs />
+      <div className={`${styles.scroller}`}>
+        <BurgerIngredientsBlock
+          title={"Булки"}
+          titleId={"bun"}
+          ingredients={bunList}
+          ref={bunRef}
+        />
+        <BurgerIngredientsBlock
+          title={"Соусы"}
+          titleId={"sauce"}
+          ingredients={sauceList}
+          ref={sauceRef}
+        />
+        <BurgerIngredientsBlock
+          title={"Начинки"}
+          titleId={"main"}
+          ingredients={mainList}
+          ref={mainRef}
+        />
+      </div>
+    </section>
   );
 };
 

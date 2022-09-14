@@ -1,23 +1,26 @@
 import { useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useDrop } from "react-dnd";
 
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
+import BurgerConstructorItem from "./burger-constructor-item/burger-constructor-item";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-
-import styles from "./burger-constructor.module.css";
 import { addItemToConstructor } from "../../services/actions/constructor";
 import { closeOrderDetailsModal, getOrderDetails } from "../../services/actions/order-details";
 import { CONSTRUCTOR_RESET} from "../../services/actions/constructor"
+import { getCookie } from "../../utils/cookie";
 
+import styles from "./burger-constructor.module.css";
 
 const BurgerConstructor = () => {
   const burgerIngredients = useSelector((state) => state.burgerConstructor);  
   const orderNumber = useSelector(store => store.order.number);
   const bun = burgerIngredients.bun
   const fillings = burgerIngredients.fillings
+  const cookie = getCookie('token');
+	const history = useHistory();
 
   const dispatch = useDispatch();
 
@@ -36,8 +39,8 @@ const BurgerConstructor = () => {
 		() => fillings.map((item) => item._id),
 		[fillings])
 
-  const orderDetailsModal = (productsId) => {
-		dispatch(getOrderDetails(fillingsId));
+  const orderDetailsModal = (fillingsId) => {
+		cookie ? dispatch(getOrderDetails(fillingsId)) : history.push('/login');
 	};
 
   const handleCloseOrderDetailsModal = useCallback(() => {
