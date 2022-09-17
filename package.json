@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.0.5",
     "@types/react-router-dom": "^5.3.3",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.13.1",
+    "dayjs": "^1.11.5",
     "nanoid": "^4.0.0",
     "react": "^17.0.2",
     "react-dnd": "^15.1.2",

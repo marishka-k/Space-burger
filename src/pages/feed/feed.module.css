@@ -1,22 +1,15 @@
-.container {
-	display: flex;
-    flex-direction: column;
-    margin: 180px auto 0;    
-    max-width: 800px;
-	border: 2px solid #4c4cff;
-    border-radius: 40px;
-    background-color: #1C1C21;
-	text-align: center;	
-}
-
-.link {
-    text-decoration: none;
-    color: #4C4CFF;
+.feed {
+    max-width: 1240px;
+    margin: auto;
     display: flex;
-	justify-content: center;
-    transition: opacity .2s linear;
+    flex-direction: column;
 }
 
-.link:hover {
-    opacity: 0.5;
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 600px);
+    gap: 60px;
+    max-width: 1240px;
+    width: 100%;
+    margin: auto;
 }

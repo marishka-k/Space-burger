@@ -25,7 +25,7 @@ import { Feed } from "../../pages/feed/feed";
 import { Preloader } from "../preloader/preloader";
 
 function App() {
-  const isLoading = useSelector(store => store.ingredients);
+  const isLoading = useSelector((store) => store.ingredients);
   const location = useLocation();
   const background = location.state?.background;
   const dispatch = useDispatch();
@@ -65,6 +65,9 @@ function App() {
             </main>
           )}
         </Route>
+        <Route path="/feed" exact>
+          <Feed />
+        </Route>
         <ProtectedRoute notAuthOnly={true} path="/login" exact>
           <Login />
         </ProtectedRoute>
@@ -83,11 +86,8 @@ function App() {
         <ProtectedRoute path="/profile/orders" exact>
           <Profile />
         </ProtectedRoute>
-        <ProtectedRoute path="/feed" exact>
-          <Feed />
-        </ProtectedRoute>
         <Route path="/ingredients/:id">
-          <IngredientDetails title="Детали ингредиента"/>
+          <IngredientDetails title="Детали ингредиента" />
         </Route>
         <Route>
           <NotFound404 />

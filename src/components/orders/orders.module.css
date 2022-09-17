@@ -1,0 +1,27 @@
+.scroller {
+  height: 70vh;
+  min-height: 70%;
+  display: grid;
+  gap: 16px;
+  max-height: 829px;
+  max-width: 600px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.scroller::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.scroller::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+  background: #8585AD;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}
