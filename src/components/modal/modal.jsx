@@ -25,10 +25,12 @@ const Modal = ({ onClickClose, title, children }) => {
 
   return ReactDOM.createPortal(
     <div className={styles.container}>
-      <div className={styles.content}>
-        <h3 className={`text text_type_main-large mt-10 ml-10 ${styles.title}`}>
-          {title}
-        </h3>
+      <div className={`${styles.content} p-10`}>
+        {title && (
+          <h3 className={`text text_type_main-large mt-4 ${styles.title}`}>
+            {title}
+          </h3>
+        )}
         <button className={styles.close_button} onClick={onClickClose}>
           <CloseIcon type="primary" />
         </button>
@@ -44,7 +46,7 @@ const Modal = ({ onClickClose, title, children }) => {
 Modal.propTypes = {
   title: PropTypes.string,
   children: PropTypes.object.isRequired,
-  onClickClose: PropTypes.func.isRequired
+  onClickClose: PropTypes.func.isRequired,
 };
 
 export default Modal;

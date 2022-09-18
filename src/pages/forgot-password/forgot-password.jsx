@@ -2,12 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, } from "react-router-dom";
 
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { forgotPassword } from "../../services/actions/auth";
 import { Form } from "../../components/form/form";
 import { FormLink } from "../../components/form/form-link/form-link";
+import { useForm } from "../../hooks/use-form";
+import { forgotPassword } from "../../services/actions/auth";
 
 import styles from "./forgot-password.module.css";
-import { useForm } from "../../hooks/use-form";
+
 
 
 export const ForgotPassword = () => {

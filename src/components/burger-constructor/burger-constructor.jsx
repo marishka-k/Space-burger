@@ -7,10 +7,10 @@ import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-de
 import BurgerConstructorItem from "./burger-constructor-item/burger-constructor-item";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
+import { getCookie } from "../../utils/cookie";
 import { addItemToConstructor } from "../../services/actions/constructor";
 import { closeOrderDetailsModal, getOrderDetails } from "../../services/actions/order-details";
 import { CONSTRUCTOR_RESET} from "../../services/actions/constructor"
-import { getCookie } from "../../utils/cookie";
 
 import styles from "./burger-constructor.module.css";
 

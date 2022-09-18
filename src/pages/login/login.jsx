@@ -1,10 +1,10 @@
 import { useDispatch } from "react-redux";
 
 import { PasswordInput, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { singIn } from "../../services/actions/auth";
 import { Form } from "../../components/form/form";
 import { FormLink } from "../../components/form/form-link/form-link";
 import { useForm } from "../../hooks/use-form";
+import { singIn } from "../../services/actions/auth";
 
 import styles from "./login.module.css";
 

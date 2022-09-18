@@ -1,21 +1,33 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, Route, Switch } from "react-router-dom";
+import { NavLink, Route, Switch, useLocation } from "react-router-dom";
 
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { singOut, changeUser } from "../../services/actions/auth";
 import { Orders } from "./orders/orders";
+import { getCookie } from '../../utils/cookie';
+import { useForm } from "../../hooks/use-form";
+import { ordersConnectionClosed, ordersConnectionInit } from '../../services/actions/orders';
+import { singOut, changeUser } from "../../services/actions/auth";
 
 import styles from "./profile.module.css";
-import { useForm } from "../../hooks/use-form";
 
 export const Profile = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const background = location.state?.background;
   const { name, email } = useSelector((state) => state.auth.user);
   const { values, handleChange, setValues } = useForm({
     name: name,
     email: email,
     password: "",
   });
+
+  useEffect(() => {
+		dispatch(ordersConnectionInit(`?token=${getCookie("token")}`));
+		return () => {
+			dispatch(ordersConnectionClosed())
+		}
+	}, [dispatch]);
 
   const isDisabled = Boolean(
     values.name === name && values.email === email && values.password === ""
@@ -79,7 +91,7 @@ export const Profile = () => {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </nav>
-      <Switch>
+      <Switch location={background || location}>
         <Route path="/profile/orders" exact>
           <Orders />
         </Route>
