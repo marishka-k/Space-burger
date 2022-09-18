@@ -1,0 +1,46 @@
+.scroller {
+    height: 25vh;
+	min-height: 70%;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+  }
+  
+  .scroller::-webkit-scrollbar-track {
+    background: #2f2f37;
+  }
+  
+  .scroller::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .scroller::-webkit-scrollbar-thumb {
+    background: #8585AD;
+  }
+
+.item {
+	max-width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.info {
+	display: flex;
+	align-items: center;
+}
+
+.name {
+	max-width: 320px;	
+}
+
+.price {
+	display: flex;
+	align-items: center;
+}
+
+

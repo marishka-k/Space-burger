@@ -2,7 +2,13 @@ import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
-import { Switch, Route, useLocation, useHistory } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  useLocation,
+  useHistory,
+  useRouteMatch,
+} from "react-router-dom";
 
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
@@ -18,11 +24,12 @@ import { ResetPassword } from "../../pages/reset-password/reset-password";
 import { checkUzerAuth, updateToken } from "../../services/actions/auth";
 import { NotFound404 } from "../../pages/not-found-404/not-found-404";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { closeIngredientModal } from "../../services/actions/ingredient-details";
 import Modal from "../modal/modal";
 import { getCookie } from "../../utils/cookie";
 import { Feed } from "../../pages/feed/feed";
 import { Preloader } from "../preloader/preloader";
+import { OrdersInfo } from "../orders-info/orders-info";
+import { closeIngredientModal, closeOrderInfoModal } from "../../services/actions/colse-modal";
 
 function App() {
   const isLoading = useSelector((store) => store.ingredients);
@@ -33,9 +40,17 @@ function App() {
   const cookie = getCookie("token");
   const token = localStorage.getItem("refreshToken");
 
+  const idOrderInfo = useRouteMatch(["/profile/orders/:id", "/feed/:id"])
+    ?.params?.id;
+
   const handleCloseIngredientDetailsModal = useCallback(() => {
     dispatch(closeIngredientModal());
     history.replace("/");
+  }, [dispatch]);
+
+  const handleCloseOrderInfoDetailsModal = useCallback(() => {
+    dispatch(closeOrderInfoModal());
+    history.goBack();
   }, [dispatch]);
 
   useEffect(() => {
@@ -68,6 +83,9 @@ function App() {
         <Route path="/feed" exact>
           <Feed />
         </Route>
+        <Route path='/feed/:id' exact>
+          <OrdersInfo />
+        </Route>
         <ProtectedRoute notAuthOnly={true} path="/login" exact>
           <Login />
         </ProtectedRoute>
@@ -80,13 +98,16 @@ function App() {
         <ProtectedRoute notAuthOnly={true} path="/reset-password" exact>
           <ResetPassword />
         </ProtectedRoute>
-        <ProtectedRoute path="/profile" exact>
+        <ProtectedRoute path="/profile">
           <Profile />
         </ProtectedRoute>
-        <ProtectedRoute path="/profile/orders" exact>
+        <ProtectedRoute path="/profile/orders">
           <Profile />
         </ProtectedRoute>
-        <Route path="/ingredients/:id">
+        <ProtectedRoute path="/profile/orders/:id" exact>
+          <OrdersInfo />
+        </ProtectedRoute>
+        <Route path="/ingredients/:id" exact>
           <IngredientDetails title="Детали ингредиента" />
         </Route>
         <Route>
@@ -94,12 +115,26 @@ function App() {
         </Route>
       </Switch>
       {background && (
-        <Route path="/ingredients/:id">
+        <Route path="/ingredients/:id" exact>
           <Modal
             title="Детали ингредиента"
             onClickClose={handleCloseIngredientDetailsModal}
           >
             <IngredientDetails />
+          </Modal>
+        </Route>
+      )}
+      {background && idOrderInfo && (
+        <ProtectedRoute path="/profile/orders/:id" exact>
+          <Modal onClickClose={handleCloseOrderInfoDetailsModal}>
+            <OrdersInfo />
+          </Modal>
+        </ProtectedRoute>
+      )}
+      {background && idOrderInfo && (
+        <Route path="/feed/:id" exact>
+          <Modal onClickClose={handleCloseOrderInfoDetailsModal}>
+            <OrdersInfo />
           </Modal>
         </Route>
       )}
