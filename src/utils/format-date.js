@@ -1,26 +1,20 @@
-import dayjs from "dayjs";
+export const formatDate = (inputDate) => {
+  let dayDiff;
+  const date = new Date(inputDate);
+  const time = date.toLocaleTimeString("ru", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZoneName: "short",
+  });
+  const currentDate = new Date();
+  const diff = Math.round((currentDate - date) / (24 * 60 * 60 * 1000));
 
-export const formatDate = (date) => {
-    let result = dayjs(date).format('HH:mm')
-    const now = dayjs()
+  if (diff === 0) dayDiff = "Сегодня, ";
+  else if (diff === 1) dayDiff = "Вчера, ";
+  else if (diff === 2) dayDiff = "2 дня назад, ";
+  else if (diff === 3) dayDiff = "3 дня назад, ";
+  else if (diff === 4) dayDiff = "4 дня назад, ";
+  else dayDiff = `${diff} дней назад `;
 
-    const getDiffString = (diffDate) => {
-        switch (diffDate) {
-            case 0 :
-                return 'Сегодня'
-            case 1 :
-                return 'Вчера'
-            case 2 :
-                return '2 дня назад'
-            case 3 :
-                return '3 дня назад'
-            case 4 :
-                return '4 дня назад'
-            default :
-                return `${diffDate} дня назад`
-        }
-    }
-
-    result = `${getDiffString(now.diff(date, 'day'))}, ${result} i-GMT+3`;
-    return result
-}
+  return `${dayDiff}${time}`;
+};
