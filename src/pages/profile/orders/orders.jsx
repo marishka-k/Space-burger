@@ -7,8 +7,7 @@ import styles from "./orders.module.css";
 export const Orders = () => {
   const location = useLocation();
   const orders  = useSelector((store) => store.wsOrders.orders);
-  console.log(orders);
-
+  
   return (
     <div className={styles.scroller}>
       {orders &&

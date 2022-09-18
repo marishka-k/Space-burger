@@ -9,11 +9,9 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       
       if (type === wsInit) {
         socket = new WebSocket(wsUrl);
-          console.log("Соединение началось1");
-             
+                       
         socket.onopen = (event) => {
           dispatch({ type: onOpen, payload: event });
-          console.log("Соединение установлено");
         };
 
         socket.onerror = (event) => {
