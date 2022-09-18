@@ -1,6 +1,8 @@
-import style from "./form.module.css";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+
+import style from "./form.module.css";
 
 export const Form = ({ formName, buttonText, onSubmit, children, disabled }) => {
   return (

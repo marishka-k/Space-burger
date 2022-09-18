@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { feedConnectionClosed, feedConnectionInit } from "../../services/actions/feed";
-import styles from "./feed.module.css";
 
 import { Orders } from "../../components/orders/orders";
 import { Preloader } from "../../components/preloader/preloader";
 import { OrdersStatuses } from "../../components/orders-status/orders-statuses";
+import { feedConnectionClosed, feedConnectionInit } from "../../services/actions/feed";
+
+import styles from "./feed.module.css";
+
 
 export const Feed = () => {
   const dispatch = useDispatch();

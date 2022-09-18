@@ -1,7 +1,8 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+
 import { OrderBlock } from "../../../components/orders/order-block/order-block";
+
 import styles from "./orders.module.css";
 
 export const Orders = () => {

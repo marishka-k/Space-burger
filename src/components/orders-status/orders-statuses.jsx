@@ -1,6 +1,6 @@
-import React from "react";
-import { nanoid } from "nanoid";
 import { useSelector } from "react-redux";
+
+import { nanoid } from "nanoid";
 
 import styles from "./orders-statuses.module.css";
 

@@ -6,10 +6,10 @@ import { useDispatch } from "react-redux";
 
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { OrdersInfoDetails } from "./orders-info-details/orders-info-details";
-import { feedConnectionClosed, feedConnectionInit } from "../../services/actions/feed";
-import { ordersConnectionClosed, ordersConnectionInit } from "../../services/actions/orders";
 import { formatDate } from "../../utils/format-date";
 import { getCookie } from "../../utils/cookie";
+import { feedConnectionClosed, feedConnectionInit } from "../../services/actions/feed";
+import { ordersConnectionClosed, ordersConnectionInit } from "../../services/actions/orders";
 
 import styles from "./orders-info.module.css";
 

@@ -1,5 +1,5 @@
-import styles from "./order-image.module.css";
 import propTypes from "prop-types";
+import styles from "./order-image.module.css";
 
 export const OrderImage = ({ image, alt }) => {
   return (

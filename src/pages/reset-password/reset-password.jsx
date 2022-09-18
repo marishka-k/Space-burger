@@ -2,13 +2,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useLocation } from "react-router-dom";
 
 import {Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import { resetPassword } from "../../services/actions/auth";
 import { Form } from "../../components/form/form";
 import { FormLink } from "../../components/form/form-link/form-link";
+import { useForm } from "../../hooks/use-form";
+import { resetPassword } from "../../services/actions/auth";
 
 import styles from "./reset-password.module.css";
-import { useForm } from "../../hooks/use-form";
-
 
 export const ResetPassword = () => {
   const dispatch = useDispatch();

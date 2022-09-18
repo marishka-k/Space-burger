@@ -1,6 +1,7 @@
-import IngredientProperty from "./ingredient-property/ingredient-property";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+import IngredientProperty from "./ingredient-property/ingredient-property";
 
 import styles from "./ingredient-details.module.css";
 

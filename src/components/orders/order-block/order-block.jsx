@@ -1,10 +1,12 @@
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useMemo } from "react";
 import propTypes from "prop-types";
-import styles from "./order-block.module.css";
 import { useSelector } from "react-redux";
-import { formatDate } from "../../../utils/format-date";
+
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { OrderImage } from "./order-image/order-image";
+import { formatDate } from "../../../utils/format-date";
+
+import styles from "./order-block.module.css";
 
 export const OrderBlock = ({ order, status }) => {
   const ingredients = useSelector(

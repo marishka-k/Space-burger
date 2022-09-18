@@ -1,9 +1,12 @@
-import { Input, PasswordInput,} from "@ya.praktikum/react-developer-burger-ui-components";
+
 import { useDispatch } from "react-redux";
+
+import { Input, PasswordInput,} from "@ya.praktikum/react-developer-burger-ui-components";
 import { Form } from "../../components/form/form";
 import { FormLink } from "../../components/form/form-link/form-link";
 import { useForm } from "../../hooks/use-form";
 import { registerUser } from "../../services/actions/auth";
+
 import styles from "./register.module.css";
 
 export const Register = () => {

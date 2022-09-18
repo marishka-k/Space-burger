@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink, Route, Switch, useLocation } from "react-router-dom";
 
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { singOut, changeUser } from "../../services/actions/auth";
 import { Orders } from "./orders/orders";
-
-import styles from "./profile.module.css";
+import { getCookie } from '../../utils/cookie';
 import { useForm } from "../../hooks/use-form";
 import { ordersConnectionClosed, ordersConnectionInit } from '../../services/actions/orders';
-import { getCookie } from '../../utils/cookie';
+import { singOut, changeUser } from "../../services/actions/auth";
+
+import styles from "./profile.module.css";
 
 export const Profile = () => {
   const dispatch = useDispatch();
