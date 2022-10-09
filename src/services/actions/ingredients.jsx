@@ -1,8 +1,9 @@
 import { getIngredientsData } from "../../components/api/api";
-
-export const INGREDIENTS_REQUEST = "INGREDIENTS_REQUEST";
-export const INGREDIENTS_SUCCESS = "INGREDIENTS_SUCCESS";
-export const INGREDIENTS_FAILED = "INGREDIENTS_FAILED";
+import {
+  INGREDIENTS_FAILED,
+  INGREDIENTS_REQUEST,
+  INGREDIENTS_SUCCESS,
+} from "../action-types/ingredients-types";
 
 export function getBurgerIngredients() {
   return function (dispatch) {

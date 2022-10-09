@@ -1,9 +1,5 @@
 import { nanoid } from "nanoid";
-
-export const CONSTRUCTOR_ADD = "CONSTRUCTOR_ADD";
-export const CONSTRUCTOR_DELETE = "CONSTRUCTOR_DELETE";
-export const CONSTRUCTOR_RESET = "CONSTRUCTOR_RESET";
-export const CONSTRUCTOR_MOVE = "CONSTRUCTOR_MOVE";
+import { CONSTRUCTOR_ADD } from "../action-types/constructor-types";
 
 export const addItemToConstructor = (ingredient) => {
   return {

@@ -1,40 +1,60 @@
 import {
-  LOGIN_FORM_REQUEST,
-  LOGIN_FORM_SUCCESS,
-  LOGIN_FORM_FAILED,
-  
-  LOGOUT_FORM_REQUEST,
-  LOGOUT_FORM_SUCCESS,
-  LOGOUT_FORM_FAILED,
-
-  REGISTER_FORM_REQUEST,
-  REGISTER_FORM_SUCCESS,
-  REGISTER_FORM_FAILED,
- 
-  CHANGE_USER_REQUEST,
-  CHANGE_USER_SUCCESS,
-  CHANGE_USER_FAILED,
-
-  FORGOT_PASSWORD_REQUEST,
-  FORGOT_PASSWORD_SUCCESS,
-  FORGOT_PASSWORD_FAILED,
-
-  RESET_PASSWORD_REQUEST,
-  RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_FAILED,  
-
-  GET_USER_REQUEST,
-  GET_USER_SUCCESS,
-  GET_USER_FAILED,
-  
-  UPDATE_TOKEN_REQUEST,
-  UPDATE_TOKEN_FAILED,
-  UPDATE_TOKEN_SUCCESS,
-
+  LOGIN_FORM_REQUEST, LOGIN_FORM_SUCCESS, LOGIN_FORM_FAILED,
+  LOGOUT_FORM_REQUEST, LOGOUT_FORM_SUCCESS, LOGOUT_FORM_FAILED,
+  REGISTER_FORM_REQUEST, REGISTER_FORM_SUCCESS, REGISTER_FORM_FAILED,
+  CHANGE_USER_REQUEST, CHANGE_USER_SUCCESS, CHANGE_USER_FAILED,
+  FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_FAILED,
+  RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILED,  
+  GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_FAILED,
+  UPDATE_TOKEN_REQUEST, UPDATE_TOKEN_FAILED, UPDATE_TOKEN_SUCCESS,
   AUTH_CHECKED,
-} from "../actions/auth";
+} from "../action-types/auth-types";
 
-const initialState = {
+import { TAuthActions } from "../actions/auth";
+import { TUser } from "../types/data";
+
+type AuthInitialState = {
+	message: string;
+	
+  user: TUser;
+
+	data: {
+		name: string;
+    email: string;
+		password: string;
+		code: string;
+	};
+
+  loginRequest: boolean,
+  loginFailed: boolean,
+  loginSuccess: boolean,
+
+  logoutRequest: boolean,
+  logoutFailed: boolean,
+
+  chgangeUserRequest: boolean,
+  chgangeUserFailed: boolean,
+
+  forgotPasswordRequest: boolean,
+  forgotPasswordFailed: boolean,
+  forgotPasswordSuccess: boolean,
+
+  resetPasswordRequest: boolean,
+  resetPasswordFailed: boolean,
+  resetPasswordSuccess: boolean,
+
+  getUserRequest: boolean,
+  getUserFailed: boolean,
+
+  updateTokenRequest: boolean,
+  updateTokenSuccess: boolean,
+  updateTokenFailed: boolean,
+
+  isAuthCheked: boolean,
+
+};
+
+const initialState: AuthInitialState = {
   message: "",
 
   user: {
@@ -77,7 +97,7 @@ const initialState = {
   isAuthCheked: false,
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: TAuthActions): AuthInitialState => {
   switch (action.type) {
     case AUTH_CHECKED: {
       return {

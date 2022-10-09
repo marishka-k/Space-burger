@@ -10,7 +10,7 @@ import Modal from "../modal/modal";
 import { getCookie } from "../../utils/cookie";
 import { addItemToConstructor } from "../../services/actions/constructor";
 import { closeOrderDetailsModal, getOrderDetails } from "../../services/actions/order-details";
-import { CONSTRUCTOR_RESET} from "../../services/actions/constructor"
+import { CONSTRUCTOR_RESET} from "../../services/action-types/constructor-types"
 
 import styles from "./burger-constructor.module.css";
 

@@ -1,7 +1,7 @@
 import {
   CLOSE_INGREDIENT_DETAILS_MODAL,
   CLOSE_ORDER_INFO_MODAL,
-} from "../actions/colse-modal";
+} from "../action-types/colse-modal-types"
 
 const modal = {
   openModalIngredient: null,
