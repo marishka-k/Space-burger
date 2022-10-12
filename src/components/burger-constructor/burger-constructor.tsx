@@ -1,5 +1,4 @@
-import { useMemo, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FC, useMemo, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { useDrop } from "react-dnd";
 
@@ -13,12 +12,21 @@ import { closeOrderDetailsModal, getOrderDetails } from "../../services/actions/
 import { CONSTRUCTOR_RESET} from "../../services/action-types/constructor-types"
 
 import styles from "./burger-constructor.module.css";
+import { TConstructorIngredient, TIngredient} from "../../services/types/data";
+import { useDispatch, useSelector } from "../../services/types";
 
-const BurgerConstructor = () => {
+interface DropItem {
+	ingredient: TConstructorIngredient;
+  _id: string;
+  bun: TIngredient;
+  fillings: TConstructorIngredient[]
+}
+
+const BurgerConstructor: FC<DropItem>= () => {
   const burgerIngredients = useSelector((state) => state.burgerConstructor);  
+  const bun = (burgerIngredients as DropItem ).bun
+  const fillings = (burgerIngredients as DropItem ).fillings
   const orderNumber = useSelector(store => store.order.number);
-  const bun = burgerIngredients.bun
-  const fillings = burgerIngredients.fillings
   const cookie = getCookie('token');
 	const history = useHistory();
 
@@ -26,7 +34,7 @@ const BurgerConstructor = () => {
 
   const [, dropTarget] = useDrop({
     accept: "ingredients",
-    drop: (item) => {
+    drop: (item: DropItem) => {
       dispatch(addItemToConstructor(item.ingredient));
     },
   });
@@ -39,7 +47,7 @@ const BurgerConstructor = () => {
 		() => fillings.map((item) => item._id),
 		[fillings])
 
-  const orderDetailsModal = (fillingsId) => {
+  const orderDetailsModal = (fillingsId: string[]) => {
 		cookie ? dispatch(getOrderDetails(fillingsId)) : history.push('/login');
 	};
 
