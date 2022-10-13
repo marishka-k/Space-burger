@@ -3,7 +3,7 @@ import {
   FEED_CONNECTION_ERROR,
   FEED_CONNECTION_CLOSED,
   FEED_GET_ORDERS,
-} from "../actions/feed";
+} from "../action-types/feed-types";
 
 const initialState = {
   wsConnected: false,

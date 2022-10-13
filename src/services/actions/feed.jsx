@@ -1,9 +1,9 @@
-export const FEED_CONNECTION_INIT = "FEED_CONNECTION_INIT";
-export const FEED_CONNECTION_SUCCESS = "FEED_CONNECTION_SUCCESS";
-export const FEED_CONNECTION_ERROR = "FEED_CONNECTION_ERROR";
-export const FEED_CONNECTION_CLOSED = "FEED_CONNECTION_CLOSED";
-export const FEED_GET_ORDERS = "FEED_GET_ORDERS";
-export const FEED_SEND_ORDERS = "FEED_SEND_ORDERS";
+import {
+  FEED_CONNECTION_CLOSED,
+  FEED_CONNECTION_INIT,
+  FEED_GET_ORDERS,
+  FEED_SEND_ORDERS,
+} from "../action-types/feed-types";
 
 const onlyOneTypeActionCreator = (type) => {
   return {
