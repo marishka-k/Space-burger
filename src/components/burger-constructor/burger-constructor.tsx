@@ -22,7 +22,7 @@ interface DropItem {
   fillings: TConstructorIngredient[]
 }
 
-const BurgerConstructor: FC<DropItem>= () => {
+const BurgerConstructor: FC = () => {
   const burgerIngredients = useSelector((state) => state.burgerConstructor);  
   const bun = burgerIngredients.bun
   const fillings = burgerIngredients.fillings

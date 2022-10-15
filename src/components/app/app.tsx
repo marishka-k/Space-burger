@@ -1,5 +1,4 @@
 import { useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import { Switch, Route, useLocation, useHistory, useRouteMatch } from "react-router-dom";
@@ -25,6 +24,12 @@ import { checkUzerAuth, updateToken } from "../../services/actions/auth";
 import { getBurgerIngredients } from "../../services/actions/ingredients";
 
 import styles from "./app.module.css";
+import { useDispatch, useSelector } from "../../services/types";
+
+declare module 'react' {interface FunctionComponent<P = {}> {
+    (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
+  }
+}
 
 function App() {
   const isLoading = useSelector((store) => store.ingredients);
