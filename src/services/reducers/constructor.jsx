@@ -4,21 +4,13 @@ import {
   CONSTRUCTOR_MOVE,
   CONSTRUCTOR_RESET,
 } from "../action-types/constructor-types";
-import { TConstructorActions } from "../actions/constructor";
-import { TConstructorIngredient, TIngredient } from "../types/data";
-
-export type TInitialState = {
-	bun: TIngredient | null;
-  fillings: TConstructorIngredient[];	  
-}
-
 
 const initialState = {
   bun: null,
   fillings: [],
 };
 
-export const constructorReducer = (state = initialState, action:TConstructorActions): TInitialState => {
+export const constructorReducer = (state = initialState, action) => {
   switch (action.type) {
     case CONSTRUCTOR_ADD: {
       if (action.payload.type === "bun") {
@@ -34,7 +26,7 @@ export const constructorReducer = (state = initialState, action:TConstructorActi
       return {
         ...state,
         fillings: [...state.fillings].filter((item) => {
-          return (item as TConstructorIngredient).id !== action.id;
+          return item.id !== action.id;
         }),
       };
     }
