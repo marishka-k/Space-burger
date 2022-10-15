@@ -24,3 +24,20 @@ export type TIngredient = {
 export type TConstructorIngredient = TIngredient & {
 	id: string;
 }
+
+export type TFeed = {
+	createdAt: string;
+	ingredients: Array<string>;
+	name: string;
+	number: number;
+	status: string;
+	updatedAt: string;
+	_id: string;
+}
+
+export type TFeedResponce = {
+	success: boolean;
+	total: number;
+	totalToday: number;
+	orders: Array<TFeed>;
+}

@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FC, useEffect } from "react";
+import { useDispatch, useSelector } from "../../services/types";
 
 import { Orders } from "../../components/orders/orders";
 import { Preloader } from "../../components/preloader/preloader";
@@ -8,8 +8,7 @@ import { feedConnectionClosed, feedConnectionInit } from "../../services/actions
 
 import styles from "./feed.module.css";
 
-
-export const Feed = () => {
+export const Feed: FC = () => {
   const dispatch = useDispatch();
   const orders = useSelector((store) => store.wsFeed.orders);
 
