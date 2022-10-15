@@ -1,9 +1,9 @@
 import {
   CONSTRUCTOR_ADD,
   CONSTRUCTOR_DELETE,
-  CONSTRUCTOR_MOVE,
   CONSTRUCTOR_RESET,
-} from "../action-types/constructor-types";
+  CONSTRUCTOR_MOVE,
+} from "../actions/constructor";
 
 const initialState = {
   bun: null,

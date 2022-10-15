@@ -2,7 +2,7 @@ import {
   INGREDIENTS_FAILED,
   INGREDIENTS_REQUEST,
   INGREDIENTS_SUCCESS,
-} from "../action-types/ingredients-types";
+} from "../actions/ingredients";
 
 const ingredientsInitialState = {
   ingredients: [],

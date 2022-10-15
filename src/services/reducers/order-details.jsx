@@ -3,7 +3,7 @@ import {
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAILED,
   ORDER_DETAILS_CLOSE_MODAL,
-} from "../action-types/order-details-types";
+} from "../actions/order-details";
 
 const orderInitialState = {
   request: false,
