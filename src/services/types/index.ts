@@ -34,9 +34,11 @@ import { rootReducer } from '../reducers';
 
 import { TAuthActions } from "../actions/auth";
 import { TConstructorActions } from "../actions/constructor";
+import { TFeedActions } from '../actions/feed';
+import { TIngredientsActions } from '../actions/ingredients';
 
 
-type TApplicationActions = TAuthActions | TConstructorActions;
+type TApplicationActions = TAuthActions | TConstructorActions| TFeedActions | TIngredientsActions;
 
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -1,14 +1,16 @@
-import { useState, useEffect, useMemo } from "react";
+import { FC, useState, useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientsBlock from "./burger-ingredients-block/burger-ingredients-block";
 
 import styles from "./burger-ingredients.module.css";
 
-const BurgerIngredients = () => {
-  const ingredients = useSelector((store) => store.burgerIngredients.ingredients);
+const BurgerIngredients: FC = () => {
+  const ingredients = useSelector(
+    (store) => store.burgerIngredients.ingredients
+  );
 
   const [current, setCurrent] = useState("bun");
 
@@ -48,9 +50,9 @@ const BurgerIngredients = () => {
   }, [bunInView, sauceInView, mainInView]);
 
   const Tabs = () => {
-    const curentTarget = (id) => {
+    const curentTarget = (id: string) => {
       setCurrent(id);
-      const menuTarget = document.getElementById(id);
+      const menuTarget = document.getElementById(id) as HTMLElement;
       menuTarget.scrollIntoView({ behavior: "smooth" });
     };
 
@@ -74,24 +76,15 @@ const BurgerIngredients = () => {
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
       <Tabs />
       <div className={`${styles.scroller}`}>
-        <BurgerIngredientsBlock
-          title={"Булки"}
-          titleId={"bun"}
-          ingredients={bunList}
-          ref={bunRef}
-        />
-        <BurgerIngredientsBlock
-          title={"Соусы"}
-          titleId={"sauce"}
-          ingredients={sauceList}
-          ref={sauceRef}
-        />
-        <BurgerIngredientsBlock
-          title={"Начинки"}
-          titleId={"main"}
-          ingredients={mainList}
-          ref={mainRef}
-        />
+        <div ref={bunRef}>
+          <BurgerIngredientsBlock title={"Булки"} titleId={"bun"} ingredients={bunList}/>
+        </div>
+        <div ref={sauceRef}>
+          <BurgerIngredientsBlock title={"Соусы"} titleId={"sauce"} ingredients={sauceList}/>
+        </div>
+        <div ref={mainRef}>
+          <BurgerIngredientsBlock title={"Начинки"} titleId={"main"} ingredients={mainList}/>
+        </div>
       </div>
     </section>
   );

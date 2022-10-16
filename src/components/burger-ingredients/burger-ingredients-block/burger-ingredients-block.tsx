@@ -1,19 +1,28 @@
-import { useMemo, forwardRef } from "react";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { FC, useMemo} from "react";
+import { useSelector } from "../../../services/types";
 
 import { BurgerIngredient } from "../burger-ingredient/burger-ingredient";
-import IngredientPropTypes from "../../../utils/types";
 
 import styles from "./burger-ingredients-block.module.css";
+import { TIngredient } from "../../../services/types/data";
 
-const BurgerIngredientsBlock = forwardRef(
-  ({ title, titleId, ingredients }, ref) => {
+type TIngredientsBlock = {
+	ingredients: Array<TIngredient>;
+  title: string
+	titleId: string;  
+}
+interface IRoutesMap {
+  [counters: string]: number;
+}
+
+
+const BurgerIngredientsBlock: FC <TIngredientsBlock> = 
+  ({ title, titleId, ingredients }) => {
     const burgerConstructor = useSelector((state) => state.burgerConstructor);
 
-    const counterOfIngredient = useMemo(() => {
+    const counterOfIngredient = useMemo (() => {
       const { bun, fillings } = burgerConstructor;
-      const counters = {};
+      const counters = {} as IRoutesMap;
 
       fillings.forEach((ingredient) => {
         if (!counters[ingredient._id]) counters[ingredient._id] = 0;
@@ -24,11 +33,11 @@ const BurgerIngredientsBlock = forwardRef(
     }, [burgerConstructor]);
 
     return (
-      <div>
+      <>
         <h2 className="text text_type_main-medium mb-6" id={titleId}>
           {title}
         </h2>
-        <ul className={`mt-6 ml-4 ${styles.items}`} ref={ref}>
+        <ul className={`mt-6 ml-4 ${styles.items}`}>
           {ingredients.map((ingredient) => {
             return (
               <li key={ingredient._id}>
@@ -40,15 +49,9 @@ const BurgerIngredientsBlock = forwardRef(
             );
           })}
         </ul>
-      </div>
+      </>
     );
   }
-);
-
-BurgerIngredientsBlock.propTypes = {
-  title: PropTypes.string.isRequired,
-  titleId: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(IngredientPropTypes).isRequired,
-};
+;
 
 export default BurgerIngredientsBlock;

@@ -3,15 +3,24 @@ import {
   INGREDIENTS_REQUEST,
   INGREDIENTS_SUCCESS,
 } from "../action-types/ingredients-types";
+import { TIngredientsActions } from "../actions/ingredients";
+import { TIngredient } from "../types/data";
 
-const ingredientsInitialState = {
+export type TIngredientsInitialState = {
+	ingredients: Array<TIngredient>;
+	ingredientsRequest: boolean;
+	ingredientsFailed: boolean;
+  isLoading: boolean;
+}
+
+const ingredientsInitialState: TIngredientsInitialState = {
   ingredients: [],
   ingredientsRequest: false,
-  ingredientsFailed: false,
+  ingredientsFailed: false, 
   isLoading: true,
 };
 
-export const ingredientsReducer = (state = ingredientsInitialState, action) => {
+export const ingredientsReducer = (state = ingredientsInitialState, action: TIngredientsActions): TIngredientsInitialState => {
   switch (action.type) {
     case INGREDIENTS_FAILED: {
       return {
