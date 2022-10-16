@@ -54,3 +54,16 @@ export type TModal = TModalOverlay & {
 	children: ReactNode;	
 }
 
+
+export type TLocation = {
+	background: {
+		pathname: string;
+		search: string;
+		hash: string;
+		state: null;
+		key: string;
+	}
+	from: string;
+	state?: object;
+};
+

@@ -32,7 +32,7 @@ declare module 'react' {interface FunctionComponent<P = {}> {
 }
 
 function App() {
-  const isLoading = useSelector((store) => store.ingredients);
+  const isLoading = useSelector((store) => store.burgerIngredients);
   const location = useLocation();
   const background = location.state?.background;
   const dispatch = useDispatch();
