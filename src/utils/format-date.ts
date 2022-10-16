@@ -1,4 +1,4 @@
-export const formatDate = (inputDate) => {
+export const formatDate = (inputDate: string) => {
   let dayDiff;
   const date = new Date(inputDate);
   const time = date.toLocaleTimeString("ru", {
@@ -7,7 +7,7 @@ export const formatDate = (inputDate) => {
     timeZoneName: "short",
   });
   const currentDate = new Date();
-  const diff = Math.round((currentDate - date) / (24 * 60 * 60 * 1000));
+  const diff = Math.round((currentDate.valueOf() - date.valueOf()) / (24 * 60 * 60 * 1000));
 
   if (diff === 0) dayDiff = "Сегодня, ";
   else if (diff === 1) dayDiff = "Вчера, ";

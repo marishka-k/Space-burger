@@ -6,7 +6,7 @@ import {
   FEED_GET_ORDERS,
   FEED_SEND_ORDERS,
 } from "../action-types/feed-types";
-import { TFeedResponce } from "../types/data";
+import { TFeedResponse } from "../types/data";
 
 const onlyOneTypeActionCreator = (type: string) => {
   return {
@@ -35,11 +35,11 @@ interface IFeedConnectionClosed {
 }
 interface IFeedGetOrders {
   readonly type: typeof FEED_GET_ORDERS;
-  payload: TFeedResponce;
+  payload: TFeedResponse;
 }
 interface IFeedSendOrders {
   readonly type: typeof FEED_SEND_ORDERS;
-  payload: TFeedResponce;
+  payload: TFeedResponse;
 }
 
 export const feedConnectionInit = (payload: string) => {

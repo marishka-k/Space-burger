@@ -1,5 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import { FC, ChangeEvent } from "react";
+import { useDispatch, useSelector } from "../../services/types";
 
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Form } from "../../components/form/form";
@@ -9,9 +10,7 @@ import { forgotPassword } from "../../services/actions/auth";
 
 import styles from "./forgot-password.module.css";
 
-
-
-export const ForgotPassword = () => {
+export const ForgotPassword:FC = () => {
   const {values, handleChange } = useForm({email: ""});
   const dispatch = useDispatch();
   
@@ -19,7 +18,7 @@ export const ForgotPassword = () => {
 
   const isDisabled = Boolean(values.email === "");
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     dispatch(forgotPassword({email: values.email}));
   };
