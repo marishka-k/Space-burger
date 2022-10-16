@@ -23,29 +23,35 @@ export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;
 export const useDispatch = () => dispatchHook<AppDispatch & AppThunk>(); */
 
 import {
-	TypedUseSelectorHook,
-	useDispatch as dispatchHook,
-	useSelector as selectorHook
-} from 'react-redux';
-import { ThunkAction } from 'redux-thunk';
-import { Action, ActionCreator } from 'redux';
-import store from '../store';
-import { rootReducer } from '../reducers';
+  TypedUseSelectorHook,
+  useDispatch as dispatchHook,
+  useSelector as selectorHook,
+} from "react-redux";
+import { ThunkAction } from "redux-thunk";
+import { Action, ActionCreator } from "redux";
+import store from "../store";
+import { rootReducer } from "../reducers";
 
 import { TAuthActions } from "../actions/auth";
 import { TConstructorActions } from "../actions/constructor";
-import { TFeedActions } from '../actions/feed';
-import { TIngredientsActions } from '../actions/ingredients';
+import { TFeedActions } from "../actions/feed";
+import { TIngredientsActions } from "../actions/ingredients";
+import { TCloseModal } from "../actions/colse-modal";
+import { TOrderDetailsActions } from "../actions/order-details";
 
-
-type TApplicationActions = TAuthActions | TConstructorActions| TFeedActions | TIngredientsActions;
-
+type TApplicationActions =
+  | TAuthActions
+  | TConstructorActions
+  | TFeedActions
+  | TIngredientsActions
+  | TCloseModal
+  | TOrderDetailsActions;
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ActionCreator<
-	ThunkAction<ReturnType, Action, RootState, TApplicationActions>
+  ThunkAction<ReturnType, Action, RootState, TApplicationActions>
 >;
 
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
-export const useDispatch = () => dispatchHook<AppDispatch & AppThunk>();  
+export const useDispatch = () => dispatchHook<AppDispatch & AppThunk>();

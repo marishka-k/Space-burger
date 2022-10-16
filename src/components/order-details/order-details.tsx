@@ -1,8 +1,9 @@
-import { useSelector } from 'react-redux';
-
+import { FC } from "react";
+import { useSelector } from "../../services/types";
 import styles from "./order-details.module.css";
 
-const OrderDetails = () => {
+
+const OrderDetails: FC = () => {
   const  orderNumber  = useSelector(store => store.order.number);
   return (
     <div className={styles.details}>

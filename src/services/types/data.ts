@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type TUser = {
 	email: string;
 	name: string;
@@ -41,3 +43,14 @@ export type TFeedResponce = {
 	totalToday: number;
 	orders: Array<TFeed>;
 }
+
+
+export type TModalOverlay = {
+	onClickClose: () => void;
+}
+
+export type TModal = TModalOverlay & {
+	title?: string;
+	children: ReactNode;	
+}
+
