@@ -2,6 +2,8 @@ import { useCallback, useEffect } from "react";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import { Switch, Route, useLocation, useHistory, useRouteMatch } from "react-router-dom";
+import { useDispatch, useSelector } from "../../services/types";
+import { TLocation } from "../../services/types/data";
 
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
@@ -24,24 +26,26 @@ import { checkUzerAuth, updateToken } from "../../services/actions/auth";
 import { getBurgerIngredients } from "../../services/actions/ingredients";
 
 import styles from "./app.module.css";
-import { useDispatch, useSelector } from "../../services/types";
 
-declare module 'react' {interface FunctionComponent<P = {}> {
+declare module "react" {
+  interface FunctionComponent<P = {}> {
     (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
   }
 }
 
 function App() {
   const isLoading = useSelector((store) => store.burgerIngredients);
-  const location = useLocation();
+  const location = useLocation<TLocation>();
   const background = location.state?.background;
   const dispatch = useDispatch();
   const history = useHistory();
   const cookie = getCookie("token");
   const token = localStorage.getItem("refreshToken");
 
-  const idOrderInfo = useRouteMatch(["/profile/orders/:id", "/feed/:id"])
-    ?.params?.id;
+  const idOrderInfo = useRouteMatch<{ [id: string]: string } | null>([
+    "/profile/orders/:id",
+    "/feed/:id",
+  ])?.params?.id;
 
   const handleCloseIngredientDetailsModal = useCallback(() => {
     dispatch(closeIngredientModal());
@@ -83,7 +87,7 @@ function App() {
         <Route path="/feed" exact>
           <Feed />
         </Route>
-        <Route path='/feed/:id' exact>
+        <Route path="/feed/:id" exact>
           <OrdersInfo />
         </Route>
         <ProtectedRoute notAuthOnly={true} path="/login" exact>
