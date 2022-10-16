@@ -1,6 +1,6 @@
-import { useMemo } from "react";
-import propTypes from "prop-types";
-import { useSelector } from "react-redux";
+import {FC, useMemo } from "react";
+import { useSelector } from "../../../services/types";
+import { TFeed } from "../../../services/types/data";
 
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { OrderImage } from "./order-image/order-image";
@@ -8,7 +8,12 @@ import { formatDate } from "../../../utils/format-date";
 
 import styles from "./order-block.module.css";
 
-export const OrderBlock = ({ order, status }) => {
+type TOrderBlock = {
+	order: TFeed;
+	status: string | boolean;
+}
+
+export const OrderBlock:FC<TOrderBlock> = ({ order, status }) => {
   const ingredients = useSelector(
     (store) => store.burgerIngredients.ingredients
   );
@@ -102,9 +107,4 @@ export const OrderBlock = ({ order, status }) => {
       </div>
     </div>
   );
-};
-
-OrderBlock.propTypes = {
-  order: propTypes.object.isRequired,
-  status: propTypes.bool,
 };

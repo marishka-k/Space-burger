@@ -1,12 +1,19 @@
-import PropTypes from "prop-types";
+import { FC, ReactNode } from 'react';
 import { Link, NavLink, useRouteMatch } from "react-router-dom";
-import { useSelector } from "react-redux";
+
 
 import { ProfileIcon, ListIcon, BurgerIcon, Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./app-header.module.css";
+import { useSelector } from "../../services/types";
 
-const NavigationItem = ({ text, link, children }) => {
+type TNavigationItem = {
+  text: string;
+  link: string;
+  children: ReactNode;
+};
+
+const NavigationItem: FC<TNavigationItem> = ({ text, link, children }) => {
   return (
     <NavLink
       to={link}
@@ -20,13 +27,7 @@ const NavigationItem = ({ text, link, children }) => {
   );
 };
 
-NavigationItem.propTypes = {
-  text: PropTypes.string.isRequired,
-  linkAdres: PropTypes.string,
-  children: PropTypes.object.isRequired,
-};
-
-const AppHeader = () => {
+const AppHeader: FC = () => {
   const isConstructorActive = !!useRouteMatch({ path: "/", exact: true });
   const isListActive = !!useRouteMatch("/feed");
   const isProfileActive = !!useRouteMatch("/profile");

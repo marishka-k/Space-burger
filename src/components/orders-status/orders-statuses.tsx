@@ -1,10 +1,9 @@
-import { useSelector } from "react-redux";
-
+import { FC } from 'react';
+import { useSelector } from "../../services/types";
 import { nanoid } from "nanoid";
-
 import styles from "./orders-statuses.module.css";
 
-export const OrdersStatuses = () => {
+export const OrdersStatuses: FC = () => {
   const { total, totalToday, orders } = useSelector((store) => store.wsFeed);
 
   const doneStatusOrders = orders

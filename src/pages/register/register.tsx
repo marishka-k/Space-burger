@@ -1,5 +1,5 @@
-
-import { useDispatch } from "react-redux";
+import { FC, FormEvent } from "react";
+import { useDispatch } from "../../services/types";
 
 import { Input, PasswordInput,} from "@ya.praktikum/react-developer-burger-ui-components";
 import { Form } from "../../components/form/form";
@@ -7,13 +7,15 @@ import { FormLink } from "../../components/form/form-link/form-link";
 import { useForm } from "../../hooks/use-form";
 import { registerUser } from "../../services/actions/auth";
 
+
 import styles from "./register.module.css";
 
-export const Register = () => {
+
+export const Register: FC = () => {
   const dispatch = useDispatch();
   const {values, handleChange } = useForm({name: "", email: "", password: ""});
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = (e: FormEvent<Element>) => {
     e.preventDefault();
     dispatch(registerUser(values.name, values.email, values.password));
   };

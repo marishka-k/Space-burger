@@ -1,4 +1,5 @@
-import { useSelector, useDispatch } from "react-redux";
+import { FC, FormEvent } from 'react';
+import { useDispatch, useSelector } from "../../services/types";
 import { Redirect, useLocation } from "react-router-dom";
 
 import {Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -8,16 +9,18 @@ import { useForm } from "../../hooks/use-form";
 import { resetPassword } from "../../services/actions/auth";
 
 import styles from "./reset-password.module.css";
+import { TLocation } from "../../services/types/data";
 
-export const ResetPassword = () => {
+
+export const ResetPassword: FC = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
+  const location = useLocation<TLocation>();
   const {values, handleChange } = useForm({password: "", code: ""});
   const { resetPasswordSuccess, forgotPasswordSuccess } = useSelector((state) => state.auth);
 
   const isDisabled = Boolean(values.password === "" || values.code === "" );
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = (e: FormEvent<Element>) => {
     e.preventDefault();
     dispatch(resetPassword({ password: values.password, token: values.code }));;
   };
@@ -34,7 +37,6 @@ export const ResetPassword = () => {
     <div className={styles.reset_content}>
       <Form formName="Восстановление пароля" buttonText="Сохранить" onSubmit={onFormSubmit} disabled={isDisabled} >
         <PasswordInput
-          placeholder={"Введите новый пароль"}
           onChange={handleChange}
           value={values.password}
           name={"password"}

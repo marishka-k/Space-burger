@@ -1,8 +1,8 @@
 
-import {useEffect, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { FC, useEffect, useMemo } from "react";
 import { useLocation, useParams, useRouteMatch } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "../../services/types";
+import { TIngredient, TLocation } from "../../services/types/data";
 
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { OrdersInfoDetails } from "./orders-info-details/orders-info-details";
@@ -13,14 +13,14 @@ import { ordersConnectionClosed, ordersConnectionInit } from "../../services/act
 
 import styles from "./orders-info.module.css";
 
-export const OrdersInfo = () => {
+export const OrdersInfo:FC = () => {
   const dispatch = useDispatch();
   const match = useRouteMatch();
-  const { id } = useParams();
+  const { id } = useParams<{id: string}>();
   const isProfile = "/profile/orders/:id";
   const isFeed = "/feed/:id"; 
 
-  const location = useLocation();
+  const location = useLocation<TLocation>();
   const background = location.state?.background;
  
 
@@ -44,7 +44,7 @@ export const OrdersInfo = () => {
       if (item?.type === "bun") {
         return (sum += item.price * 2);
       }
-      return (sum += item.price);
+      return sum += (item ? item.price : 0);
     }, 0);
   }, [orderIngredientsData]);
 
@@ -89,7 +89,7 @@ export const OrdersInfo = () => {
             Состав:
           </h3>
           <div>
-            <OrdersInfoDetails details={orderIngredientsData}/>
+            <OrdersInfoDetails details={orderIngredientsData as Array<TIngredient>}/>
           </div>
           <div className={`${styles.total} pt-10`}>
             <p className="text text_type_main-default text_color_inactive">

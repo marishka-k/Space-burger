@@ -1,10 +1,17 @@
-import PropTypes from "prop-types";
-
+import {FC, FormEvent, ReactNode } from "react";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import style from "./form.module.css";
 
-export const Form = ({ formName, buttonText, onSubmit, children, disabled }) => {
+type TForm = {
+  formName: string;
+  buttonText: string;
+  children: ReactNode;
+  onSubmit?: (e: FormEvent) => void
+  disabled?: boolean
+};
+
+export const Form:FC<TForm> = ({ formName, buttonText, onSubmit, children, disabled }) => {
   return (
     <form className={`${style.form} pb-20`} onSubmit={onSubmit}>
       <h2 className={`text text_type_main-medium ${style.text}`}>{formName}</h2>
@@ -13,10 +20,3 @@ export const Form = ({ formName, buttonText, onSubmit, children, disabled }) => 
     </form>
   );
 }
-
-Form.propTypes = {
-  formName: PropTypes.string.isRequired,
-  buttonText: PropTypes.string.isRequired,
-  handleSubmit: PropTypes.func,
-  disabled: PropTypes.bool
-};

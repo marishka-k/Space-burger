@@ -1,5 +1,5 @@
 import { Redirect } from "react-router-dom";
-import { FC, ChangeEvent } from "react";
+import { FC, FormEvent } from "react";
 import { useDispatch, useSelector } from "../../services/types";
 
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -18,12 +18,10 @@ export const ForgotPassword:FC = () => {
 
   const isDisabled = Boolean(values.email === "");
 
-  const onFormSubmit = (e: ChangeEvent<HTMLInputElement>) => {
+  const onFormSubmit = (e: FormEvent<Element>) => {
     e.preventDefault();
     dispatch(forgotPassword({email: values.email}));
   };
-
-  console.log();
 
   if (forgotPasswordSuccess) {
     return (

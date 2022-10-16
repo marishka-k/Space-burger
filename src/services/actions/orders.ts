@@ -42,14 +42,14 @@ const onlyOneTypeActionCreator = (type: string) => {
   };
 };
 
-const payloadActionCreator = (type: string, payload: TFeedResponse) => {
+const payloadActionCreator = (type: string, payload: TFeedResponse | string) => {
   return {
     type: type,
     payload: payload,
   };
 };
 
-export const ordersConnectionInit = (payload: TFeedResponse) => {
+export const ordersConnectionInit = (payload: string) => {
   return payloadActionCreator(ORDERS_CONNECTION_INIT, payload);
 };
 

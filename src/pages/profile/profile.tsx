@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { FC, FormEvent, SyntheticEvent, useEffect } from 'react';
+import { useDispatch, useSelector } from '../../services/types';
 import { NavLink, Route, Switch, useLocation } from "react-router-dom";
 
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -10,10 +10,11 @@ import { ordersConnectionClosed, ordersConnectionInit } from '../../services/act
 import { singOut, changeUser } from "../../services/actions/auth";
 
 import styles from "./profile.module.css";
+import { TLocation } from '../../services/types/data';
 
-export const Profile = () => {
+export const Profile: FC = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
+  const location = useLocation<TLocation>();
   const background = location.state?.background;
   const { name, email } = useSelector((state) => state.auth.user);
   const { values, handleChange, setValues } = useForm({
@@ -33,7 +34,7 @@ export const Profile = () => {
     values.name === name && values.email === email && values.password === ""
   );
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(changeUser(values.name, values.email));
   };
@@ -42,7 +43,7 @@ export const Profile = () => {
     dispatch(singOut());
   }
 
-  const onResetForm = (e) => {
+  const onResetForm = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
     setValues({
       name: name,
