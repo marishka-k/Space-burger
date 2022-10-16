@@ -7,8 +7,6 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { rootReducer } from "../reducers";
 
-
-
 export type RootState = ReturnType<typeof rootReducer>;
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
@@ -38,6 +36,7 @@ import { TFeedActions } from "../actions/feed";
 import { TIngredientsActions } from "../actions/ingredients";
 import { TCloseModal } from "../actions/colse-modal";
 import { TOrderDetailsActions } from "../actions/order-details";
+import { TOrdersActions } from "../actions/orders";
 
 type TApplicationActions =
   | TAuthActions
@@ -45,7 +44,8 @@ type TApplicationActions =
   | TFeedActions
   | TIngredientsActions
   | TCloseModal
-  | TOrderDetailsActions;
+  | TOrderDetailsActions
+  | TOrdersActions;
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;

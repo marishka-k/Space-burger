@@ -67,3 +67,12 @@ export type TLocation = {
 	state?: object;
 };
 
+export type TSocketMiddlewareActions = {
+	wsInit: string;
+	onOpen: string;
+	onClose: string;
+	onError: string;
+	onMessage: string;
+	sendMessage: string;
+}
+

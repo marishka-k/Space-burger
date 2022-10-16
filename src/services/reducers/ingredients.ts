@@ -9,15 +9,13 @@ import { TIngredient } from "../types/data";
 export type TIngredientsInitialState = {
 	ingredients: Array<TIngredient>;
 	ingredientsRequest: boolean;
-	ingredientsFailed: boolean;
-  isLoading: boolean;
+	ingredientsFailed: boolean;  
 }
 
 const ingredientsInitialState: TIngredientsInitialState = {
   ingredients: [],
   ingredientsRequest: false,
-  ingredientsFailed: false, 
-  isLoading: true,
+  ingredientsFailed: false,   
 };
 
 export const ingredientsReducer = (state = ingredientsInitialState, action: TIngredientsActions): TIngredientsInitialState => {
@@ -26,8 +24,7 @@ export const ingredientsReducer = (state = ingredientsInitialState, action: TIng
       return {
         ...state,
         ingredientsRequest: false,
-        ingredientsFailed: true,
-        isLoading: false,
+        ingredientsFailed: true,        
       };
     }
 
@@ -35,17 +32,15 @@ export const ingredientsReducer = (state = ingredientsInitialState, action: TIng
       return {
         ...state,
         ingredientsRequest: true,
-        ingredientsFailed: false,
-        isLoading: true,
+        ingredientsFailed: false,        
       };
     }
-
+ 
     case INGREDIENTS_SUCCESS: {
       return {
         ...state,
         ingredientsRequest: false,
         ingredientsFailed: false,
-        isLoading: false,
         ingredients: action.ingredients,        
       };
     }

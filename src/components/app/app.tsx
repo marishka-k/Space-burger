@@ -1,8 +1,8 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import { Switch, Route, useLocation, useHistory, useRouteMatch } from "react-router-dom";
-import { useDispatch, useSelector } from "../../services/types";
+import { useDispatch } from "../../services/types";
 import { TLocation } from "../../services/types/data";
 
 import AppHeader from "../app-header/app-header";
@@ -34,13 +34,15 @@ declare module "react" {
 }
 
 function App() {
-  const isLoading = useSelector((store) => store.burgerIngredients);
   const location = useLocation<TLocation>();
   const background = location.state?.background;
   const dispatch = useDispatch();
   const history = useHistory();
   const cookie = getCookie("token");
   const token = localStorage.getItem("refreshToken");
+
+  const [isLoading, setIsLoading] = useState(true)
+  
 
   const idOrderInfo = useRouteMatch<{ [id: string]: string } | null>([
     "/profile/orders/:id",
@@ -60,6 +62,7 @@ function App() {
   useEffect(() => {
     dispatch(getBurgerIngredients());
     dispatch(checkUzerAuth());
+    setIsLoading(false)
   }, [dispatch]);
 
   useEffect(() => {
