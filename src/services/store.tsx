@@ -10,7 +10,7 @@ import {
   FEED_CONNECTION_CLOSED,
   FEED_GET_ORDERS,
   FEED_SEND_ORDERS,
-} from "./actions/feed";
+} from "./action-types/feed-types";
 
 import {
   ORDERS_CONNECTION_SUCCESS,
@@ -19,7 +19,7 @@ import {
   ORDERS_CONNECTION_CLOSED,
   ORDERS_GET_ORDERS,
   ORDERS_SEND_ORDERS,
-} from "./actions/orders";
+} from "./action-types/orders-types";
 
 const WsUrl = "wss://norma.nomoreparties.space/orders/all";
 
